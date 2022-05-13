@@ -59,6 +59,12 @@ router.post("/login", async (req, res) => {
 });
 
 //register
+router.post("/register", (req, res) => {
+  const user = new User(req.body);
+  user.save().then(() => {
+    res.status(200).json({ message: "New user has been created! 👏" });
+  });
+});
 
 //@desc Logout A User
 //@routes Get /user/logout
