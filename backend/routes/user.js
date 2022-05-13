@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const dotenv = require("dotenv").config();
-const User = require("../models/user");
+// const User = require("../models/user");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 
@@ -28,10 +28,10 @@ const authorization = (req, res, next) => {
 //@routes POST /user/login
 //@access Public
 router.post("/login", async (req, res) => {
-  const username = req.body.username;
+  const email = req.body.email;
   const password = req.body.password;
 
-  const user = await User.findOne({ username, password });
+  const user = await User.findOne({ email, password });
 
   console.log("user", user);
 
@@ -39,7 +39,7 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign(
       {
         id: user._id,
-        username: user.username,
+        email: user.email,
       },
       "YOUR_SECRET_KEY"
     );
