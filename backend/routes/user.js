@@ -24,7 +24,7 @@ const authorization = (req, res, next) => {
   }
 };
 
-//@desc Authenticate A User
+//@desc Login A User
 //@routes POST /login
 //@access Public
 router.post("/login", async (req, res) => {
@@ -40,7 +40,6 @@ router.post("/login", async (req, res) => {
       {
         id: user._id,
         username: user.username,
-        role: user.role,
       },
       "YOUR_SECRET_KEY"
     );
@@ -61,6 +60,14 @@ router.post("/login", async (req, res) => {
 
 //register
 
-//logout
+//@desc Logout A User
+//@routes Get /logout
+//@access Public
+router.get("/logout", authorization, (req, res) => {
+  return res
+    .clearCookie("access_token")
+    .status(200)
+    .json({ message: "Successfully logged out 😏 🍀" });
+});
 
 module.exports = router;
