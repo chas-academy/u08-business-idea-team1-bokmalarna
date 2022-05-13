@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const dotenv = require("dotenv").config();
-const User = require("./models/user");
+const User = require("../models/user");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 
@@ -25,7 +25,7 @@ const authorization = (req, res, next) => {
 };
 
 //@desc Login A User
-//@routes POST /login
+//@routes POST /user/login
 //@access Public
 router.post("/login", async (req, res) => {
   const username = req.body.username;
@@ -61,7 +61,7 @@ router.post("/login", async (req, res) => {
 //register
 
 //@desc Logout A User
-//@routes Get /logout
+//@routes Get /user/logout
 //@access Public
 router.get("/logout", authorization, (req, res) => {
   return res
