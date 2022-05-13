@@ -1,5 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
+import { Addbook } from './components/addbook/Addbook';
+import { Bookpage } from './components/bookpage/Bookpage';
+import { Dashboard } from './components/dashboard/Dashboard';
+import { Login } from './components/login/Login';
+import { Registration } from './components/registration/Registration';
+import { Search } from './components/search/Search';
 
 function App() {
   return (
