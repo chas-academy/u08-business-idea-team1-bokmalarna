@@ -3,8 +3,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 const PORT = process.env.PORT || 8081;
+const userRouter = require("./routes/user");
 
 const app = express();
+
+app.use("/user", userRouter);
 
 app.get("/", (req, res) => {
   return res.json({ message: "Hello World 🤘" });
