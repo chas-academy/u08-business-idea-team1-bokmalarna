@@ -25,7 +25,7 @@ const BookSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    kondition: {
+    condition: {
       type: String,
       required: true,
     },
