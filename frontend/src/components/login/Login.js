@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 import axios from "axios";
 
 export const Login = () => {
@@ -37,12 +38,14 @@ export const Login = () => {
     const response = await axios.post(API_URL + "login", userData);
 
     if (response.data) {
-      localStorage.setItem("user", JSON.stringify(response.data));
+      // localStorage.setItem("user", JSON.stringify(response.data));
+      Cookies.set("user", response.data);
       console.log(response.data);
     }
 
     if (response.data.token) {
-      localStorage.setItem("token", JSON.stringify(response.data.token));
+      // localStorage.setItem("token", JSON.stringify(response.data.token));
+      Cookies.set("access_token", response.data.token);
       navigate("/dashboard");
     }
 
@@ -51,8 +54,11 @@ export const Login = () => {
 
   //Logout
   const onLogout = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
+    Cookies.remove("user");
+    // Cookies.remove("access_token");
+    const response = axios.get(API_URL + "logout", { withCredentials: true });
+
+    return response.data;
   };
 
   return (
