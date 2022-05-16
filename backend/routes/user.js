@@ -52,7 +52,11 @@ router.post("/login", async (req, res) => {
         secure: process.env.NODE_ENV === "production",
       })
       .status(200)
-      .json({ message: "Logged in successfully 😊 👌" });
+      .json({
+        name: user.name,
+        email: user.email,
+        token: token,
+      });
   } else {
     res.json({ message: "sorry, could not login" });
   }

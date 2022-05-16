@@ -29,15 +29,30 @@ export const Login = () => {
 
   const API_URL = "http://localhost:8080/user/";
 
+  //Login
   const login = async (userData) => {
     const response = await axios.post(API_URL + "login", userData);
 
-    if (response.data) {
+    if (response.data.email) {
       localStorage.setItem("user", JSON.stringify(response.data));
       console.log(response.data);
     }
 
+    if (response.data.token) {
+      localStorage.setItem("token", JSON.stringify(response.data.token));
+    }
+
     return response.data;
+  };
+
+  //Logout
+  const logout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+  };
+
+  const onLogout = () => {
+    logout();
   };
 
   return (
@@ -77,6 +92,11 @@ export const Login = () => {
             </button>
           </div>
         </form>
+      </section>
+      <section>
+        <button className="btn" onClick={onLogout}>
+          Logout
+        </button>
       </section>
     </>
   );
