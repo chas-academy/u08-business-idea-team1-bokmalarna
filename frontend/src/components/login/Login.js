@@ -33,7 +33,7 @@ export const Login = () => {
   const login = async (userData) => {
     const response = await axios.post(API_URL + "login", userData);
 
-    if (response.data.email) {
+    if (response.data) {
       localStorage.setItem("user", JSON.stringify(response.data));
       console.log(response.data);
     }
@@ -46,13 +46,9 @@ export const Login = () => {
   };
 
   //Logout
-  const logout = () => {
+  const onLogout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
-  };
-
-  const onLogout = () => {
-    logout();
   };
 
   return (
