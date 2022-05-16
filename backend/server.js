@@ -8,12 +8,7 @@ var cors = require("cors");
 
 const app = express();
 
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    withCredentials: true,
-  })
-);
+app.use(cors());
 app.use("/user", userRouter);
 
 app.get("/", (req, res) => {

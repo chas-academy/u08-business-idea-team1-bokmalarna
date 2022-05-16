@@ -55,10 +55,16 @@ export const Login = () => {
   //Logout
   const onLogout = () => {
     Cookies.remove("user");
-    // Cookies.remove("access_token");
-    const response = axios.get(API_URL + "logout", { withCredentials: true });
+    Cookies.remove("access_token");
+    // const userToken = Cookies.get("access_token");
+    // const response = axios.get(API_URL + "logout", {
+    //   withCredentials: true,
+    //   headers: {
+    //     Cookie: document.cookie,
+    //   },
+    // });
 
-    return response.data;
+    // return response.status;
   };
 
   return (
