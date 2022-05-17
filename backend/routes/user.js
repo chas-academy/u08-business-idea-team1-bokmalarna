@@ -17,7 +17,7 @@ const authorization = (req, res, next) => {
   try {
     const data = jwt.verify(token, "YOUR_SECRET_KEY");
     req.userId = data.id;
-    req.username = data.username;
+    req.email = data.email;
     return next();
   } catch {
     return res.sendStatus(403);
@@ -76,7 +76,7 @@ router.get("/logout", authorization, (req, res) => {
   return res
     .clearCookie("access_token")
     .status(200)
-    .json({ message: "Successfully logged out 😏 🍀" });
+    .json({ message: "Successfully logged out" });
 });
 
 module.exports = router;

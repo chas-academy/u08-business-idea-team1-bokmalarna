@@ -38,13 +38,11 @@ export const Login = () => {
     const response = await axios.post(API_URL + "login", userData);
 
     if (response.data) {
-      // localStorage.setItem("user", JSON.stringify(response.data));
-      Cookies.set("user", response.data);
+      Cookies.set("user", JSON.stringify(response.data.user));
       console.log(response.data);
     }
 
     if (response.data.token) {
-      // localStorage.setItem("token", JSON.stringify(response.data.token));
       Cookies.set("access_token", response.data.token);
       navigate("/dashboard");
     }
@@ -53,18 +51,13 @@ export const Login = () => {
   };
 
   //Logout
-  const onLogout = () => {
+  const onLogout = async () => {
     Cookies.remove("user");
-    Cookies.remove("access_token");
-    // const userToken = Cookies.get("access_token");
-    // const response = axios.get(API_URL + "logout", {
-    //   withCredentials: true,
-    //   headers: {
-    //     Cookie: document.cookie,
-    //   },
-    // });
-
-    // return response.status;
+    await axios
+      .get(API_URL + "logout", { withCredentials: true })
+      .then((res) => {
+        console.log(res.data);
+      });
   };
 
   return (
