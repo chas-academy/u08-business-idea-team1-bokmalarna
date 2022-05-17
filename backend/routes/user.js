@@ -4,6 +4,7 @@ const dotenv = require("dotenv").config();
 const User = require("../models/user");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
+const bcrypt = require('bcrypt');
 
 router.use(cookieParser());
 router.use(express.json());
