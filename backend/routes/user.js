@@ -31,29 +31,35 @@ const authorization = (req, res, next) => {
 router.post("/login", async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
-
-  const user = await User.findOne({ email, password });
-
+  
+  const user = await User.findOne({ email });
+    
   console.log("user", user);
-
+  
   if (user) {
-    const token = jwt.sign(
-      {
-        id: user._id,
-        email: user.email,
-      },
-      "YOUR_SECRET_KEY"
-    );
+    const passwordMatch = await bcrypt.compare(password, user.password)
 
-    console.log("token", token);
-
-    return res
-      .cookie("access_token", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-      })
-      .status(200)
-      .json({ message: "Logged in successfully 😊 👌" });
+    if(passwordMatch) {
+      const token = jwt.sign(
+        {
+          id: user._id,
+          email: user.email,
+        },
+        "YOUR_SECRET_KEY"
+      );
+  
+      console.log("token", token);
+  
+      return res
+        .cookie("access_token", token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+        })
+        .status(200)
+        .json({ message: "Logged in successfully 😊 👌" });
+    } else if(!passwordMatch) {
+      res.json({ message: "sorry, could not login" });
+    }
   } else {
     res.json({ message: "sorry, could not login" });
   }
