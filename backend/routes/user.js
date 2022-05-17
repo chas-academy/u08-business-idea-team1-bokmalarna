@@ -4,6 +4,7 @@ const dotenv = require("dotenv").config();
 const User = require("../models/user");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 router.use(cookieParser());
 router.use(express.json());
@@ -31,39 +32,46 @@ router.post("/login", async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  const user = await User.findOne({ email, password });
+  const user = await User.findOne({ email });
 
   console.log("user", user);
 
   if (user) {
-    const token = jwt.sign(
-      {
-        id: user._id,
-        email: user.email,
-      },
-      "YOUR_SECRET_KEY"
-    );
+    const passwordMatch = await bcrypt.compare(password, user.password);
 
-    console.log("token", token);
+    if (passwordMatch) {
+      const token = jwt.sign(
+        {
+          id: user._id,
+          email: user.email,
+        },
+        "YOUR_SECRET_KEY"
+      );
 
-    return res
-      .cookie("access_token", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-      })
-      .status(200)
-      .json({
-        user: user,
-        token: token,
-      });
+      console.log("token", token);
+
+      return res
+        .cookie("access_token", token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+        })
+        .status(200)
+        .json({ message: "Logged in successfully 😊 👌" });
+    } else if (!passwordMatch) {
+      res.json({ message: "sorry, could not login" });
+    }
   } else {
     res.json({ message: "sorry, could not login" });
   }
 });
 
 //register
-router.post("/register", (req, res) => {
+router.post("/register", async (req, res) => {
   const user = new User(req.body);
+
+  const salt = await bcrypt.genSalt(10);
+  user.password = await bcrypt.hash(user.password, salt);
+
   user.save().then(() => {
     res.status(200).json({ message: "New user has been created! 👏" });
   });
