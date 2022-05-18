@@ -4,9 +4,11 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 const PORT = process.env.PORT || 8081;
 const userRouter = require("./routes/user");
+const cors = require("cors");
 
 const app = express();
 
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use("/user", userRouter);
 
 app.get("/", (req, res) => {
