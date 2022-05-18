@@ -4,12 +4,14 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 const PORT = process.env.PORT || 8081;
 const userRouter = require("./routes/user");
+const bookRouter = require("./routes/book")
 const cors = require("cors");
 
 const app = express();
 
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use("/user", userRouter);
+app.use("/book", bookRouter)
 
 app.get("/", (req, res) => {
   return res.json({ message: "Hello World 🤘" });
