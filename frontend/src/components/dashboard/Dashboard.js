@@ -64,7 +64,7 @@ export const Dashboard = () => {
           {/*  MY BOOKSHELF */}
           <div className="text-center mt-5 mb-3">
             <h3 className="text-center">My bookshelf</h3>
-            <button className="btn btn-outline-primary m-3">
+            <button className="btn btn-outline-secondary m-3">
               Add new book
             </button>
           </div>
