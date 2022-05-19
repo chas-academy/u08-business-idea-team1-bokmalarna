@@ -1,10 +1,80 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export const Registration = () => {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    city: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [formErrors, setFormErrors] = useState({});
+  const [submitted, setSubmitted] = useState(false);
+  const { firstName, lastName, city, email, password, confirmPassword } =
+    formData;
+
+  const onChange = (e) => {
+    const { firstName, lastName, city, email, password, confirmPassword } =
+      e.target;
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    setFormErrors(validate(formData));
+    setSubmitted(true);
+  };
+
+  useEffect(() => {
+    if (Object.keys(formErrors).length === 0 && submitted) {
+      console.log(formData);
+    }
+  }, [formErrors]);
+
+  const validate = (values) => {
+    // Empty errors object - data is added if the form is not filled out properly
+    const errors = {};
+    // Regular expression to validate the email format:
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+
+    // Display error messages if the user submits incorrect data in the form
+    if (!values.firstName) {
+      errors.firstName = "First name is required!";
+    }
+    if (!values.lastName) {
+      errors.lastName = "Last name is required!";
+    }
+    if (!values.city) {
+      errors.city = "City is required!";
+    }
+    if (!values.email) {
+      errors.email = "Email is required!";
+    } else if (!regex.test(values.email)) {
+      errors.email = "Not a valid email format!";
+    }
+    if (!values.password) {
+      errors.password = "Password is required!";
+    } else if (values.password.length < 6) {
+      errors.password = "Password must be more than 6 characters!";
+    }
+    if (!values.confirmPassword) {
+      errors.confirmPassword = "Password confirmation is required!";
+    } else if (values.confirmPassword !== values.password) {
+      errors.confirmPassword = "Must be identical to password!";
+    }
+    return errors;
+  };
+
   return (
     <>
       <section>
         <h1>Registration</h1>
+        {Object.keys(formErrors).length === 0 && submitted ? (
+          <div>Registration successful!</div>
+        ) : (
+          <></>
+        )}
         <form onSubmit={onSubmit}>
           <div className="form-group">
             <div className="form-floating mb3">
@@ -18,6 +88,7 @@ export const Registration = () => {
               />
               <label for="floatingInput">First name</label>
             </div>
+            <p>{formErrors.firstName}</p>
           </div>
 
           <div className="form-group">
@@ -32,6 +103,7 @@ export const Registration = () => {
               />
               <label for="floatingInput">Last name</label>
             </div>
+            <p>{formErrors.lastName}</p>
           </div>
 
           <div className="form-group">
@@ -46,6 +118,7 @@ export const Registration = () => {
               />
               <label for="floatingInput">City of residence</label>
             </div>
+            <p>{formErrors.city}</p>
           </div>
 
           <div className="form-group">
@@ -60,6 +133,7 @@ export const Registration = () => {
               />
               <label for="floatingInput">Email</label>
             </div>
+            <p>{formErrors.email}</p>
           </div>
 
           <div className="form-group">
@@ -74,6 +148,7 @@ export const Registration = () => {
               />
               <label for="floatingInput">Password</label>
             </div>
+            <p>{formErrors.password}</p>
           </div>
 
           <div className="form-group">
@@ -88,6 +163,12 @@ export const Registration = () => {
               />
               <label for="floatingInput">Confirm Password</label>
             </div>
+            <p>{formErrors.confirmPassword}</p>
+          </div>
+          <div className="form-group">
+            <button type="submit" className="btn btn-block">
+              Register User
+            </button>
           </div>
         </form>
       </section>
