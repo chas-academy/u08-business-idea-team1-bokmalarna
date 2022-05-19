@@ -40,7 +40,7 @@ export const Registration = () => {
     // Regular expression to validate the email format:
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
-    // Display error messages if the user submits incorrect data in the form
+    // Display error messages if the user submits incorrect data in the form and stop registration from succeeding
     if (!values.firstName) {
       errors.firstName = "First name is required!";
       setError(true);
