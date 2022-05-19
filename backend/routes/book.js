@@ -1,4 +1,5 @@
 const express = require('express')
+const { findById } = require('../models/book')
 const router = express.Router()
 const Book = require("../models/book")
 
@@ -37,11 +38,13 @@ router.put("/:id", async (req, res) => {
 })
 
 // Delete Book
-router.delete("/:id", (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
-    
+    const book = await Book.findById(req.params.id)
+    book.delete()
+    res.status(200).json({message: "Book sucessfully deleted"})
   } catch (error) {
-    
+    res.status(500).json({mesage: "Could not delete Book"})
   }
 })
 
