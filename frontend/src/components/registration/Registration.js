@@ -13,6 +13,7 @@ export const Registration = () => {
     confirmPassword: "",
   });
   const [formErrors, setFormErrors] = useState({});
+  const [error, setError] = useState(true);
   const [submitted, setSubmitted] = useState(false);
   const { firstName, lastName, city, email, password, confirmPassword } =
     formData;
@@ -27,8 +28,13 @@ export const Registration = () => {
     e.preventDefault();
     setFormErrors(validate(formData));
     setSubmitted(true);
-    register(formData);
   };
+
+  useEffect(() => {
+    if (error === false) {
+      register(formData);
+    }
+  }, [error]);
 
   const validate = (values) => {
     // Empty errors object - data is added if the form is not filled out properly
@@ -39,27 +45,40 @@ export const Registration = () => {
     // Display error messages if the user submits incorrect data in the form
     if (!values.firstName) {
       errors.firstName = "First name is required!";
+      setError(true);
     }
     if (!values.lastName) {
       errors.lastName = "Last name is required!";
+      setError(true);
     }
     if (!values.city) {
       errors.city = "City is required!";
+      setError(true);
     }
     if (!values.email) {
       errors.email = "Email is required!";
+      setError(true);
     } else if (!regex.test(values.email)) {
       errors.email = "Not a valid email format!";
+      setError(true);
     }
     if (!values.password) {
       errors.password = "Password is required!";
+      setError(true);
     } else if (values.password.length < 6) {
       errors.password = "Password must be more than 6 characters!";
+      setError(true);
     }
     if (!values.confirmPassword) {
       errors.confirmPassword = "Password confirmation is required!";
+      setError(true);
     } else if (values.confirmPassword !== values.password) {
       errors.confirmPassword = "Must be identical to password!";
+      setError(true);
+    }
+
+    if (Object.keys(errors).length === 0) {
+      setError(false);
     }
     return errors;
   };
