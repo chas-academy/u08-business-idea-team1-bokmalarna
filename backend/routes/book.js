@@ -36,4 +36,13 @@ router.put("/:id", async (req, res) => {
   }
 })
 
+// Delete Book
+router.delete("/:id", (req, res) => {
+  try {
+    
+  } catch (error) {
+    
+  }
+})
+
 module.exports = router;
