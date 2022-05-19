@@ -7,7 +7,6 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 router.use(cookieParser());
-router.use(express.json());
 
 //Authenticate
 const authorization = (req, res, next) => {
