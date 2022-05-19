@@ -1,6 +1,9 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 export const Registration = () => {
+  const API_URL = "http://localhost:8000/user/";
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -10,7 +13,7 @@ export const Registration = () => {
     confirmPassword: "",
   });
   const [formErrors, setFormErrors] = useState({});
-  const [submitted, setSubmitted] = useState(false);
+  /* const [submitted, setSubmitted] = useState(false); */
   const { firstName, lastName, city, email, password, confirmPassword } =
     formData;
 
@@ -23,14 +26,23 @@ export const Registration = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     setFormErrors(validate(formData));
-    setSubmitted(true);
+    /* setSubmitted(true); */
+    const userData = {
+      firstName,
+      lastName,
+      city,
+      email,
+      password,
+    };
+
+    register(userData);
   };
 
-  useEffect(() => {
+  /*  useEffect(() => {
     if (Object.keys(formErrors).length === 0 && submitted) {
       console.log(formData);
     }
-  }, [formErrors]);
+  }, [formErrors]); */
 
   const validate = (values) => {
     // Empty errors object - data is added if the form is not filled out properly
@@ -64,6 +76,12 @@ export const Registration = () => {
       errors.confirmPassword = "Must be identical to password!";
     }
     return errors;
+  };
+
+  const register = async (userData) => {
+    await axios.post(API_URL + "register", userData).then((res) => {
+      console.log(res.data);
+    });
   };
 
   return (
