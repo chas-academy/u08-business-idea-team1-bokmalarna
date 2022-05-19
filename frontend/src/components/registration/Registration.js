@@ -27,21 +27,8 @@ export const Registration = () => {
     e.preventDefault();
     setFormErrors(validate(formData));
     setSubmitted(true);
-    /* const userData = {
-      firstName,
-      lastName,
-      city,
-      email,
-      password,
-    }; */
     register(formData);
   };
-
-  /*  useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && submitted) {
-      console.log(formData);
-    }
-  }, [formErrors]); */
 
   const validate = (values) => {
     // Empty errors object - data is added if the form is not filled out properly
