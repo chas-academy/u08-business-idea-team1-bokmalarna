@@ -14,7 +14,6 @@ export const Registration = () => {
   });
   const [formErrors, setFormErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState(true);
   const { firstName, lastName, city, email, password, confirmPassword } =
     formData;
 
@@ -28,13 +27,8 @@ export const Registration = () => {
     e.preventDefault();
     setFormErrors(validate(formData));
     setSubmitted(true);
+    register(formData);
   };
-
-  useEffect(() => {
-    if (error === false) {
-      register(formData);
-    }
-  }, [error]);
 
   const validate = (values) => {
     // Empty errors object - data is added if the form is not filled out properly
@@ -45,41 +39,28 @@ export const Registration = () => {
     // Display error messages if the user submits incorrect data in the form
     if (!values.firstName) {
       errors.firstName = "First name is required!";
-      setError(true);
     }
     if (!values.lastName) {
       errors.lastName = "Last name is required!";
-      setError(true);
     }
     if (!values.city) {
       errors.city = "City is required!";
-      setError(true);
     }
     if (!values.email) {
       errors.email = "Email is required!";
-      setError(true);
     } else if (!regex.test(values.email)) {
       errors.email = "Not a valid email format!";
-      setError(true);
     }
     if (!values.password) {
       errors.password = "Password is required!";
-      setError(true);
     } else if (values.password.length < 6) {
       errors.password = "Password must be more than 6 characters!";
-      setError(true);
     }
     if (!values.confirmPassword) {
       errors.confirmPassword = "Password confirmation is required!";
-      setError(true);
     } else if (values.confirmPassword !== values.password) {
       errors.confirmPassword = "Must be identical to password!";
-      setError(true);
     }
-    if (Object.keys(errors).length === 0) {
-      setError(false);
-    }
-
     return errors;
   };
 
@@ -98,22 +79,24 @@ export const Registration = () => {
         ) : (
           <></>
         )}
-        <form>
-          <div className="form-floating m-3">
+        <form onSubmit={onSubmit}>
+          <div className="form-group">
+            <label for="floatingInput">First name</label>
             <p>{formErrors.firstName}</p>
-            <input
-              type="text"
-              className="form-control"
-              id="floatingInput"
-              name="firstName"
-              value={firstName}
-              onChange={onChange}
-            />
-            <label htmlFor="floatingInput">First name</label>
+            <div className="form-floating mb3">
+              <input
+                type="text"
+                className="form-control"
+                id="firstName"
+                name="firstName"
+                value={firstName}
+                onChange={onChange}
+              />
+            </div>
           </div>
 
-          <div className="form-floating m-3">
-            <label htmlFor="floatingInput">Last name</label>
+          <div className="form-group">
+            <label for="floatingInput">Last name</label>
             <p>{formErrors.lastName}</p>
             <div className="form-floating mb3">
               <input
@@ -127,8 +110,8 @@ export const Registration = () => {
             </div>
           </div>
 
-          <div className="form-floating m-3">
-            <label htmlFor="floatingInput">City of residence</label>
+          <div className="form-group">
+            <label for="floatingInput">City of residence</label>
             <p>{formErrors.city}</p>
             <div className="form-floating mb3">
               <input
@@ -142,8 +125,8 @@ export const Registration = () => {
             </div>
           </div>
 
-          <div className="form-floating m-3">
-            <label htmlFor="floatingInput">Email</label>
+          <div className="form-group">
+            <label for="floatingInput">Email</label>
             <p>{formErrors.email}</p>
             <div className="form-floating mb3">
               <input
@@ -157,8 +140,8 @@ export const Registration = () => {
             </div>
           </div>
 
-          <div className="form-floating m-3">
-            <label htmlFor="floatingInput">Password</label>
+          <div className="form-group">
+            <label for="floatingInput">Password</label>
             <p>{formErrors.password}</p>
             <div className="form-floating mb3">
               <input
@@ -172,8 +155,8 @@ export const Registration = () => {
             </div>
           </div>
 
-          <div className="form-floating m-3">
-            <label htmlFor="floatingInput">Confirm Password</label>
+          <div className="form-group">
+            <label for="floatingInput">Confirm Password</label>
             <p>{formErrors.confirmPassword}</p>
             <div className="form-floating mb3">
               <input
@@ -186,8 +169,8 @@ export const Registration = () => {
               />
             </div>
           </div>
-          <div className="form-floating m-3">
-            <button type="submit" className="btn btn-block" onClick={onSubmit}>
+          <div className="form-group">
+            <button type="submit" className="btn btn-block">
               Register User
             </button>
           </div>
