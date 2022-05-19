@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 export const Registration = () => {
-  const API_URL = "http://localhost:8000/user/";
+  const API_URL = "http://localhost:8080/user/";
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -13,7 +13,7 @@ export const Registration = () => {
     confirmPassword: "",
   });
   const [formErrors, setFormErrors] = useState({});
-  /* const [submitted, setSubmitted] = useState(false); */
+  const [submitted, setSubmitted] = useState(false);
   const { firstName, lastName, city, email, password, confirmPassword } =
     formData;
 
@@ -26,16 +26,15 @@ export const Registration = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     setFormErrors(validate(formData));
-    /* setSubmitted(true); */
-    const userData = {
+    setSubmitted(true);
+    /* const userData = {
       firstName,
       lastName,
       city,
       email,
       password,
-    };
-
-    register(userData);
+    }; */
+    register(formData);
   };
 
   /*  useEffect(() => {
@@ -95,6 +94,8 @@ export const Registration = () => {
         )}
         <form onSubmit={onSubmit}>
           <div className="form-group">
+            <label for="floatingInput">First name</label>
+            <p>{formErrors.firstName}</p>
             <div className="form-floating mb3">
               <input
                 type="text"
@@ -104,12 +105,12 @@ export const Registration = () => {
                 value={firstName}
                 onChange={onChange}
               />
-              <label for="floatingInput">First name</label>
             </div>
-            <p>{formErrors.firstName}</p>
           </div>
 
           <div className="form-group">
+            <label for="floatingInput">Last name</label>
+            <p>{formErrors.lastName}</p>
             <div className="form-floating mb3">
               <input
                 type="text"
@@ -119,12 +120,12 @@ export const Registration = () => {
                 value={lastName}
                 onChange={onChange}
               />
-              <label for="floatingInput">Last name</label>
             </div>
-            <p>{formErrors.lastName}</p>
           </div>
 
           <div className="form-group">
+            <label for="floatingInput">City of residence</label>
+            <p>{formErrors.city}</p>
             <div className="form-floating mb3">
               <input
                 type="text"
@@ -134,12 +135,12 @@ export const Registration = () => {
                 value={city}
                 onChange={onChange}
               />
-              <label for="floatingInput">City of residence</label>
             </div>
-            <p>{formErrors.city}</p>
           </div>
 
           <div className="form-group">
+            <label for="floatingInput">Email</label>
+            <p>{formErrors.email}</p>
             <div className="form-floating mb3">
               <input
                 type="email"
@@ -149,12 +150,12 @@ export const Registration = () => {
                 value={email}
                 onChange={onChange}
               />
-              <label for="floatingInput">Email</label>
             </div>
-            <p>{formErrors.email}</p>
           </div>
 
           <div className="form-group">
+            <label for="floatingInput">Password</label>
+            <p>{formErrors.password}</p>
             <div className="form-floating mb3">
               <input
                 type="password"
@@ -164,12 +165,12 @@ export const Registration = () => {
                 value={password}
                 onChange={onChange}
               />
-              <label for="floatingInput">Password</label>
             </div>
-            <p>{formErrors.password}</p>
           </div>
 
           <div className="form-group">
+            <label for="floatingInput">Confirm Password</label>
+            <p>{formErrors.confirmPassword}</p>
             <div className="form-floating mb3">
               <input
                 type="password"
@@ -179,9 +180,7 @@ export const Registration = () => {
                 value={confirmPassword}
                 onChange={onChange}
               />
-              <label for="floatingInput">Confirm Password</label>
             </div>
-            <p>{formErrors.confirmPassword}</p>
           </div>
           <div className="form-group">
             <button type="submit" className="btn btn-block">
