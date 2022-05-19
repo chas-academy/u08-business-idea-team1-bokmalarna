@@ -92,7 +92,7 @@ router.get("/logout", authorization, (req, res) => {
 });
 
 //@desc Delete A User
-//@routes Get /user/:id
+//@routes Delete /user/:id
 //@access Public
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
