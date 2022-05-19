@@ -19,8 +19,6 @@ export const Registration = () => {
     formData;
 
   const onChange = (e) => {
-    const { firstName, lastName, city, email, password, confirmPassword } =
-      e.target;
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -91,105 +89,110 @@ export const Registration = () => {
 
   return (
     <>
-      <section>
-        <h1>Registration</h1>
+      <section className="m-5">
+        <h1 className="mb-5 text-center">Registration</h1>
         {Object.keys(formErrors).length === 0 && submitted ? (
           <div>Registration successful!</div>
         ) : (
           <></>
         )}
-        <form onSubmit={onSubmit}>
-          <div className="form-group">
-            <label for="floatingInput">First name</label>
+        <form className="row g-3">
+          <div className="col-md-6">
+            <label htmlFor="firstName" className="form-label">
+              First name
+            </label>
             <p>{formErrors.firstName}</p>
-            <div className="form-floating mb3">
-              <input
-                type="text"
-                className="form-control"
-                id="firstName"
-                name="firstName"
-                value={firstName}
-                onChange={onChange}
-              />
-            </div>
+            <input
+              type="text"
+              className="form-control"
+              id="firstName"
+              name="firstName"
+              value={firstName}
+              onChange={onChange}
+            />
           </div>
 
-          <div className="form-group">
-            <label for="floatingInput">Last name</label>
+          <div className="col-md-6">
+            <label htmlFor="lastName" className="form-label">
+              Last name
+            </label>
             <p>{formErrors.lastName}</p>
-            <div className="form-floating mb3">
-              <input
-                type="text"
-                className="form-control"
-                id="lastName"
-                name="lastName"
-                value={lastName}
-                onChange={onChange}
-              />
-            </div>
+            <input
+              type="text"
+              className="form-control"
+              id="lastName"
+              name="lastName"
+              value={lastName}
+              onChange={onChange}
+            />
           </div>
 
-          <div className="form-group">
-            <label for="floatingInput">City of residence</label>
+          <div className="col-12">
+            <label htmlFor="city" className="form-label">
+              City of residence
+            </label>
             <p>{formErrors.city}</p>
-            <div className="form-floating mb3">
-              <input
-                type="text"
-                className="form-control"
-                id="city"
-                name="city"
-                value={city}
-                onChange={onChange}
-              />
-            </div>
+            <input
+              type="text"
+              className="form-control"
+              id="city"
+              name="city"
+              value={city}
+              onChange={onChange}
+            />
           </div>
 
-          <div className="form-group">
-            <label for="floatingInput">Email</label>
+          <div className="col-12">
+            <label htmlFor="email" className="form-label">
+              Email
+            </label>
             <p>{formErrors.email}</p>
-            <div className="form-floating mb3">
-              <input
-                type="email"
-                className="form-control"
-                id="email"
-                name="email"
-                value={email}
-                onChange={onChange}
-              />
-            </div>
+            <input
+              type="email"
+              className="form-control"
+              id="email"
+              name="email"
+              value={email}
+              onChange={onChange}
+            />
           </div>
 
-          <div className="form-group">
-            <label for="floatingInput">Password</label>
+          <div className="col-md-6">
+            <label htmlFor="password" className="form-label">
+              Password
+            </label>
             <p>{formErrors.password}</p>
-            <div className="form-floating mb3">
-              <input
-                type="password"
-                className="form-control"
-                id="password"
-                name="password"
-                value={password}
-                onChange={onChange}
-              />
-            </div>
+            <input
+              type="password"
+              className="form-control"
+              id="password"
+              name="password"
+              value={password}
+              onChange={onChange}
+            />
           </div>
 
-          <div className="form-group">
-            <label for="floatingInput">Confirm Password</label>
+          <div className="col-md-6">
+            <label htmlFor="confirmPassword" className="form-label">
+              Confirm Password
+            </label>
             <p>{formErrors.confirmPassword}</p>
-            <div className="form-floating mb3">
-              <input
-                type="password"
-                className="form-control"
-                id="confirmPassword"
-                name="confirmPassword"
-                value={confirmPassword}
-                onChange={onChange}
-              />
-            </div>
+            <input
+              type="password"
+              className="form-control"
+              id="confirmPassword"
+              name="confirmPassword"
+              value={confirmPassword}
+              onChange={onChange}
+            />
           </div>
-          <div className="form-group">
-            <button type="submit" className="btn btn-block">
+
+          <div className="col-12 pt-4 text-center">
+            <button
+              type="submit"
+              className="btn btn-primary btn-lg"
+              onClick={onSubmit}
+            >
               Register User
             </button>
           </div>
