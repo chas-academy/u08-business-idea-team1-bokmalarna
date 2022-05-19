@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 const Book = require("../models/book")
 
-
 // Create book
 router.post("/", async (req, res) => {
   try {
@@ -24,11 +23,16 @@ router.get("/", async (req, res) => {
   }
 })
 
+// Update Book
 router.put("/:id", async (req, res) => {
   try {
-    
+    const id = req.params.id;
+    const update = req.body;
+    const options = {new: true};
+    const book = await Book.findByIdAndUpdate(id, update, options);
+    res.status(200).json(book)
   } catch (error) {
-    
+    res.status(500).json({message: "Could not update book"})
   }
 })
 
