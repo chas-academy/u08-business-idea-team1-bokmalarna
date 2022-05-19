@@ -1,8 +1,6 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -16,6 +14,14 @@ code {
   background-color: #F8F4F2;
 }
 
+.purple {
+  background-color: #81647C;
+}
+
 .dashboard-p {
   font-size: 1.7rem;
 }
+
+/* .bookTitle {
+  font-weight: bold;
+} */
