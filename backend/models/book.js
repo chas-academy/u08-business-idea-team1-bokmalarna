@@ -34,11 +34,14 @@ const BookSchema = new mongoose.Schema(
       require: true,
     },
     owner: {
-      type: String,
-      require: true,
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
     },
     borrower: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
     },
   },
   { timestamps: true }
