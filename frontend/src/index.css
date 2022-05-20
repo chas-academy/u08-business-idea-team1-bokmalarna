@@ -23,7 +23,7 @@ code {
 }
 
 .darkbrown {
-  background-color: #88644D;
+	background-color: #88644d;
 }
 
 /* .bookTitle {
@@ -32,4 +32,14 @@ code {
 
 .bg-books {
 	background-image: url('https://i.imgur.com/rERH7Ff.jpg');
+}
+
+.darkbrown-nav {
+	background-color: #88644d;
+}
+.darkbrown-nav a {
+	color: #ffffff;
+}
+.darkbrown-nav > button > span {
+	color: #ffffff;
 }
