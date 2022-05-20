@@ -17,10 +17,9 @@ function App() {
 			<div className="App">
 				<>
 					<Navbar
+						className="darkbrown-nav"
 						collapseOnSelect
 						expand="lg"
-						bg="dark"
-						variant="dark"
 					>
 						<Container>
 							<Navbar.Brand href="/">BookOwl</Navbar.Brand>
