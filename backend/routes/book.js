@@ -24,6 +24,15 @@ router.get("/", async (req, res) => {
   }
 })
 
+// Get single book
+router.get("/:id", async (req, res) => {
+  try {
+    
+  } catch (error) {
+    
+  }
+})
+
 // Update Book
 router.put("/:id", async (req, res) => {
   try {
