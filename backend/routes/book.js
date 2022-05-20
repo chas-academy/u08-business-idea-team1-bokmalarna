@@ -27,9 +27,11 @@ router.get("/", async (req, res) => {
 // Get single book
 router.get("/:id", async (req, res) => {
   try {
-    
+    const id = req.params.id;
+    const book = await Book.findById(id)
+    res.status(200).json(book)
   } catch (error) {
-    
+    res.status(500).json({message: "Could not find book"})
   }
 })
 
