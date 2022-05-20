@@ -6,10 +6,11 @@ import { Login } from './components/login/Login';
 import { Registration } from './components/registration/Registration';
 import { Search } from './components/search/Search';
 import { Nav } from './components/nav/nav';
+import { Footer } from './components/footer/Footer';
 
 function App() {
 	return (
-		<div className="App bg-books mh-100">
+		<div className="App bg-books">
 			<header>
 				<Nav />
 			</header>
@@ -39,6 +40,7 @@ function App() {
 					</div>
 				</section>
 			</main>
+			<Footer />
 		</div>
 	);
 }
