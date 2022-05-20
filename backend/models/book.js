@@ -30,7 +30,7 @@ const BookSchema = new mongoose.Schema(
       required: true,
     },
     released: {
-      type: Number,
+      type: Date,
       require: true,
     },
     owner: {
