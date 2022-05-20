@@ -90,4 +90,13 @@ router.get("/logout", authorization, (req, res) => {
     .json({ message: "Successfully logged out" });
 });
 
+
+const updateUser = (req, res) => {
+  res.json({
+    "email": req.body.email,
+    "password": req.body.password,
+
+  });
+}
+
 module.exports = router;
