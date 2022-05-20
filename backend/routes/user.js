@@ -5,9 +5,9 @@ const User = require("../models/user");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const { default: mongoose } = require("mongoose");
 
 router.use(cookieParser());
-router.use(express.json());
 
 //Authenticate
 const authorization = (req, res, next) => {
@@ -90,13 +90,17 @@ router.get("/logout", authorization, (req, res) => {
     .json({ message: "Successfully logged out" });
 });
 
+//@desc Delete A User
+//@routes Delete /user/:id
+//@access Public
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).json({ message: `No user with id: ${id}` });
 
-const updateUser = (req, res) => {
-  res.json({
-    "email": req.body.email,
-    "password": req.body.password,
+  await User.findByIdAndRemove(id);
 
-  });
-}
+  return res.json({ message: "User has been deleted successfully" });
+});
 
 module.exports = router;
