@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-
-=======
 const express = require('express')
 const { findById } = require('../models/book')
 const router = express.Router()
@@ -63,4 +60,3 @@ router.delete("/:id", async (req, res) => {
 })
 
 module.exports = router;
->>>>>>> dcf6fca09229b4abd0f7433fc6112ec2d08658cd
