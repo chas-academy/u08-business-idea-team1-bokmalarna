@@ -1,27 +1,31 @@
 body {
-  margin: 0;
-  font-family: 'Montserrat', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	margin: 0;
+	font-family: 'Montserrat', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+		monospace;
 }
 
 .lightbrownbg {
-  background-color: #F8F4F2;
+	background-color: #f8f4f2;
 }
 
 .purple {
-  background-color: #81647C;
+	background-color: #81647c;
 }
 
 .dashboard-p {
-  font-size: 1.7rem;
+	font-size: 1.7rem;
 }
 
 /* .bookTitle {
   font-weight: bold;
 } */
+
+.bg-books {
+	background-image: url('https://i.imgur.com/rERH7Ff.jpg');
+}
