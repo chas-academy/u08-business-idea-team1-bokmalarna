@@ -8,7 +8,6 @@ const bcrypt = require("bcrypt");
 const { default: mongoose } = require("mongoose");
 
 router.use(cookieParser());
-router.use(express.json());
 
 //Authenticate
 const authorization = (req, res, next) => {
