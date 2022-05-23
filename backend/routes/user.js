@@ -74,6 +74,21 @@ router.post("/login", async (req, res) => {
   }
 });
 
+//@desc Authorized a user
+//@routes GET /user/protected
+//@access Public
+router.get("/protected", authorization, (req, res) => {
+  return res.json({
+    user: {
+      id: req.userId,
+      email: req.email,
+      firstName: req.firstName,
+      lastName: req.lastName,
+      city: req.city,
+    },
+  });
+});
+
 //@desc Register A User
 //@routes POST /user/register
 //@access Public
