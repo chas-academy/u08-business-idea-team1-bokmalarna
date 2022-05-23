@@ -8,6 +8,5 @@
  * Frida
  * Dimosthenis
  * Jonathan
- * Ahmet
  * David
  * Licia
