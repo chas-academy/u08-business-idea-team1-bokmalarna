@@ -19,6 +19,9 @@ const authorization = (req, res, next) => {
     const data = jwt.verify(token, "YOUR_SECRET_KEY");
     req.userId = data.id;
     req.email = data.email;
+    req.firstName = data.firstName;
+    req.lastName = data.lastName;
+    req.city = data.city;
     return next();
   } catch {
     return res.sendStatus(403);
@@ -107,12 +110,12 @@ router.put("/:id/edit", async (req, res) => {
   try {
     const id = req.params.id;
     const update = req.body;
-    const options = {new: true};
+    const options = { new: true };
     const user = await User.findByIdAndUpdate(id, update, options);
-    res.status(200).json(user)
+    res.status(200).json(user);
   } catch (error) {
-    res.status(500).json({message: "Could not update User"})
+    res.status(500).json({ message: "Could not update User" });
   }
-})
+});
 
 module.exports = router;
