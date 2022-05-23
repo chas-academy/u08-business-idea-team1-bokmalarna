@@ -13,7 +13,7 @@ router.use(cookieParser());
 const authorization = (req, res, next) => {
   const token = req.cookies.access_token;
   if (!token) {
-    return res.sendStatus(403);
+    return res.status(403).json({ message: "You are not Authorized!" });
   }
   try {
     const data = jwt.verify(token, "YOUR_SECRET_KEY");
@@ -24,7 +24,7 @@ const authorization = (req, res, next) => {
     req.city = data.city;
     return next();
   } catch {
-    return res.sendStatus(403);
+    return res.status(403).json({ message: "You have no valid token" });
   }
 };
 
