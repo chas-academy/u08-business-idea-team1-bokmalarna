@@ -13,15 +13,18 @@ router.use(cookieParser());
 const authorization = (req, res, next) => {
   const token = req.cookies.access_token;
   if (!token) {
-    return res.sendStatus(403);
+    return res.status(403).json({ message: "You are not Authorized!" });
   }
   try {
     const data = jwt.verify(token, "YOUR_SECRET_KEY");
     req.userId = data.id;
     req.email = data.email;
+    req.firstName = data.firstName;
+    req.lastName = data.lastName;
+    req.city = data.city;
     return next();
   } catch {
-    return res.sendStatus(403);
+    return res.status(403).json({ message: "You have no valid token" });
   }
 };
 
@@ -44,6 +47,9 @@ router.post("/login", async (req, res) => {
         {
           id: user._id,
           email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          city: user.city,
         },
         "YOUR_SECRET_KEY"
       );
@@ -68,7 +74,24 @@ router.post("/login", async (req, res) => {
   }
 });
 
-//register
+//@desc Authorized a user
+//@routes GET /user/protected
+//@access Public
+router.get("/protected", authorization, (req, res) => {
+  return res.json({
+    user: {
+      id: req.userId,
+      email: req.email,
+      firstName: req.firstName,
+      lastName: req.lastName,
+      city: req.city,
+    },
+  });
+});
+
+//@desc Register A User
+//@routes POST /user/register
+//@access Public
 router.post("/register", async (req, res) => {
   const user = new User(req.body);
 
@@ -103,16 +126,19 @@ router.delete("/:id", async (req, res) => {
   return res.json({ message: "User has been deleted successfully" });
 });
 
+//@desc Edit A User Information
+//@routes PUT /user/:id/edit
+//@access Public
 router.put("/:id/edit", async (req, res) => {
   try {
     const id = req.params.id;
     const update = req.body;
-    const options = {new: true};
+    const options = { new: true };
     const user = await User.findByIdAndUpdate(id, update, options);
-    res.status(200).json(user)
+    res.status(200).json(user);
   } catch (error) {
-    res.status(500).json({message: "Could not update User"})
+    res.status(500).json({ message: "Could not update User" });
   }
-})
+});
 
 module.exports = router;
