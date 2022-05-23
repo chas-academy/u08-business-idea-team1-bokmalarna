@@ -1,3 +1,5 @@
+/* @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css"); */
+
 body {
 	margin: 0;
 	font-family: 'Montserrat', sans-serif;
@@ -20,10 +22,6 @@ code {
 
 .dashboard-p {
 	font-size: 1.7rem;
-}
-
-.darkbrown {
-	background-color: #88644d;
 }
 
 /* .bookTitle {

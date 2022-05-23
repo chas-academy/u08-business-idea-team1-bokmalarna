@@ -5,8 +5,6 @@ import Footer from '../footer/Footer';
 export const Bookpage = () => {
 	return (
 		<div className="lightbrownbg">
-			{/* <Nav /> */}
-
 			<section className="container text-center p-5">
 				<div className="card shadow-lg d-flex align-items-center">
 					<h2 className="m-4 fw-bold">Book Title</h2>
@@ -40,7 +38,6 @@ export const Bookpage = () => {
 					</div>
 				</div>
 			</section>
-			<Footer />
 		</div>
 	);
 };
