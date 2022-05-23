@@ -74,7 +74,9 @@ router.post("/login", async (req, res) => {
   }
 });
 
-//register
+//@desc Register A User
+//@routes POST /user/register
+//@access Public
 router.post("/register", async (req, res) => {
   const user = new User(req.body);
 
@@ -109,6 +111,9 @@ router.delete("/:id", async (req, res) => {
   return res.json({ message: "User has been deleted successfully" });
 });
 
+//@desc Edit A User Information
+//@routes PUT /user/:id/edit
+//@access Public
 router.put("/:id/edit", async (req, res) => {
   try {
     const id = req.params.id;
