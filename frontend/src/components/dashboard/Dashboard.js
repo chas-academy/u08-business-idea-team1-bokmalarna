@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export const Dashboard = () => {
+  const navigate = useNavigate();
+  const user = Cookies.get("access_token");
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/");
+    }
+  }, []);
   return (
-    /*  NAV GOES HERE */
     <div className="lightbrownbg">
       <section className="container">
         <div className="text-center p-5">
@@ -117,6 +126,5 @@ export const Dashboard = () => {
         </section>
       </section>
     </div>
-    /* FOOTER GOES HERE */
   );
 };
