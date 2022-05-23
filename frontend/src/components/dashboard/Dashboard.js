@@ -32,7 +32,7 @@ export const Dashboard = () => {
     <div className="lightbrownbg">
       <section className="container">
         <div className="text-center p-5">
-          <h1>Welcome Ugglan</h1>
+          <h1>Welcome {getUser.firstName}</h1>
           <p className="dashboard-p m-5">
             "A book is a gift you can open again and again"
           </p>
