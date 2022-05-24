@@ -3,7 +3,7 @@ import React from 'react';
 export const Home = () => {
 	return (
 		<main className="App bg-books">
-			<section className="container shadow bg-body rounded my-5 opacity-75">
+			<section className="container shadow bg-body rounded my-5 bg-opacity-75">
 				<h1 className="text-center pt-5 display-1 fw-normal">Welcome To</h1>
 				<div className="d-flex justify-content-center my-5">
 					<img
