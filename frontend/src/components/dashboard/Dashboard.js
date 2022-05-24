@@ -1,12 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+import axios from "axios";
 
 export const Dashboard = () => {
+  const navigate = useNavigate();
+  const user = Cookies.get("access_token");
+  const [getUser, setGetUser] = useState({});
+
+  const checkUser = async () => {
+    await axios
+      .get("http://localhost:8080/user/protected", {
+        withCredentials: true,
+      })
+      .then((res) => {
+        if (res.data.user) {
+          console.log(res.data.user);
+          setGetUser(res.data.user);
+        }
+      });
+  };
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/");
+    } else {
+      checkUser();
+    }
+  }, [user, navigate]);
   return (
-    /*  NAV GOES HERE */
     <div className="lightbrownbg">
       <section className="container">
         <div className="text-center p-5">
-          <h1>Welcome Ugglan</h1>
+          <h1>Welcome {getUser.firstName}</h1>
           <p className="dashboard-p m-5">
             "A book is a gift you can open again and again"
           </p>
@@ -117,6 +143,5 @@ export const Dashboard = () => {
         </section>
       </section>
     </div>
-    /* FOOTER GOES HERE */
   );
 };
