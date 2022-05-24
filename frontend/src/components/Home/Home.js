@@ -11,8 +11,8 @@ export const Home = () => {
 						alt="BookOwl Logo"
 					/>
 				</div>
-				<h2 className="text-center mt-5 display-2 fw-normal">BookOwl</h2>
-				<p className="text-center fs-2 ">
+				<h2 className="text-center mt-5 mb-5 display-2 fw-normal ">BookOwl</h2>
+				<p className="text-center fs-2">
 					Here you can borrow books from other people or loan your
 					books to other people
 				</p>
