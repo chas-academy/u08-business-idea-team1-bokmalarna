@@ -27,7 +27,7 @@ export const Dashboard = () => {
     } else {
       checkUser();
     }
-  }, []);
+  }, [user, navigate]);
   return (
     <div className="lightbrownbg">
       <section className="container">
