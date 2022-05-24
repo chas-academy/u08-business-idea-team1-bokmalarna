@@ -1,5 +1,4 @@
 import React from "react";
-import { Github } from 'react-bootstrap-icons';
 
 export const Footer = () => {
   return (
