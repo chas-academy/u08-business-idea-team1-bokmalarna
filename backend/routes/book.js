@@ -4,17 +4,10 @@ const { findById } = require("../models/book");
 const router = express.Router();
 const Book = require("../models/book");
 const User = require("../models/user");
+const bookController = require("../controllers/bookController");
 
 // Create book
-router.post("/", async (req, res) => {
-  try {
-    const book = new Book(req.body);
-    await book.save();
-    res.json(book);
-  } catch (error) {
-    res.json({ message: "Could not create book" });
-  }
-});
+router.post("/newBook", bookController.uploadImg, bookController.newBook);
 
 //Get User books
 router.get("/user/:id", async (req, res) => {
