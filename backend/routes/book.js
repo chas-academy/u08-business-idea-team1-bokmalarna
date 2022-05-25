@@ -4,10 +4,10 @@ const { findById } = require("../models/book");
 const router = express.Router();
 const Book = require("../models/book");
 const User = require("../models/user");
+const bookController = require("../controllers/bookController");
 
 // Create book
-
-router.post("/newBook", uploadImg, newBook);
+router.post("/newBook", bookController.uploadImg, bookController.newBook);
 
 //Get User books
 router.get("/user/:id", async (req, res) => {
