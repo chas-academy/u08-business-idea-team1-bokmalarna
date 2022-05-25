@@ -1,3 +1,4 @@
+const { json } = require("express");
 const express = require("express");
 const { findById } = require("../models/book");
 const router = express.Router();
@@ -23,7 +24,7 @@ router.get("/user/:id", async (req, res) => {
     const userBooks = await Book.find({ owner: owner.id });
     res.status(200).json({ message: userBooks });
   } catch (error) {
-    console.log(error);
+    res.status(400).json({ message: "That user has no books, try again" });
   }
 });
 
