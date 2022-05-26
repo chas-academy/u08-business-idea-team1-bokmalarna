@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/chas-academy/u08-business-idea-team1-bokmalarna/issues"
   },
-  "homepage": "https://github.com/chas-academy/u08-business-idea-team1-bokmalarna#readme"
+  "homepage": "https://github.com/chas-academy/u08-business-idea-team1-bokmalarna#readme",
+  "dependencies": {
+    "concurrently": "^7.2.1"
+  }
 }
