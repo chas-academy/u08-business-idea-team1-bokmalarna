@@ -32,6 +32,6 @@ const startServer = (port) => {
 };
 
 //server connection starts here
-mongoose.connect(process.env.DATABASE_URL).then(() => {
+mongoose.connect(process.env.MONGODB_URI).then(() => {
   startServer(PORT);
 });
