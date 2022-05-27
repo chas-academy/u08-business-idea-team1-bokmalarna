@@ -10,7 +10,7 @@ export const Dashboard = () => {
 
   const checkUser = async () => {
     await axios
-      .get("http://localhost:8080/user/protected", {
+      .get("https://bookowl-backend.herokuapp.com/user/protected", {
         withCredentials: true,
       })
       .then((res) => {
