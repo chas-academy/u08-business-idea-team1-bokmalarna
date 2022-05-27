@@ -18,7 +18,7 @@ function App() {
         <>
           <Navbar className="darkbrown-nav" collapseOnSelect expand="lg">
             <Container>
-              <Navbar.Brand href="/">BookOwl!</Navbar.Brand>
+              <Navbar.Brand href="/">BookOwl</Navbar.Brand>
               <Navbar.Toggle aria-controls="responsive-navbar-nav" />
               <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="me-auto">
