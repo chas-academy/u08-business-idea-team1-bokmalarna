@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(
 	cors({
-		origin: process.env.DEV_URL || process.env.PROD_URL,
+		origin: '*',
 		credentials: true,
 	})
 );
@@ -37,12 +37,6 @@ const startServer = (port) => {
 };
 
 //server connection starts here
-if (process.env.NODE_STAGE === 'development') {
-	mongoose.connect(process.env.DEV_DATABASE_URL).then(() => {
-		startServer(PORT);
-	});
-} else {
-	mongoose.connect(process.env.PROD_DATABASE_URL).then(() => {
-		startServer(PORT);
-	});
-}
+mongoose.connect(process.env.DATABASE_URL).then(() => {
+	startServer(PORT);
+});
