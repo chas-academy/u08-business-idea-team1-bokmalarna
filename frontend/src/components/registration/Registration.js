@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 export const Registration = () => {
-  const API_URL = "http://localhost:8080/user/";
+  const API_URL = "https://bookowl-backend.herokuapp.com/user/";
 
   const [formData, setFormData] = useState({
     firstName: "",

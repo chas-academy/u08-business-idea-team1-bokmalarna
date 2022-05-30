@@ -31,7 +31,7 @@ export const Login = () => {
     login(userData);
   };
 
-  const API_URL = "http://localhost:8080/user/";
+  const API_URL = "https://bookowl-backend.herokuapp.com/user/";
 
   //Login
   const login = async (userData) => {
