@@ -13,6 +13,7 @@ app.use(express.json());
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use("/user", userRouter);
 app.use("/book", bookRouter);
+app.use("/uploads", express.static("./uploads"));
 
 //Function to start the server
 app.get("/", (req, res) => {
