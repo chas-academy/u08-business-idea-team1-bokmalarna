@@ -13,13 +13,12 @@ app.use(express.json());
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use("/user", userRouter);
 app.use("/book", bookRouter);
-app.use("/uploads", express.static("./uploads"));
 
+//Function to start the server
 app.get("/", (req, res) => {
   return res.json({ message: "Hello World 🤘" });
 });
 
-//Function to start the server
 const startServer = (port) => {
   try {
     app.listen(port, () => {
