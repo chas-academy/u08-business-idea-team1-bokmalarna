@@ -12,7 +12,6 @@ export const Dashboard = () => {
 		await axios
 			.get('https://bookowl-backend.herokuapp.com/user/protected', {
 				withCredentials: true,
-				Cookie: document.cookie,
 			})
 			.then((res) => {
 				if (res.data.user) {
