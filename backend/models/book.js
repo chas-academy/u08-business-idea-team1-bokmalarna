@@ -40,7 +40,6 @@ const BookSchema = new mongoose.Schema(
     },
     borrower: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
       ref: 'User',
     },
   },
