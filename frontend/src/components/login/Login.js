@@ -38,7 +38,7 @@ export const Login = () => {
 		const response = await axios.post(API_URL + 'login', userData);
 
 		if (response.data.token) {
-			Cookies.set('access_token', response.data.token);
+			/* Cookies.set('access_token', response.data.token); */
 			console.log(response.data);
 			navigate('/dashboard');
 		}
