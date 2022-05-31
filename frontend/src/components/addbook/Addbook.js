@@ -35,7 +35,7 @@ export const Addbook = () => {
   // }, [error]);
 
   const addBook = async (userData) => {
-    await axios.post(API_URL + "/", userData).then((res) => {
+    await axios.post(API_URL + "addBook", userData).then((res) => {
       console.log(res.data);
     });
   };
