@@ -7,7 +7,6 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { default: mongoose } = require('mongoose');
 
-router.use(cookieParser());
 
 //Authenticate
 const authorization = (req, res, next) => {

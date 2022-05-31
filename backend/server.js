@@ -6,10 +6,12 @@ const PORT = process.env.PORT || 8081;
 const userRouter = require('./routes/user');
 const bookRouter = require('./routes/book');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 const app = express();
-
+app.use(cookieParser());
 app.use(express.json());
+
 app.use(
 	cors({
 		origin: 'https://main--bookowl-u08.netlify.app',
