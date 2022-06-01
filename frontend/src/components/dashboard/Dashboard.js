@@ -13,6 +13,9 @@ export const Dashboard = () => {
 			.get('https://bookowl-backend.herokuapp.com/user/protected', {
 				// withCredentials: true,
 				credentials: 'include',
+        headers: {
+          'Authorization':`token ${user}`
+        }
 				/* method: GET, */
 			})
 			.then((res) => {
