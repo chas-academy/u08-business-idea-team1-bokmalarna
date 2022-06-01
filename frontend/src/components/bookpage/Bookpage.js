@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 export const Bookpage = () => {
 	const params = useParams();
 	const [book, setBook] = useState({});
+	const [owner, setOwner] = useState('');
 
 	const getBook = async () => {
 		try {
@@ -18,9 +19,19 @@ export const Bookpage = () => {
 		}
 	};
 
+	const getOwner = async () => {
+		const ownerName = book.owner;
+		try {
+			const res = await axios.get((process.env.REACT_APP_API_URL + 'user/' + ownerName));
+			setOwner(res.data);
+		} catch (e) {
+			console.log(e);
+		}
+	}
 	
 	useEffect(() => {
 		getBook();
+		getOwner();
 	},[]);
 
 	return (
@@ -45,7 +56,7 @@ export const Bookpage = () => {
 						<p>Condition: { book.condition }</p>
 						<p>Release Date: { new Date(book.released).toLocaleDateString()}</p>
 
-						<p>Owned by: Ugglemor</p>
+						<p>Owned by: { owner.bookOwner }</p>
 
 						<button className="btn btn-outline-secondary purple text-white m-3">
 							Borrow

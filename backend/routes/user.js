@@ -152,7 +152,7 @@ router.get('/:id', async (req, res) => {
 		const id = req.params.id;
 		const user = await User.findOne({id});
 		const bookOwner = user.firstName;
-		res.status(200).json({ message: 'User found', bookOwner });
+		res.status(200).json({ bookOwner });
 	} catch (error) {
 		res.status(404).json({ message: 'User not found' });
 	}
