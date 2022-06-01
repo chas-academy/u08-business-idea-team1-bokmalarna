@@ -6,6 +6,7 @@ import axios from 'axios';
 
 export const Login = () => {
 	const navigate = useNavigate();
+	const user = Cookies.get('access_token');
 
 	const [formData, setFormData] = useState({
 		email: '',
