@@ -11,7 +11,7 @@ export const Dashboard = () => {
 	const checkUser = async () => {
 		//User sends its access_token in headers to BE to be decoded.
 		await axios
-			.get('https://bookowl-backend.herokuapp.com/user/protected', {
+			.get(process.env.REACT_APP_API_URL + 'user/protected', {
 				withCredentials: true,
 				headers: {
 					Authorization: `Bearer ${user}`,

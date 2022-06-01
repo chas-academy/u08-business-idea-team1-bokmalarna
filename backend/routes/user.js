@@ -51,7 +51,7 @@ router.post('/login', async (req, res) => {
 					lastName: user.lastName,
 					city: user.city,
 				},
-				'YOUR_SECRET_KEY'
+				process.env.JWT_SECRET
 			);
 
 			console.log('token', token);

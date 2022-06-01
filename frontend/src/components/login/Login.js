@@ -32,11 +32,14 @@ export const Login = () => {
 		login(userData);
 	};
 
-	const API_URL = 'https://bookowl-backend.herokuapp.com/user/';
+	// const API_URL = 'https://bookowl-backend.herokuapp.com/user/';
 
 	//Login
 	const login = async (userData) => {
-		const response = await axios.post(API_URL + 'login', userData);
+		const response = await axios.post(
+			precess.env.REACT_APP_API_URL + 'user/login',
+			userData
+		);
 
 		if (response.data.token) {
 			Cookies.set('access_token', response.data.token);
@@ -49,7 +52,7 @@ export const Login = () => {
 	const onLogout = async () => {
 		//Send token info in headers to backend to let user logout. Backend will remove HTTPOnly cookies
 		await axios
-			.get(API_URL + 'logout', {
+			.get(precess.env.REACT_APP_API_URL + 'user/logout', {
 				withCredentials: true,
 				headers: {
 					Authorization: `Bearer ${user}`,
