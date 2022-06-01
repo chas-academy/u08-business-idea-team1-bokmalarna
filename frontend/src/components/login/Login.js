@@ -47,7 +47,6 @@ export const Login = () => {
 
 	//Logout
 	const onLogout = async () => {
-		Cookies.remove('user');
 		await axios
 			.get(API_URL + 'logout', {
 				withCredentials: true,
@@ -56,6 +55,7 @@ export const Login = () => {
 				},
 			})
 			.then((res) => {
+				Cookies.remove('access_token');
 				console.log(res.data);
 			});
 	};
