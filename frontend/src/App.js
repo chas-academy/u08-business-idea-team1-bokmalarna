@@ -12,8 +12,8 @@ import { Home } from './components/Home/Home';
 import Footer from './components/footer/Footer';
 
 function App() {
+
 	return (
-		<BrowserRouter>
 			<div className="App">
 				<>
 					<Navbar
@@ -66,13 +66,12 @@ function App() {
 						<Route path="/register" element={<Registration />} />
 						<Route path="/search" element={<Search />} />
 						<Route path="/dashboard" element={<Dashboard />} />
-						<Route path="/bookpage" element={<Bookpage />} />
+						<Route path="/bookpage/:id" element={<Bookpage />} />
 						<Route path="/addbook" element={<Addbook />} />
 					</Routes>
 				</div>
 				<Footer />
 			</div>
-		</BrowserRouter>
 	);
 }
 

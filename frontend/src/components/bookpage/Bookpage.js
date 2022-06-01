@@ -1,8 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Nav from '../nav/nav';
 import Footer from '../footer/Footer';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 export const Bookpage = () => {
+	const params = useParams();
+	const [book, setBook] = useState({});
+
+	const getBook = async () => {
+		console.log(params.id);
+
+		try {
+			const res = await axios.get((process.env.REACT_APP_API_URL + 'book/' + params.id));
+			setBook(res.data);
+			console.log(res.data);
+		} catch (e) {
+			console.log(e);
+		}
+	};
+
+	useEffect(() => {
+		getBook();
+	},[]);
+
 	return (
 		<div className="lightbrownbg">
 			<section className="container text-center p-5">
