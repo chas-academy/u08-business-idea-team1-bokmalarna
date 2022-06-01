@@ -12,8 +12,11 @@ export const Dashboard = () => {
 		await axios
 			.get('https://bookowl-backend.herokuapp.com/user/protected', {
 				// withCredentials: true,
-				credentials: 'include',
-        withCredentials: true
+				//credentials: 'include',
+        //withCredentials: true
+        headers: {
+          Authorization: `Bearer ${user}`
+        }
 				/* method: GET, */
 			})
 			.then((res) => {
