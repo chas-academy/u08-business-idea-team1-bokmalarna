@@ -16,7 +16,7 @@ const authorization = (req, res, next) => {
 		return res.status(403).json({ message: 'You are not Authorized!' });
 	}
 	try {
-		const data = jwt.verify(token, 'YOUR_SECRET_KEY');
+		const data = jwt.verify(token, process.env.JWT_SECRET);
 		req.userId = data.id;
 		req.email = data.email;
 		req.firstName = data.firstName;
