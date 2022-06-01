@@ -27,7 +27,6 @@ app.get('/', (req, res) => {
 	return res.json({ message: 'Hello World 🤘' });
 });
 
-//Function to start the server
 const startServer = (port) => {
 	try {
 		app.listen(port, () => {

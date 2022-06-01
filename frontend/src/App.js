@@ -7,6 +7,8 @@ import { Search } from './components/search/Search';
 import { Dashboard } from './components/dashboard/Dashboard';
 import { Bookpage } from './components/bookpage/Bookpage';
 import { Addbook } from './components/addbook/Addbook';
+import { Edit } from './components/edit/Edit';
+import { EditPassword } from './components/edit/Editpassword';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import { Home } from './components/Home/Home';
 import Footer from './components/footer/Footer';
@@ -68,6 +70,8 @@ function App() {
 						<Route path="/dashboard" element={<Dashboard />} />
 						<Route path="/bookpage/:id" element={<Bookpage />} />
 						<Route path="/addbook" element={<Addbook />} />
+						<Route path="/edit" element={<Edit />} />
+						<Route path="/edit/password" element={<EditPassword />} />
 					</Routes>
 				</div>
 				<Footer />
