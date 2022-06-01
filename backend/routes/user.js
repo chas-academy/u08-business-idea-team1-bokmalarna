@@ -7,12 +7,11 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { default: mongoose } = require('mongoose');
 
-
 //Authenticate
 const authorization = (req, res, next) => {
 	//const token = req.cookies.access_token;
-	const token = req.headers.authorization.split(" ")[1];
-	console.log(token)
+	const token = req.headers.authorization.split(' ')[1];
+	console.log(token);
 	if (!token) {
 		return res.status(403).json({ message: 'You are not Authorized!' });
 	}

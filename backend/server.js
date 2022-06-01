@@ -14,7 +14,7 @@ app.use(express.json());
 
 app.use(
 	cors({
-		origin: 'https://main--bookowl-u08.netlify.app',
+		origin: 'https://bookowl-u08.netlify.app',
 		credentials: true,
 	})
 );

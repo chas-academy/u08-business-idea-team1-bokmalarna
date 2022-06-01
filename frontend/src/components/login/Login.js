@@ -38,7 +38,7 @@ export const Login = () => {
 		const response = await axios.post(API_URL + 'login', userData);
 
 		if (response.data.token) {
-			Cookies.set('access_token', response.data.token); 
+			Cookies.set('access_token', response.data.token);
 			console.log(response.data);
 			navigate('/dashboard');
 		}
@@ -48,7 +48,12 @@ export const Login = () => {
 	const onLogout = async () => {
 		Cookies.remove('user');
 		await axios
-			.get(API_URL + 'logout', { withCredentials: true })
+			.get(API_URL + 'logout', {
+				withCredentials: true,
+				headers: {
+					Authorization: `Bearer ${user}`,
+				},
+			})
 			.then((res) => {
 				console.log(res.data);
 			});
