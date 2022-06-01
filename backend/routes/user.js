@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { default: mongoose } = require('mongoose');
+const user = require('../models/user');
 
 //Authenticate
 const authorization = (req, res, next) => {
@@ -140,6 +141,20 @@ router.put('/:id/edit', async (req, res) => {
 		res.status(200).json(user);
 	} catch (error) {
 		res.status(500).json({ message: 'Could not update User' });
+	}
+});
+
+//@desc Get a users first name
+//@routes GET /user/:id
+//@access Public 
+router.get('/:id', async (req, res) => {
+	try {
+		const id = req.params.id;
+		const user = await User.findOne({id});
+		const bookOwner = user.firstName;
+		res.status(200).json({ message: 'User found', bookOwner });
+	} catch (error) {
+		res.status(404).json({ message: 'User not found' });
 	}
 });
 
