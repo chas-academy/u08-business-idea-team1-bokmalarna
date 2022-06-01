@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { default: mongoose } = require('mongoose');
+const user = require('../models/user');
 
 //Authenticate
 const authorization = (req, res, next) => {
@@ -143,21 +144,18 @@ router.put('/:id/edit', async (req, res) => {
 	}
 });
 
-//@desc Edit A User Information
-//@routes PUT /user/:id/edit
-//@access Public
-router.put("/:id/edit/password", async (req, res) => {
-  try {
-    const id = req.params.id;
-    const update = req.body;
-    const options = { new: true };
-    const user = await User.findByIdAndUpdate(id, update, options);
-    const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(user.password, salt);
-    res.status(200).json(user);
-  } catch (error) {
-    res.status(500).json({ message: "Could not update Password" });
-  }
+//@desc Get a users first name
+//@routes GET /user/:id
+//@access Public 
+router.get('/:id', async (req, res) => {
+	try {
+		const id = req.params.id;
+		const user = await User.findOne({id});
+		const bookOwner = user.firstName;
+		res.status(200).json({ bookOwner });
+	} catch (error) {
+		res.status(404).json({ message: 'User not found' });
+	}
 });
 
 module.exports = router;
