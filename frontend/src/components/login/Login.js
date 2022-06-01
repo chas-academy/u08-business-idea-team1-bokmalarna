@@ -37,7 +37,7 @@ export const Login = () => {
 	//Login
 	const login = async (userData) => {
 		const response = await axios.post(
-			precess.env.REACT_APP_API_URL + 'user/login',
+			process.env.REACT_APP_API_URL + 'user/login',
 			userData
 		);
 
@@ -52,7 +52,7 @@ export const Login = () => {
 	const onLogout = async () => {
 		//Send token info in headers to backend to let user logout. Backend will remove HTTPOnly cookies
 		await axios
-			.get(precess.env.REACT_APP_API_URL + 'user/logout', {
+			.get(process.env.REACT_APP_API_URL + 'user/logout', {
 				withCredentials: true,
 				headers: {
 					Authorization: `Bearer ${user}`,
