@@ -3,31 +3,31 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
 
-export const Dashboard = () => {
-  const navigate = useNavigate();
-  const user = Cookies.get("access_token");
-  const [getUser, setGetUser] = useState({});
+  export const Dashboard = () => {
+    const navigate = useNavigate();
+    const user = Cookies.get("access_token");
+    const [getUser, setGetUser] = useState({});
 
-  const checkUser = async () => {
-    await axios
-      .get("http://localhost:8080/user/protected", {
-        withCredentials: true,
-      })
-      .then((res) => {
-        if (res.data.user) {
-          console.log(res.data.user);
-          setGetUser(res.data.user);
-        }
-      });
-  };
+    const checkUser = async () => {
+      await axios
+        .get("http://localhost:8080/user/protected", {
+          withCredentials: true,
+        })
+        .then((res) => {
+          if (res.data.user) {
+            console.log(res.data.user);
+            setGetUser(res.data.user);
+          }
+        });
+    };
 
-  useEffect(() => {
-    if (!user) {
-      navigate("/");
-    } else {
-      checkUser();
-    }
-  }, [user, navigate]);
+    useEffect(() => {
+      if (!user) {
+        navigate("/");
+      } else {
+        checkUser();
+      }
+    }, [user, navigate]);
   return (
     <div className="lightbrownbg">
       <section className="container">
@@ -39,7 +39,7 @@ export const Dashboard = () => {
           <button className="btn btn-outline-secondary m-2">
             New Messages
           </button>
-          <button className="btn btn-outline-secondary m-2">Settings</button>
+          <a className="btn btn-outline-secondary m-2" href="/edit">Settings</a>
         </div>
         <section>
           {/*  LOANED BOOKS */}

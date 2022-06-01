@@ -141,4 +141,21 @@ router.put("/:id/edit", async (req, res) => {
   }
 });
 
+//@desc Edit A User Information
+//@routes PUT /user/:id/edit
+//@access Public
+router.put("/:id/edit/password", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const update = req.body;
+    const options = { new: true };
+    const user = await User.findByIdAndUpdate(id, update, options);
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(user.password, salt);
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: "Could not update Password" });
+  }
+});
+
 module.exports = router;
