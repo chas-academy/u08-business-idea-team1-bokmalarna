@@ -47,6 +47,7 @@ export const Login = () => {
 
 	//Logout
 	const onLogout = async () => {
+		//Send token info in headers to backend to let user logout. Backend will remove HTTPOnly cookies
 		await axios
 			.get(API_URL + 'logout', {
 				withCredentials: true,
@@ -55,6 +56,7 @@ export const Login = () => {
 				},
 			})
 			.then((res) => {
+				//FrontEnd removed access_token from cookies("localstorage").
 				Cookies.remove('access_token');
 				console.log(res.data);
 			});
