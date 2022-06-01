@@ -9,31 +9,29 @@ export const Dashboard = () => {
 	const [getUser, setGetUser] = useState({});
 
 	const checkUser = async () => {
+		//User sends its access_token in headers to BE to be decoded.
 		await axios
-			.get('https://bookowl-backend.herokuapp.com/user/protected', {
-				// withCredentials: true,
-				//credentials: 'include',
-        //withCredentials: true
-        headers: {
-          Authorization: `Bearer ${user}`
-        }
-				/* method: GET, */
+			.get(process.env.REACT_APP_API_URL + 'user/protected', {
+				withCredentials: true,
+				headers: {
+					Authorization: `Bearer ${user}`,
+				},
 			})
 			.then((res) => {
 				if (res.data.user) {
 					console.log(res.data.user);
+					//Stores user info into the state.
 					setGetUser(res.data.user);
 				}
 			});
 	};
 
 	useEffect(() => {
-		// if (!user) {
-		//   navigate("/");
-		// }
-		// else {
-		checkUser();
-		// }
+		if (!user) {
+			navigate('/');
+		} else {
+			checkUser();
+		}
 	}, [user, navigate]);
 	return (
 		<div className="lightbrownbg">

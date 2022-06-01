@@ -7,19 +7,16 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { default: mongoose } = require('mongoose');
 
-
 //Authenticate
 const authorization = (req, res, next) => {
 	//const token = req.cookies.access_token;
-
-	//We use the bearer token
-	const token = req.headers.authorization.split(" ")[1];
-	console.log(token)
+	const token = req.headers.authorization.split(' ')[1];
+	console.log(token);
 	if (!token) {
 		return res.status(403).json({ message: 'You are not Authorized!' });
 	}
 	try {
-		const data = jwt.verify(token, 'YOUR_SECRET_KEY');
+		const data = jwt.verify(token, process.env.JWT_SECRET);
 		req.userId = data.id;
 		req.email = data.email;
 		req.firstName = data.firstName;
@@ -54,7 +51,7 @@ router.post('/login', async (req, res) => {
 					lastName: user.lastName,
 					city: user.city,
 				},
-				'YOUR_SECRET_KEY'
+				process.env.JWT_SECRET
 			);
 
 			console.log('token', token);
