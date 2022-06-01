@@ -11,6 +11,8 @@ const { default: mongoose } = require('mongoose');
 //Authenticate
 const authorization = (req, res, next) => {
 	//const token = req.cookies.access_token;
+
+	//We use the bearer token
 	const token = req.headers.authorization.split(" ")[1];
 	console.log(token)
 	if (!token) {
