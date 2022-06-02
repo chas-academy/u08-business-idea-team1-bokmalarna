@@ -3,12 +3,13 @@ import React, { useState } from "react";
 
 export const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [books, setBooks] = useState([]);
 
   const searchBooks = async (title) => {
     const res = await axios.get(
       process.env.REACT_APP_API_URL + "book/" + title
     );
-    console.log(res.data);
+    setBooks(res.data);
   };
 
   const handleChange = (e) => {
@@ -20,6 +21,7 @@ export const Search = () => {
     e.preventDefault();
     searchBooks(searchTerm);
   };
+  console.log(books);
 
   return (
     <section className="container my-5 rounded">
@@ -42,10 +44,10 @@ export const Search = () => {
               className="form-select form-select-sm w-50"
               aria-label=".form-select-sm example"
             >
-              <option defaultValue>Genras</option>
+              <option defaultValue>Genres</option>
               <option value="1">Fantasy</option>
               <option value="2">Sci-Fi</option>
-              <option value="3">Mistery</option>
+              <option value="3">Mystery</option>
               <option value="3">Thriller</option>
               <option value="3">Romance</option>
             </select>
@@ -67,9 +69,37 @@ export const Search = () => {
           </div>
         </form>
       </section>
+
       <section className="my-5 container align-items-center">
         <div className="row align-items-center">
-          <div
+          {books.map((book) => {
+            return (
+              <div
+                className="card shadow-lg mx-4 rounded"
+                style={{ width: "18rem" }}
+                key={book._id}
+              >
+                <img
+                  src="https://i.imgur.com/hJE4Jfx.jpg"
+                  className="card-img-top"
+                  alt="..."
+                />
+                <div className="card-body">
+                  <h5 className="card-title">Title: {book.title}</h5>
+                  <p className="card-text">Owner: Ugglan</p>
+                  <div className="d-flex justify-content-between align-items-center pt-4">
+                    <a href="#" className="btn btn-primary">
+                      Loan
+                    </a>
+                    <a href="#" className="btn btn-primary">
+                      Visit Book
+                    </a>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+          {/*  <div
             className="card shadow-lg mx-4 rounded"
             style={{ width: "18rem" }}
           >
@@ -111,8 +141,8 @@ export const Search = () => {
                   Visit Book
                 </a>
               </div>
-            </div>
-          </div>
+            </div> 
+          </div>*/}
         </div>
       </section>
     </section>

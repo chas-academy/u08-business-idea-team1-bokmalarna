@@ -22,12 +22,24 @@ router.get("/user/:id", async (req, res) => {
 });
 
 // GET books
-router.get("/", async (req, res) => {
-  try {
-    const book = await Book.find();
-    res.status(200).json(book);
-  } catch (error) {
-    res.status(500).json({ message: "Could not get books" });
+router.get("/:title", async (req, res) => {
+  const title = req.params.title;
+  console.log(title);
+  if (title) {
+    try {
+      const books = await Book.find({ title });
+      res.status(200).json(books);
+    } catch (error) {
+      res.status(500).json({ message: "Could not get books" });
+      console.log(error);
+    }
+  } else if (!title) {
+    try {
+      const books = await Book.find();
+      res.status(200).json(books);
+    } catch (error) {
+      res.status(500).json({ message: "Could not get books" });
+    }
   }
 });
 
@@ -41,7 +53,6 @@ router.get("/:id", async (req, res) => {
     res.status(500).json({ message: "Could not find book" });
   }
 });
-
 
 // Update Book
 router.put("/:id", async (req, res) => {
