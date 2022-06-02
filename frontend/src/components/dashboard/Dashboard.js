@@ -7,6 +7,7 @@ export const Dashboard = () => {
 	const navigate = useNavigate();
 	const user = Cookies.get('access_token');
 	const [getUser, setGetUser] = useState({});
+	
 
 	const checkUser = async () => {
 		//User sends its access_token in headers to BE to be decoded.
@@ -25,6 +26,25 @@ export const Dashboard = () => {
 				}
 			});
 	};
+
+	const handleRemoveUser = (id) => {
+		setGetUser(getUser.filter((user) => user.id !== id));
+	};
+
+	return (
+		<React.Fragment>
+			<div className='user-list'>
+				{!_.isEmpty(getUser) ? (
+					getUser.map((user) => (
+						<User key={user.id} {...user} handleRemoveUser={handleRemoveUser} /> ))
+				): (
+					<p className='message'>User deleted</p>
+				)				}
+			</div>
+		</React.Fragment>
+	);
+	
+	
 
 	useEffect(() => {
 		if (!user) {
