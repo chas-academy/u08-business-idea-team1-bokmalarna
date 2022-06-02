@@ -22,9 +22,9 @@ router.get("/user/:id", async (req, res) => {
 });
 
 // GET books
-router.get("/:title", async (req, res) => {
+router.get("/ || /:title || /:author", async (req, res) => {
   const title = req.params.title;
-  console.log(title);
+  const author = req.params.author;
   if (title) {
     try {
       const books = await Book.find({ title });
@@ -33,7 +33,15 @@ router.get("/:title", async (req, res) => {
       res.status(500).json({ message: "Could not get books" });
       console.log(error);
     }
-  } else if (!title) {
+  } else if (author) {
+    try {
+      const books = await Book.find({ author });
+      res.status(200).json(books);
+    } catch (error) {
+      res.status(500).json({ message: "Could not get books" });
+      console.log(error);
+    }
+  } else if (!title && !author) {
     try {
       const books = await Book.find();
       res.status(200).json(books);
