@@ -40,11 +40,11 @@ export const Login = () => {
 			process.env.REACT_APP_API_URL + 'user/login',
 			userData
 		);
-
 		if (response.data.token) {
 			Cookies.set('access_token', response.data.token);
 			console.log(response.data);
 			navigate('/dashboard');
+			window.location.reload();
 		}
 	};
 
