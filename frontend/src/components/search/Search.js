@@ -4,12 +4,25 @@ import React, { useState } from "react";
 export const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [books, setBooks] = useState([]);
+  const [owner, setOwner] = useState("");
 
   const searchBooks = async (title) => {
     const res = await axios.get(
       process.env.REACT_APP_API_URL + "book/" + title
     );
     setBooks(res.data);
+  };
+
+  const getOwner = async () => {
+    const ownerName = books.owner;
+    try {
+      const res = await axios.get(
+        process.env.REACT_APP_API_URL + "user/" + ownerName
+      );
+      setOwner(res.data);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const handleChange = (e) => {
@@ -20,6 +33,7 @@ export const Search = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     searchBooks(searchTerm);
+    getOwner();
   };
   console.log(books);
 
@@ -86,7 +100,7 @@ export const Search = () => {
                 />
                 <div className="card-body">
                   <h5 className="card-title">Title: {book.title}</h5>
-                  <p className="card-text">Owner: Ugglan</p>
+                  <p className="card-text">Owner: {owner.bookOwner}</p>
                   <div className="d-flex justify-content-between align-items-center pt-4">
                     <a href="#" className="btn btn-primary">
                       Loan
@@ -99,50 +113,6 @@ export const Search = () => {
               </div>
             );
           })}
-          {/*  <div
-            className="card shadow-lg mx-4 rounded"
-            style={{ width: "18rem" }}
-          >
-            <img
-              src="https://i.imgur.com/hJE4Jfx.jpg"
-              className="card-img-top"
-              alt="..."
-            />
-            <div className="card-body">
-              <h5 className="card-title">Title: Arthas</h5>
-              <p className="card-text">Owner: Ugglan</p>
-              <div className="d-flex justify-content-between align-items-center pt-4">
-                <a href="#" className="btn btn-primary">
-                  Loan
-                </a>
-                <a href="#" className="btn btn-primary">
-                  Visit Book
-                </a>
-              </div>
-            </div>
-          </div>
-          <div
-            className="card shadow-lg mx-4 rounded"
-            style={{ width: "18rem" }}
-          >
-            <img
-              src="https://i.imgur.com/hJE4Jfx.jpg"
-              className="card-img-top"
-              alt="..."
-            />
-            <div className="card-body">
-              <h5 className="card-title">Title: Arthas</h5>
-              <p className="card-text">Owner: Ugglan</p>
-              <div className="d-flex justify-content-between align-items-center pt-4">
-                <a href="#" className="btn btn-primary">
-                  Loan
-                </a>
-                <a href="#" className="btn btn-primary">
-                  Visit Book
-                </a>
-              </div>
-            </div> 
-          </div>*/}
         </div>
       </section>
     </section>
