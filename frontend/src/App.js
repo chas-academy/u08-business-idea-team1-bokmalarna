@@ -41,6 +41,7 @@ function App() {
 				<>
 					<Navbar
 						className="darkbrown-nav"
+						style={{ fontWeight: 'bold' }}
 						collapseOnSelect
 						expand="lg"
 					>
