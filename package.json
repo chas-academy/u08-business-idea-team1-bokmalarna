@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/chas-academy/u08-business-idea-team1-bokmalarna#readme",
   "dependencies": {
-    "concurrently": "^7.2.1"
+    "concurrently": "^7.2.1",
+    "react-router-dom": "^6.3.0"
   }
 }
