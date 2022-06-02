@@ -153,8 +153,15 @@ export const Dashboard = () => {
 									</td>
 								</tr>
 							</tbody>
-						</table>
+						</table>						
 					</div>
+					<div className="text-center p-5">
+					<p className="dashboard-p m-5">
+					<button className='btn-danger btn-sm'>
+							Delete my Account
+							</button>
+							</p>
+							</div>
 				</section>
 			</section>
 		</div>
