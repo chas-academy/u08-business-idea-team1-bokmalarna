@@ -1,13 +1,30 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useState } from 'react'
 
 export const Search = () => {
+  const [searhTerm, setSearchTerm] = useState("");
+
+  const searchBooks = (title) => {
+    const res = await axios.get((process.env.REACT_APP_API_URL + 'book'));
+    
+  }
+
+  const handleChange = (e) => {
+    setSearchTerm(e.target.value);
+  }
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    searchBooks();
+  }
+
   return (
   <section className='container my-5 rounded'>
     <section className='my-5 row'>
-      <form className='d-flex flex-column justify-content-center' action="">
+      <form className='d-flex flex-column justify-content-center'>
         <div className="mb-3 col">
           <label htmlFor="formGroupExampleInput" className="form-label">Search...</label>
-          <input type="text" className="form-control" id="formGroupExampleInput" placeholder="Search for a book" />
+          <input type="text" className="form-control" id="formGroupExampleInput" placeholder="Search for a book" onChange={handleChange}/>
         </div>
         <div className='d-flex'>
           <select className="form-select form-select-sm w-50" aria-label=".form-select-sm example">
@@ -23,7 +40,7 @@ export const Search = () => {
             <option value="1">Title</option>
             <option value="2">Author</option>
           </select>
-          <button type="submit" className="btn btn-primary">Search</button>
+          <button type="submit" className="btn btn-primary" onSubmit={handleSubmit}>Search</button>
         </div>
       </form>
     </section>
