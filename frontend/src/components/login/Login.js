@@ -32,37 +32,18 @@ export const Login = () => {
 		login(userData);
 	};
 
-	// const API_URL = 'https://bookowl-backend.herokuapp.com/user/';
-
-	//Login
+	//Login function
 	const login = async (userData) => {
 		const response = await axios.post(
 			process.env.REACT_APP_API_URL + 'user/login',
 			userData
 		);
-
 		if (response.data.token) {
 			Cookies.set('access_token', response.data.token);
 			console.log(response.data);
 			navigate('/dashboard');
+			window.location.reload();
 		}
-	};
-
-	//Logout
-	const onLogout = async () => {
-		//Send token info in headers to backend to let user logout. Backend will remove HTTPOnly cookies
-		await axios
-			.get(process.env.REACT_APP_API_URL + 'user/logout', {
-				withCredentials: true,
-				headers: {
-					Authorization: `Bearer ${user}`,
-				},
-			})
-			.then((res) => {
-				//FrontEnd removed access_token from cookies("localstorage").
-				Cookies.remove('access_token');
-				console.log(res.data);
-			});
 	};
 
 	return (
@@ -102,11 +83,6 @@ export const Login = () => {
 						</button>
 					</div>
 				</form>
-			</section>
-			<section>
-				<button className="btn" onClick={onLogout}>
-					Logout
-				</button>
 			</section>
 		</>
 	);
