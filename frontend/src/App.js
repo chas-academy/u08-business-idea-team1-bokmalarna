@@ -18,7 +18,6 @@ import Footer from './components/footer/Footer';
 
 function App() {
 	const user = Cookies.get('access_token');
-	// const [getUser, setGetUser] = useState({});
 	//Logout
 	const onLogout = async () => {
 		//Send token info in headers to backend to let user logout. Backend will remove HTTPOnly cookies
@@ -51,9 +50,11 @@ function App() {
 							<Navbar.Collapse id="responsive-navbar-nav">
 								<Nav className="me-auto">
 									<Nav.Link href="/search">Search</Nav.Link>
-									<Nav.Link href="/dashboard">
-										Dashboard
-									</Nav.Link>
+									{user && (
+										<Nav.Link href="/dashboard">
+											Dashboard
+										</Nav.Link>
+									)}
 									<NavDropdown
 										title="Dropdown"
 										id="collasible-nav-dropdown"
