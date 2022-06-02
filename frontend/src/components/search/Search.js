@@ -4,7 +4,6 @@ import React, { useState } from "react";
 export const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [books, setBooks] = useState([]);
-  const [owner, setOwner] = useState("");
 
   const searchBooks = async (title) => {
     const res = await axios.get(
@@ -13,29 +12,14 @@ export const Search = () => {
     setBooks(res.data);
   };
 
-  const getOwner = async () => {
-    const ownerName = books.owner;
-    try {
-      const res = await axios.get(
-        process.env.REACT_APP_API_URL + "user/" + ownerName
-      );
-      setOwner(res.data);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
-    console.log(searchTerm);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     searchBooks(searchTerm);
-    getOwner();
   };
-  console.log(books);
 
   return (
     <section className="container my-5 rounded">
@@ -100,12 +84,14 @@ export const Search = () => {
                 />
                 <div className="card-body">
                   <h5 className="card-title">Title: {book.title}</h5>
-                  <p className="card-text">Owner: {owner.bookOwner}</p>
                   <div className="d-flex justify-content-between align-items-center pt-4">
                     <a href="#" className="btn btn-primary">
                       Loan
                     </a>
-                    <a href="#" className="btn btn-primary">
+                    <a
+                      href={"/bookpage/" + book._id}
+                      className="btn btn-primary"
+                    >
                       Visit Book
                     </a>
                   </div>
