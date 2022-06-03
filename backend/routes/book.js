@@ -22,12 +22,32 @@ router.get("/user/:id", async (req, res) => {
 });
 
 // GET books
-router.get("/", async (req, res) => {
-  try {
-    const book = await Book.find();
-    res.status(200).json(book);
-  } catch (error) {
-    res.status(500).json({ message: "Could not get books" });
+router.get("/ || /:title || /:author", async (req, res) => {
+  const title = req.params.title;
+  const author = req.params.author;
+  if (title) {
+    try {
+      const books = await Book.find({ title });
+      res.status(200).json(books);
+    } catch (error) {
+      res.status(500).json({ message: "Could not get books" });
+      console.log(error);
+    }
+  } else if (author) {
+    try {
+      const books = await Book.find({ author });
+      res.status(200).json(books);
+    } catch (error) {
+      res.status(500).json({ message: "Could not get books" });
+      console.log(error);
+    }
+  } else if (!title && !author) {
+    try {
+      const books = await Book.find();
+      res.status(200).json(books);
+    } catch (error) {
+      res.status(500).json({ message: "Could not get books" });
+    }
   }
 });
 
