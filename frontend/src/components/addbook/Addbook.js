@@ -3,11 +3,9 @@ import Nav from "../nav/nav";
 import axios from "axios";
 
 export const Addbook = () => {
-  const API_URL = "http://localhost:8080/book/";
-
   const [formData, setFormData] = useState({
     title: "",
-    // image: "",
+    image: "",
     author: "",
     description: "",
     genre: "",
@@ -15,31 +13,32 @@ export const Addbook = () => {
     release: "",
     owner: ""
   });
-  const [image, setImage] = useState();
+  // const [image, setImage] = useState("");
 
-  const { title, author, description, genre, condition, release, owner } = formData;
-
+  const { title, image, author, description, genre, condition, release, owner } = formData;
   
   const onChange = (e) => {
     setFormData({...formData, [e.target.name]: e.target.value});
     // setImage(e.target.files[0]);
+    // setFormData({...formData, [e.target.name]: e.target.files[0]});
   };
 
-  const imageHandler = (e) => {
-    setImage({[e.target.name]: e.target.files[0]});
-  }
+  // const imageHandler = (e) => {
+  //   setFormData({...formData, [e.target.name]: e.target.files[0]});
+  // }
 
   const onSubmit = (e) => {
     e.preventDefault();
-    addBook(formData, image);
-
-    // console.log(formData, image);
+    addBook(formData);
+    
+    console.log(formData);
   };
 
-  const addBook = async (userData) => {
-    await axios.post(API_URL + "newBook", userData).then((res) => {
-      console.log(res.data);
-      //denna loggas inte?
+  const addBook = async (formData) => {
+    console.log(formData.image)
+    await axios.post(process.env.REACT_APP_API_URL + "book/newBook", formData).then((res) => {
+      console.log(res);
+      //Här är något fel. 
     });
   };
 
@@ -47,13 +46,13 @@ export const Addbook = () => {
     <section className="lightbrownbg">
       <Nav />
       <div className='container text-center p-5'>
-        <form method="POST" encType="multipart/form-data" className='card shadow-lg d-flex align-items-center'>
+        <form encType="multipart/form-data" className='card shadow-lg d-flex align-items-center'>
           <h2 className="m-4 fw-bold">Add a book</h2>
           <label className="mt-3 mb-1">Title</label>
           <input className="form-control w-50" type="text" name="title" value={title} onChange={onChange}/>
 
           <label className="mt-3 mb-1">Upload Image</label>
-          <input className="form-control w-50" type="file" name="image" accept="image/*" onChange={imageHandler}/>
+          <input className="form-control w-50" type="file" name="image" value={image} accept="image/*" onChange={onChange}/>
 
           <label className="mt-3 mb-1">Author</label>
           <input className="form-control w-50" type="text" name="author" value={author} onChange={onChange}/>
