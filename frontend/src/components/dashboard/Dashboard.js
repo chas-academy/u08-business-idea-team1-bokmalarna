@@ -30,17 +30,17 @@ export const Dashboard = () => {
 	//Get users uploaded books
 	const getBooks = async (id) => {
 		await axios
-			.get(process.env.REACT_APP_API_URL + `book/${id}`)
+			.get(process.env.REACT_APP_API_URL + `book/user/${id}`)
 			.then((res) => {
 				if (res.data) {
-					setBooks(res.data);
+					setBooks(res.data.message);
 				}
 			});
 	};
 	const deleteBook = async (id) => {
-		console.log(id)
+		console.log(id);
 		// await axios.delete(process.env.REACT_APP_API_URL + 'book/${id}')
-	}
+	};
 
 	// When dashboard loads, it will fetch the users: Information, Books and loaned books
 	useEffect(() => {
@@ -50,7 +50,8 @@ export const Dashboard = () => {
 			checkUser();
 			getBooks(getUser.id);
 		}
-	}, [user, navigate]);
+	}, [getUser.id]);
+
 	return (
 		<div className="lightbrownbg">
 			<section className="container">
@@ -135,7 +136,12 @@ export const Dashboard = () => {
 									<tr key={index}>
 										<td>{book.title}</td>
 										<td>
-											<button className="btn btn-outline-danger btn-sm" onClick={() => {deleteBook(book._id)}}>
+											<button
+												className="btn btn-outline-danger btn-sm"
+												onClick={() => {
+													deleteBook(book._id);
+												}}
+											>
 												Remove
 											</button>
 										</td>
