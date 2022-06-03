@@ -35,8 +35,15 @@ export const Addbook = () => {
   };
 
   const addBook = async (formData) => {
-    console.log(formData.image)
-    await axios.post(process.env.REACT_APP_API_URL + "book/newBook", formData).then((res) => {
+    // console.log(formData.image);
+
+    // const imageFile = formData.image;
+    // const uploadPath = __dirname + './uploads' + imageFile.name;
+
+    // console.log(imageFile);
+    // console.log(uploadPath);
+
+    await axios.post(process.env.REACT_APP_API_URL + "book/newBook", formData, {headers: { "content-type": "multipart/form-data" }}).then((res) => {
       console.log(res);
       //Här är något fel. 
     });
@@ -60,7 +67,7 @@ export const Addbook = () => {
           <label className="mt-3 mb-1">Description</label>
           <input className="form-control w-50" type="text" name="description" value={description} onChange={onChange}/>
 
-          <label className="mt-3 mb-1" for="genre">Genre</label>
+          <label className="mt-3 mb-1" name="genre">Genre</label>
           <select className="form-select w-50 text-center" name="genre" value={genre} onChange={onChange}>
             <option></option>
             <option value={"biography"}>Biography</option>
