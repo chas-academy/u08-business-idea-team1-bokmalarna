@@ -39,7 +39,12 @@ export const Dashboard = () => {
 	};
 	const deleteBook = async (id) => {
 		console.log(id);
-		// await axios.delete(process.env.REACT_APP_API_URL + 'book/${id}')
+		await axios
+			.delete(process.env.REACT_APP_API_URL + `book/${id}`)
+			.then((res) => {
+				window.location.reload();
+				console.log(res.data.message);
+			});
 	};
 
 	// When dashboard loads, it will fetch the users: Information, Books and loaned books
