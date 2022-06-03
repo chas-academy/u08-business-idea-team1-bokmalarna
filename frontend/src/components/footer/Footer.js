@@ -5,8 +5,7 @@ export const Footer = () => {
     <footer className="darkbrown-nav d-flex justify-content-center">
       <div className="container-lg text-white m-2">
         <div className="row align-items-start d-flex align-items-center">
-          <img src="bookowl.png" className="p-0" style={{ width: 100 }} />
-
+          <img src="bookowl.png" className="p-0" style={{ width: 90 }} />
           <div className="container col p-0 d-flex flex-column align-items-center">
             <h4 className="mt-4 fs-6 text-decoration-underline">Socials</h4>
             <ul className="list-group list-group-flush d-flex flex-column list-unstyled">
@@ -48,11 +47,10 @@ export const Footer = () => {
               </li>
             </ul>
           </div>
-
           <div className="container col p-0 d-flex flex-column align-items-center">
             <h4 className="mt-3 fs-6 text-decoration-underline">Made by:</h4>
             <ul className="list-group list-group-flush d-flex flex-column list-unstyled">
-              <li className=" darkbrown-nav p-0 border-0 mb-1">
+              <li className="darkbrown-nav p-0 border-0 mb-1">
                 <a
                   href="https://github.com/amawre"
                   className="text-decoration-none text-white"
