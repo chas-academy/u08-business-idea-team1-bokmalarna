@@ -7,6 +7,7 @@ export const Dashboard = () => {
 	const navigate = useNavigate();
 	const user = Cookies.get('access_token');
 	const [getUser, setGetUser] = useState({});
+	const [books, setBooks] = useState({});
 
 	const checkUser = async () => {
 		//User sends its access_token in headers to BE to be decoded.
@@ -26,11 +27,24 @@ export const Dashboard = () => {
 			});
 	};
 
+	//Get users uploaded books
+	const getBooks = async (id) => {
+		await axios
+			.get(process.env.REACT_APP_API_URL + `book/${id}`)
+			.then((res) => {
+				if (res.data) {
+					console.log(res.data);
+					setBooks(res.data);
+				}
+			});
+	};
+
 	useEffect(() => {
 		if (!user) {
 			navigate('/');
 		} else {
 			checkUser();
+			getBooks(getUser.id);
 		}
 	}, [user, navigate]);
 	return (
