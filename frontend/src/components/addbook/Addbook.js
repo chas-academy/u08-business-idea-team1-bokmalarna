@@ -5,7 +5,7 @@ import axios from "axios";
 export const Addbook = () => {
   const [formData, setFormData] = useState({
     title: "",
-    image: "",
+    // image: "",
     author: "",
     description: "",
     genre: "",
@@ -13,25 +13,56 @@ export const Addbook = () => {
     release: "",
     owner: ""
   });
-  // const [image, setImage] = useState("");
+  const [image, setImage] = useState("");
 
-  const { title, image, author, description, genre, condition, release, owner } = formData;
+  const { title, author, description, genre, condition, release, owner } = formData;
   
   const onChange = (e) => {
-    setFormData({...formData, [e.target.name]: e.target.value});
+    e.preventDefault();
+
+    setFormData({...formData, [e.target.name]: e.target.value})
+
+    // const reader = new FileReader();
+    // const file = e.target.files[0];
+
+    // reader.onloadend = async () => {
+    //   const data = new FormData();
+    //   data.append("file", file);
+    //   setImage(data);
+    // }
+    // reader.readAsDataURL(file);
+
+    // setFormData({...formData, [e.target.name]: e.target.value});
+
     // setImage(e.target.files[0]);
     // setFormData({...formData, [e.target.name]: e.target.files[0]});
   };
 
-  // const imageHandler = (e) => {
-  //   setFormData({...formData, [e.target.name]: e.target.files[0]});
-  // }
+
+  const imageHandler = (e) => {
+    const reader = new FileReader();
+    const file = e.target.files[0];
+
+    reader.onloadend = async () => {
+      const data = new FormData();
+      data.append("file", file);
+      setImage(data);
+    }
+    reader.readAsDataURL(file);
+  }
 
   const onSubmit = (e) => {
     e.preventDefault();
-    addBook(formData);
-    
-    console.log(formData);
+    // const { title, author, description, genre, condition, release, owner } = formData;
+    // image.append(formData);
+    // image.append("author", author);
+    // image.append("description", description);
+    // image.append("genre", genre);
+    // image.append("condition", condition);
+    // image.append("release", release);
+    // image.append("owner", owner);
+
+    // addBook(image);
   };
 
   const addBook = async (formData) => {
@@ -59,7 +90,7 @@ export const Addbook = () => {
           <input className="form-control w-50" type="text" name="title" value={title} onChange={onChange}/>
 
           <label className="mt-3 mb-1">Upload Image</label>
-          <input className="form-control w-50" type="file" name="image" value={image} accept="image/*" onChange={onChange}/>
+          <input className="form-control w-50" type="file" name="image" accept="image/*" onChange={imageHandler}/>
 
           <label className="mt-3 mb-1">Author</label>
           <input className="form-control w-50" type="text" name="author" value={author} onChange={onChange}/>

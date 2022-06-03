@@ -8,15 +8,17 @@ const storage = multer.diskStorage({
     cb(null, "./uploads");
   },
   filename: function (req, file, cb) {
+    console.log(file)
     cb(null, file.originalname);
   },
 });
 
-const uploadImg = multer({ storage: storage }).single("image");
+const uploadImg = multer({ storage: storage }).single("file");
 
 // Create new book incl. image
 
 const newBook = (req, res) => {
+  console.log(req.file)
   const newBook = new Book({
     title: req.body.title,
     author: req.body.author,
