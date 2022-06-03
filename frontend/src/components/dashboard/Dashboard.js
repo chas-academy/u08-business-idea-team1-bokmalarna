@@ -27,25 +27,6 @@ export const Dashboard = () => {
 			});
 	};
 
-	const handleRemoveUser = (id) => {
-		setGetUser(getUser.filter((user) => user.id !== id));
-	};
-
-	return (
-		<React.Fragment>
-			<div className='user-list'>
-				{!_.isEmpty(getUser) ? (
-					getUser.map((user) => (
-						<User key={user.id} {...user} handleRemoveUser={handleRemoveUser} /> ))
-				): (
-					<p className='message'>User deleted</p>
-				)				}
-			</div>
-		</React.Fragment>
-	);
-	
-	
-
 	useEffect(() => {
 		if (!user) {
 			navigate('/');
@@ -175,13 +156,7 @@ export const Dashboard = () => {
 							</tbody>
 						</table>						
 					</div>
-					<div className="text-center p-5">
-					<p className="dashboard-p m-5">
-					<button className='btn-danger btn-sm'>
-							Delete my Account
-							</button>
-							</p>
-							</div>
+					
 				</section>
 			</section>
 		</div>

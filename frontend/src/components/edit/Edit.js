@@ -182,6 +182,13 @@ export const Edit = () => {
                 </a>
               </button>
           </div>
+          <div className="col-12 pt-4 text-center">
+					<button 
+            type="submit" 
+            className='btn btn-danger btn-lg'>
+							Delete my Account
+							</button>							
+							</div>
         </form>
       </section>
     </>
