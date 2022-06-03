@@ -33,11 +33,15 @@ export const Dashboard = () => {
 			.get(process.env.REACT_APP_API_URL + `book/${id}`)
 			.then((res) => {
 				if (res.data) {
-					console.log(res.data);
 					setBooks(res.data);
 				}
 			});
 	};
+	const deleteBook = async (id) => {
+		console.log(id)
+		// await axios.delete(process.env.REACT_APP_API_URL + 'book/${id}')
+	}
+
 	// When dashboard loads, it will fetch the users: Information, Books and loaned books
 	useEffect(() => {
 		if (!user) {
@@ -131,7 +135,7 @@ export const Dashboard = () => {
 									<tr key={index}>
 										<td>{book.title}</td>
 										<td>
-											<button className="btn btn-outline-danger btn-sm">
+											<button className="btn btn-outline-danger btn-sm" onClick={() => {deleteBook(book._id)}}>
 												Remove
 											</button>
 										</td>
