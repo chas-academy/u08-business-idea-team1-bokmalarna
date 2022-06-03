@@ -33,8 +33,11 @@ code {
 }
 
 .darkbrown-nav {
-	background-color: #88644d;
+	/* background-color: #88644d; */
+	background-color: #42291a;
+	font-weight: bold;
 }
+
 /* .darkbrown-nav div a {
 	color: #ffffff;
 } */
