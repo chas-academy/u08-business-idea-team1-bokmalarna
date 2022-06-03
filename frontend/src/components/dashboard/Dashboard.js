@@ -7,7 +7,7 @@ export const Dashboard = () => {
 	const navigate = useNavigate();
 	const user = Cookies.get('access_token');
 	const [getUser, setGetUser] = useState({});
-	const [books, setBooks] = useState({});
+	const [books, setBooks] = useState([]);
 
 	const checkUser = async () => {
 		//User sends its access_token in headers to BE to be decoded.
@@ -38,7 +38,7 @@ export const Dashboard = () => {
 				}
 			});
 	};
-
+	// When dashboard loads, it will fetch the users: Information, Books and loaned books
 	useEffect(() => {
 		if (!user) {
 			navigate('/');
@@ -68,7 +68,7 @@ export const Dashboard = () => {
 						List of loaned books
 					</h3>
 					<div className="card shadow-lg p-3 mb-5">
-						<table class="table table-hover">
+						<table className="table table-hover">
 							<thead>
 								<tr>
 									<th scope="col">Book Title</th>
@@ -118,7 +118,7 @@ export const Dashboard = () => {
 						</button>
 					</div>
 					<div className="card shadow-lg p-3 mb-5">
-						<table class="table table-hover">
+						<table className="table table-hover">
 							<thead>
 								<tr>
 									<th scope="col">Book Title</th>
@@ -127,8 +127,8 @@ export const Dashboard = () => {
 								</tr>
 							</thead>
 							<tbody>
-								{books.map((book) => (
-									<tr>
+								{books.map((book, index) => (
+									<tr key={index}>
 										<td>{book.title}</td>
 										<td>
 											<button className="btn btn-outline-danger btn-sm">
@@ -136,7 +136,7 @@ export const Dashboard = () => {
 											</button>
 										</td>
 										<td>
-											<span class="badge badge-success">
+											<span className="badge badge-success">
 												Available
 											</span>
 										</td>
