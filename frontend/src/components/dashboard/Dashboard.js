@@ -127,45 +127,21 @@ export const Dashboard = () => {
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>Ugglelexikonet</td>
-									<td>
-										<button className="btn btn-outline-danger btn-sm">
-											Remove
-										</button>
-									</td>
-									<td>
-										<span class="badge badge-success">
-											Available
-										</span>
-									</td>
-								</tr>
-								<tr>
-									<td>Ugglornas magiska värld</td>
-									<td>
-										<button className="btn btn-outline-danger btn-sm">
-											Remove
-										</button>
-									</td>
-									<td>
-										<span class="badge badge-danger">
-											Unavailable
-										</span>
-									</td>
-								</tr>
-								<tr>
-									<td>Owl Fight Club</td>
-									<td>
-										<button className="btn btn-outline-danger btn-sm">
-											Remove
-										</button>
-									</td>
-									<td>
-										<span class="badge badge-success">
-											Available
-										</span>
-									</td>
-								</tr>
+								{books.map((book) => (
+									<tr>
+										<td>{book.title}</td>
+										<td>
+											<button className="btn btn-outline-danger btn-sm">
+												Remove
+											</button>
+										</td>
+										<td>
+											<span class="badge badge-success">
+												Available
+											</span>
+										</td>
+									</tr>
+								))}
 							</tbody>
 						</table>
 					</div>
