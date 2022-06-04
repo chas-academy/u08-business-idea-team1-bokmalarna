@@ -64,8 +64,11 @@ export const Login = () => {
 						onSubmit={onSubmit}
 					>
 						<div className="row g-3 align-items-center d-flex justify-content-center">
-							<div class="col-auto">
-								<label for="email" class="col-form-label">
+							<div className="col-auto">
+								<label
+									htmlFor="email"
+									className="col-form-label"
+								>
 									Email
 								</label>
 							</div>
@@ -81,8 +84,11 @@ export const Login = () => {
 									onChange={onChange}
 								/>
 							</div>
-							<div class="col-auto">
-								<label for="password" class="col-form-label">
+							<div className="col-auto">
+								<label
+									htmlFor="password"
+									className="col-form-label"
+								>
 									Password
 								</label>
 							</div>
