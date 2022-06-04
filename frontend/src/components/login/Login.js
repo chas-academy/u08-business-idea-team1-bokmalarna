@@ -48,6 +48,7 @@ export const Login = () => {
 
 	//When component mounts
 	useEffect(() => {
+		//User should not be able to login while he/she is already loged in.
 		if (user) {
 			navigate('/dashboard');
 		}
