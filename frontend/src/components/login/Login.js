@@ -48,42 +48,69 @@ export const Login = () => {
 
 	return (
 		<>
-			<section>
-				<h1>Login</h1>
-			</section>
-			<section>
-				<form onSubmit={onSubmit}>
-					<div className="form-group">
-						<input
-							type="email"
-							className="form-controll"
-							id="email"
-							name="email"
-							value={email}
-							placeholder="Enter your email"
-							onChange={onChange}
+			<main className="App bg-books py-5 px-4">
+				<section className="container shadow bg-body rounded bg-opacity-75 mb-5 py-5">
+					<h1 className="text-center pt-5 display-1 fw-normal">
+						Login
+					</h1>
+					<div className="d-flex justify-content-center my-5">
+						<img
+							src="https://i.imgur.com/S8WCatY.png"
+							alt="BookOwl Logo"
 						/>
 					</div>
+					<form
+						className="d-flex column justify-content-center align-items-center"
+						onSubmit={onSubmit}
+					>
+						<div className="row g-3 align-items-center d-flex justify-content-center">
+							<div class="col-auto">
+								<label for="email" class="col-form-label">
+									Email
+								</label>
+							</div>
 
-					<div className="form-group">
-						<input
-							type="password"
-							className="form-controll"
-							id="password"
-							name="password"
-							value={password}
-							placeholder="Enter your password"
-							onChange={onChange}
-						/>
-					</div>
+							<div className="form-group">
+								<input
+									type="email"
+									className="form-control"
+									id="email"
+									name="email"
+									value={email}
+									placeholder="Enter your email"
+									onChange={onChange}
+								/>
+							</div>
+							<div class="col-auto">
+								<label for="password" class="col-form-label">
+									Password
+								</label>
+							</div>
+							<div className="form-group">
+								<input
+									type="password"
+									className="form-control"
+									id="password"
+									name="password"
+									value={password}
+									placeholder="Enter your password"
+									onChange={onChange}
+								/>
+							</div>
 
-					<div className="form-group">
-						<button type="submit" className="btn btn-block">
-							Submit
-						</button>
-					</div>
-				</form>
-			</section>
+							<div className="form-group text-center">
+								<button
+									type="submit"
+									className="btn btn-primary"
+									style={{ backgroundColor: '#81647C' }}
+								>
+									Submit
+								</button>
+							</div>
+						</div>
+					</form>
+				</section>
+			</main>
 		</>
 	);
 };
