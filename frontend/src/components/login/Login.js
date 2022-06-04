@@ -49,7 +49,7 @@ export const Login = () => {
 	return (
 		<>
 			<main className="App bg-books py-5 px-4">
-				<section className="container shadow bg-body rounded bg-opacity-75 mb-5 py-5">
+				<section className="container shadow bg-body rounded border border-dark bg-opacity-75 pb-4">
 					<h1 className="text-center pt-5 display-1 fw-normal">
 						Login
 					</h1>
