@@ -73,7 +73,7 @@ export const Login = () => {
 							<div className="form-group">
 								<input
 									type="email"
-									className="form-control"
+									className="form-control rounded border border-dark"
 									id="email"
 									name="email"
 									value={email}
@@ -89,7 +89,7 @@ export const Login = () => {
 							<div className="form-group">
 								<input
 									type="password"
-									className="form-control"
+									className="form-control rounded border border-dark"
 									id="password"
 									name="password"
 									value={password}
@@ -101,7 +101,7 @@ export const Login = () => {
 							<div className="form-group text-center">
 								<button
 									type="submit"
-									className="btn btn-primary"
+									className="btn text-white"
 									style={{ backgroundColor: '#81647C' }}
 								>
 									Submit
