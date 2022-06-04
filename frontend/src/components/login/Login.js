@@ -53,7 +53,7 @@ export const Login = () => {
 					<h1 className="text-center pt-5 display-1 fw-normal">
 						Login
 					</h1>
-					<div className="d-flex justify-content-center my-5">
+					<div className="d-flex justify-content-center my-2">
 						<img
 							src="https://i.imgur.com/S8WCatY.png"
 							alt="BookOwl Logo"
