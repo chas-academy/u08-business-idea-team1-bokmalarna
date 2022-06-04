@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
@@ -45,6 +45,13 @@ export const Login = () => {
 			window.location.reload();
 		}
 	};
+
+	//When component mounts
+	useEffect(() => {
+		if (user) {
+			navigate('/dashboard');
+		}
+	}, [user]);
 
 	return (
 		<>
