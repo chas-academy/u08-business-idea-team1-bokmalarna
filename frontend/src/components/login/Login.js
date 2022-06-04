@@ -75,7 +75,7 @@ export const Login = () => {
 							<div className="col-auto">
 								<label
 									htmlFor="email"
-									className="col-form-label"
+									className="col-form-label fw-bold"
 								>
 									Email
 								</label>
@@ -95,7 +95,7 @@ export const Login = () => {
 							<div className="col-auto">
 								<label
 									htmlFor="password"
-									className="col-form-label"
+									className="col-form-label fw-bold"
 								>
 									Password
 								</label>
