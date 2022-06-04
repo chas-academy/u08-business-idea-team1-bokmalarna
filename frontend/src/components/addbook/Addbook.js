@@ -5,7 +5,6 @@ import axios from "axios";
 export const Addbook = () => {
   const [formData, setFormData] = useState({
     title: "",
-    // image: "",
     author: "",
     description: "",
     genre: "",
@@ -31,13 +30,7 @@ export const Addbook = () => {
     //   setImage(data);
     // }
     // reader.readAsDataURL(file);
-
-    // setFormData({...formData, [e.target.name]: e.target.value});
-
-    // setImage(e.target.files[0]);
-    // setFormData({...formData, [e.target.name]: e.target.files[0]});
   };
-
 
   const imageHandler = (e) => {
     const reader = new FileReader();
@@ -46,35 +39,52 @@ export const Addbook = () => {
     reader.onloadend = async () => {
       const data = new FormData();
       data.append("file", file);
+      // console.log(file)
       setImage(data);
+      // ÄNDRA ALDRIG DATA TILL FILE IGEN
+      // console.log(image)
     }
     reader.readAsDataURL(file);
   }
 
   const onSubmit = (e) => {
     e.preventDefault();
+
+    // const formData = new FormData(); 
+    // formData.append("image", image);
+    // formData.append("title", title);
+    // formData.append("author", author);
+    // formData.append("description", description);
+    // formData.append("genre", genre);
+    // formData.append("condition", condition);
+    // formData.append("release", release);
+    // formData.append("owner", owner);
+    // formData.append("image", image);
+    
     // const { title, author, description, genre, condition, release, owner } = formData;
     // image.append(formData);
-    // image.append("author", author);
-    // image.append("description", description);
-    // image.append("genre", genre);
-    // image.append("condition", condition);
-    // image.append("release", release);
-    // image.append("owner", owner);
+    // image.push("author", author);
+    // image.push("description", description);
+    // image.push("genre", genre);
+    // image.push("condition", condition);
+    // image.push("release", release);
+    // image.push("owner", owner);
 
-    // addBook(image);
+    // console.log(formData)
+    // console.log(image);
+    addBook(image, formData);
   };
 
-  const addBook = async (formData) => {
+  const addBook = async (image, formData) => {
     // console.log(formData.image);
 
     // const imageFile = formData.image;
     // const uploadPath = __dirname + './uploads' + imageFile.name;
 
-    // console.log(imageFile);
-    // console.log(uploadPath);
+    console.log(image);
+    console.log(formData);
 
-    await axios.post(process.env.REACT_APP_API_URL + "book/newBook", formData, {headers: { "content-type": "multipart/form-data" }}).then((res) => {
+    await axios.post(process.env.REACT_APP_API_URL + "book/newBook", image, formData, {headers: { "content-type": "multipart/form-data" }}).then((res) => {
       console.log(res);
       //Här är något fel. 
     });

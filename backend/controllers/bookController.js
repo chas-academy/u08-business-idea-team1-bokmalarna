@@ -18,6 +18,7 @@ const uploadImg = multer({ storage: storage }).single("file");
 // Create new book incl. image
 
 const newBook = (req, res) => {
+  console.log(req)
   console.log(req.file)
   const newBook = new Book({
     title: req.body.title,
