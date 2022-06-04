@@ -1,4 +1,4 @@
-describe("register.cy.js", () => {
+describe("Register new user", () => {
   it("succesfully loads", () => {
     cy.visit("/");
     cy.contains("Register").click();
