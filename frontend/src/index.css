@@ -1,15 +1,30 @@
 /* @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css"); */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;500&display=swap');
 
 body {
 	margin: 0;
-	font-family: 'Montserrat', sans-serif;
+	font-family: 'Raleway', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+div,
+section,
+span,
+button {
+	font-family: 'Raleway', sans-serif;
+}
+
 code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-		monospace;
+	font-family: 'Raleway', sans-serif;
 }
 
 .lightbrownbg {
@@ -33,8 +48,10 @@ code {
 }
 
 .darkbrown-nav {
-	background-color: #88644d;
+	background-color: #42291a;
+	font-weight: bold;
 }
+
 /* .darkbrown-nav div a {
 	color: #ffffff;
 } */
