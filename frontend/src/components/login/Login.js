@@ -104,7 +104,7 @@ export const Login = () => {
 									className="btn text-white"
 									style={{ backgroundColor: '#81647C' }}
 								>
-									Submit
+									Login
 								</button>
 							</div>
 						</div>
