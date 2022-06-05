@@ -7,6 +7,7 @@ export const Dashboard = () => {
 	const navigate = useNavigate();
 	const user = Cookies.get('access_token');
 	const [getUser, setGetUser] = useState({});
+	const [books, setBooks] = useState([]);
 
 	const checkUser = async () => {
 		//User sends its access_token in headers to BE to be decoded.
@@ -26,13 +27,36 @@ export const Dashboard = () => {
 			});
 	};
 
+	//Get users uploaded books
+	const getBooks = async (id) => {
+		await axios
+			.get(process.env.REACT_APP_API_URL + `book/user/${id}`)
+			.then((res) => {
+				if (res.data) {
+					setBooks(res.data.message);
+				}
+			});
+	};
+	const deleteBook = async (id) => {
+		console.log(id);
+		await axios
+			.delete(process.env.REACT_APP_API_URL + `book/${id}`)
+			.then((res) => {
+				window.location.reload();
+				console.log(res.data.message);
+			});
+	};
+
+	// When dashboard loads, it will fetch the users: Information, Books and loaned books
 	useEffect(() => {
 		if (!user) {
 			navigate('/');
 		} else {
 			checkUser();
+			getBooks(getUser.id);
 		}
-	}, [user, navigate]);
+	}, [getUser.id]);
+
 	return (
 		<div className="lightbrownbg">
 			<section className="container">
@@ -54,7 +78,7 @@ export const Dashboard = () => {
 						List of loaned books
 					</h3>
 					<div className="card shadow-lg p-3 mb-5">
-						<table class="table table-hover">
+						<table className="table table-hover">
 							<thead>
 								<tr>
 									<th scope="col">Book Title</th>
@@ -104,7 +128,7 @@ export const Dashboard = () => {
 						</button>
 					</div>
 					<div className="card shadow-lg p-3 mb-5">
-						<table class="table table-hover">
+						<table className="table table-hover">
 							<thead>
 								<tr>
 									<th scope="col">Book Title</th>
@@ -113,45 +137,26 @@ export const Dashboard = () => {
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>Ugglelexikonet</td>
-									<td>
-										<button className="btn btn-outline-danger btn-sm">
-											Remove
-										</button>
-									</td>
-									<td>
-										<span class="badge badge-success">
-											Available
-										</span>
-									</td>
-								</tr>
-								<tr>
-									<td>Ugglornas magiska värld</td>
-									<td>
-										<button className="btn btn-outline-danger btn-sm">
-											Remove
-										</button>
-									</td>
-									<td>
-										<span class="badge badge-danger">
-											Unavailable
-										</span>
-									</td>
-								</tr>
-								<tr>
-									<td>Owl Fight Club</td>
-									<td>
-										<button className="btn btn-outline-danger btn-sm">
-											Remove
-										</button>
-									</td>
-									<td>
-										<span class="badge badge-success">
-											Available
-										</span>
-									</td>
-								</tr>
+								{books.map((book, index) => (
+									<tr key={index}>
+										<td>{book.title}</td>
+										<td>
+											<button
+												className="btn btn-outline-danger btn-sm"
+												onClick={() => {
+													deleteBook(book._id);
+												}}
+											>
+												Remove
+											</button>
+										</td>
+										<td>
+											<span className="badge badge-success">
+												Available
+											</span>
+										</td>
+									</tr>
+								))}
 							</tbody>
 						</table>
 					</div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
@@ -46,44 +46,74 @@ export const Login = () => {
     }
   };
 
+  //When component mounts
+  useEffect(() => {
+    //User should not be able to login while he/she is already loged in.
+    if (user) {
+      navigate("/dashboard");
+    }
+  }, [user]);
+
   return (
     <>
-      <section>
-        <h1>Login</h1>
-      </section>
-      <section>
-        <form onSubmit={onSubmit}>
-          <div className="form-group">
-            <input
-              type="email"
-              className="form-controll"
-              id="email"
-              name="email"
-              value={email}
-              placeholder="Enter your email"
-              onChange={onChange}
-            />
+      <main className="App bg-books py-5 px-4">
+        <section className="container shadow bg-body rounded border border-dark bg-opacity-75 pb-4">
+          <h1 className="text-center pt-5 display-1 fw-normal">Login</h1>
+          <div className="d-flex justify-content-center my-2">
+            <img src="https://i.imgur.com/S8WCatY.png" alt="BookOwl Logo" />
           </div>
+          <form
+            className="d-flex column justify-content-center align-items-center"
+            onSubmit={onSubmit}
+          >
+            <div className="row g-3 align-items-center d-flex justify-content-center">
+              <div className="col-auto">
+                <label htmlFor="email" className="col-form-label fw-bold">
+                  Email
+                </label>
+              </div>
 
-          <div className="form-group">
-            <input
-              type="password"
-              className="form-controll"
-              id="password"
-              name="password"
-              value={password}
-              placeholder="Enter your password"
-              onChange={onChange}
-            />
-          </div>
+              <div className="form-group">
+                <input
+                  type="email"
+                  className="form-control rounded border border-dark"
+                  id="email"
+                  name="email"
+                  value={email}
+                  placeholder="Enter your email"
+                  onChange={onChange}
+                />
+              </div>
+              <div className="col-auto">
+                <label htmlFor="password" className="col-form-label fw-bold">
+                  Password
+                </label>
+              </div>
+              <div className="form-group">
+                <input
+                  type="password"
+                  className="form-control rounded border border-dark"
+                  id="password"
+                  name="password"
+                  value={password}
+                  placeholder="Enter your password"
+                  onChange={onChange}
+                />
+              </div>
 
-          <div className="form-group">
-            <button type="submit" className="btn btn-block">
-              Submit
-            </button>
-          </div>
-        </form>
-      </section>
+              <div className="form-group text-center">
+                <button
+                  type="submit"
+                  className="btn text-white"
+                  style={{ backgroundColor: "#81647C" }}
+                >
+                  Login
+                </button>
+              </div>
+            </div>
+          </form>
+        </section>
+      </main>
     </>
   );
 };
