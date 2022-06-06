@@ -1,11 +1,8 @@
 import React from "react";
-import Nav from "../nav/nav";
-import Footer from "../footer/Footer"
 
 export const Addbook = () => {
   return (
     <section className="lightbrownbg">
-      <Nav />
       <div className='container text-center p-5'>
         <form method="POST" className='card shadow-lg d-flex align-items-center'>
           <h2 className="m-4 fw-bold">Add a book</h2>
@@ -60,7 +57,7 @@ export const Addbook = () => {
           </div>
         </form>
       </div>
-      <Footer />
+      
     </section>
   );
 };
