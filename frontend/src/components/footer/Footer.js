@@ -9,7 +9,7 @@ export const Footer = () => {
           <div className="container col p-0 d-flex flex-column align-items-center">
             <h4 className="mt-4 fs-6 text-decoration-underline">Socials</h4>
             <ul className="list-group list-group-flush d-flex flex-column list-unstyled">
-              <li className="darkbrown-nav p-0 border-0 mb-1">
+              <li className="p-0 border-0 mb-1">
                 <a
                   href="https://github.com/"
                   className="text-decoration-none text-white"
@@ -18,7 +18,7 @@ export const Footer = () => {
                   Github
                 </a>
               </li>
-              <li className="darkbrown-nav p-0 border-0 mb-1">
+              <li className="p-0 border-0 mb-1">
                 <a
                   href="https://www.instagram.com/"
                   className="text-decoration-none text-white"
@@ -27,7 +27,7 @@ export const Footer = () => {
                   Instagram
                 </a>
               </li>
-              <li className=" darkbrown-nav p-0 border-0 mb-1">
+              <li className="p-0 border-0 mb-1">
                 <a
                   href="https://twitter.com/"
                   className="text-decoration-none text-white"
@@ -36,7 +36,7 @@ export const Footer = () => {
                   Twitter
                 </a>
               </li>
-              <li className=" darkbrown-nav p-0 border-0 mb-1">
+              <li className="p-0 border-0 mb-1">
                 <a
                   href="https://www.linkedin.com/"
                   className="text-decoration-none text-white"
@@ -50,7 +50,7 @@ export const Footer = () => {
           <div className="container col p-0 d-flex flex-column align-items-center">
             <h4 className="mt-3 fs-6 text-decoration-underline">Made by:</h4>
             <ul className="list-group list-group-flush d-flex flex-column list-unstyled">
-              <li className="darkbrown-nav p-0 border-0 mb-1">
+              <li className="p-0 border-0 mb-1">
                 <a
                   href="https://github.com/amawre"
                   className="text-decoration-none text-white"
@@ -59,7 +59,7 @@ export const Footer = () => {
                   Amanda
                 </a>
               </li>
-              <li className=" darkbrown-nav p-0 border-0 mb-1">
+              <li className="p-0 border-0 mb-1">
                 <a
                   href="https://github.com/Jonon"
                   className="text-decoration-none text-white"
@@ -68,7 +68,7 @@ export const Footer = () => {
                   Jonathan
                 </a>
               </li>
-              <li className=" darkbrown-nav p-0 border-0 mb-1">
+              <li className="p-0 border-0 mb-1">
                 <a
                   href="https://github.com/DavidMelander"
                   className="text-decoration-none text-white"
@@ -77,7 +77,7 @@ export const Footer = () => {
                   David
                 </a>
               </li>
-              <li className=" darkbrown-nav p-0 border-0 mb-1">
+              <li className="p-0 border-0 mb-1">
                 <a
                   href="https://github.com/fbarfvestam"
                   className="text-decoration-none text-white"
@@ -86,7 +86,7 @@ export const Footer = () => {
                   Filip
                 </a>
               </li>
-              <li className=" darkbrown-nav p-0 border-0 mb-1">
+              <li className="p-0 border-0 mb-1">
                 <a
                   href="https://github.com/Albatraoz12"
                   className="text-decoration-none text-white"
@@ -95,7 +95,7 @@ export const Footer = () => {
                   Dimos
                 </a>
               </li>
-              <li className=" darkbrown-nav p-0 border-0 mb-1">
+              <li className="p-0 border-0 mb-1">
                 <a
                   href="https://github.com/frinica"
                   className="text-decoration-none text-white"
@@ -104,7 +104,7 @@ export const Footer = () => {
                   Frida
                 </a>
               </li>
-              <li className=" darkbrown-nav p-0 border-0 mb-1">
+              <li className="p-0 border-0 mb-1">
                 <a
                   href="https://github.com/lkthorn"
                   className="text-decoration-none text-white"
