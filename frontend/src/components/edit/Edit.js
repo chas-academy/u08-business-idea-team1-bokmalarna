@@ -4,16 +4,17 @@ import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom';
 
 export const Edit = () => {
-  const API_URL = `${process.env.REACT_APP_API_URL}/user/`;
-
 	const navigate = useNavigate();
   const user = Cookies.get("access_token");
   const [getUser, setGetUser] = useState({});
 
   const checkUser = async () => {
     await axios
-      .get(`${process.env.REACT_APP_API_URL}/user/protected`, {
+      .get(`${process.env.REACT_APP_API_URL}user/protected`, {
         withCredentials: true,
+        headers: {
+					Authorization: `Bearer ${user}`,
+				},
       })
       .then((res) => {
         if (res.data.user) {
@@ -89,9 +90,10 @@ export const Edit = () => {
     return errors;
   };
 
-  const edit = async (userData) => {
+  const edit = (userData) => {
+    const API_URL = `${process.env.REACT_APP_API_URL}user/`;
     const userId = getUser.id
-    await axios.put(API_URL + "/" + userId + "/edit", userData).then((res) => {
+    axios.put(API_URL + "/" + userId + "/edit", userData).then((res) => {
       console.log(res.data);
     });
     alert("Settings will be updated next time you log in!")
