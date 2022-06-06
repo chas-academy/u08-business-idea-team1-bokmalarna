@@ -3,15 +3,15 @@ import Nav from "../nav/nav";
 import axios from "axios";
 
 export const Addbook = () => {
-  const [formData, setFormData] = useState({
-    title: "",
-    author: "",
-    description: "",
-    genre: "",
-    condition: "",
-    release: "",
-    owner: ""
-  });
+  // const [formData, setFormData] = useState({
+  //   title: "",
+  //   author: "",
+  //   description: "",
+  //   genre: "",
+  //   condition: "",
+  //   release: "",
+  //   owner: ""
+  // });
   const [image, setImage] = useState("");
 
   const { title, author, description, genre, condition, release, owner } = formData;
@@ -19,33 +19,33 @@ export const Addbook = () => {
   const onChange = (e) => {
     e.preventDefault();
 
-    setFormData({...formData, [e.target.name]: e.target.value})
+    // setFormData({...formData, [e.target.name]: e.target.value})
 
-    // const reader = new FileReader();
-    // const file = e.target.files[0];
-
-    // reader.onloadend = async () => {
-    //   const data = new FormData();
-    //   data.append("file", file);
-    //   setImage(data);
-    // }
-    // reader.readAsDataURL(file);
-  };
-
-  const imageHandler = (e) => {
     const reader = new FileReader();
     const file = e.target.files[0];
 
     reader.onloadend = async () => {
       const data = new FormData();
       data.append("file", file);
-      // console.log(file)
       setImage(data);
-      // ÄNDRA ALDRIG DATA TILL FILE IGEN
-      // console.log(image)
     }
     reader.readAsDataURL(file);
-  }
+  };
+
+  // const imageHandler = (e) => {
+  //   const reader = new FileReader();
+  //   const file = e.target.files[0];
+
+  //   reader.onloadend = async () => {
+  //     const data = new FormData();
+  //     data.append("file", file);
+  //     // console.log(file)
+  //     setImage(data);
+  //     // ÄNDRA ALDRIG DATA TILL FILE IGEN
+  //     // console.log(image)
+  //   }
+  //   reader.readAsDataURL(file);
+  // }
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -72,19 +72,19 @@ export const Addbook = () => {
 
     // console.log(formData)
     // console.log(image);
-    addBook(image, formData);
+    addBook(image);
   };
 
-  const addBook = async (image, formData) => {
+  const addBook = async () => {
     // console.log(formData.image);
 
     // const imageFile = formData.image;
     // const uploadPath = __dirname + './uploads' + imageFile.name;
 
-    console.log(image);
-    console.log(formData);
+    // console.log(image);
+    // console.log(formData);
 
-    await axios.post(process.env.REACT_APP_API_URL + "book/newBook", image, formData, {headers: { "content-type": "multipart/form-data" }}).then((res) => {
+    await axios.post(process.env.REACT_APP_API_URL + "book/newBook", image, {headers: { "content-type": "multipart/form-data" }}).then((res) => {
       console.log(res);
       //Här är något fel. 
     });
@@ -92,17 +92,16 @@ export const Addbook = () => {
 
   return (
     <section className="lightbrownbg">
-      <Nav />
       <div className='container text-center p-5'>
         <form encType="multipart/form-data" className='card shadow-lg d-flex align-items-center'>
           <h2 className="m-4 fw-bold">Add a book</h2>
-          <label className="mt-3 mb-1">Title</label>
-          <input className="form-control w-50" type="text" name="title" value={title} onChange={onChange}/>
+          {/* <label className="mt-3 mb-1">Title</label>
+          <input className="form-control w-50" type="text" name="title" value={title} onChange={onChange}/> */}
 
           <label className="mt-3 mb-1">Upload Image</label>
-          <input className="form-control w-50" type="file" name="image" accept="image/*" onChange={imageHandler}/>
+          <input className="form-control w-50" type="file" name="image" accept="image/*" onChange={onChange}/>
 
-          <label className="mt-3 mb-1">Author</label>
+          {/* <label className="mt-3 mb-1">Author</label>
           <input className="form-control w-50" type="text" name="author" value={author} onChange={onChange}/>
 
           <label className="mt-3 mb-1">Description</label>
@@ -139,11 +138,11 @@ export const Addbook = () => {
           <input className="form-control w-50 text-center" type="date" name="release" value={release} onChange={onChange}/>
 
           {/* <input className="visually-hidden" name="user" value={} /> */}
-          <input className="form-control w-50 text-center" type="text" name="owner" value={owner} onChange={onChange} />
+          {/* <input className="form-control w-50 text-center" type="text" name="owner" value={owner} onChange={onChange} /> */}
 
           <div className="mt-2">
-            <a className='btn btn-outline-secondary bg-danger text-white m-3' href="/dashboard">Cancel</a>
-            <button className='btn btn-outline-secondary purple text-white m-3' type="submit" onClick={onSubmit}>Add book</button>
+            <a className='btn btn-outline-secondary bg-danger text-white m-3' href="/dashboard">Cancel</a> 
+            <button className='btn btn-outline-secondary' type="submit" onClick={onSubmit}>Add book</button>
           </div>
         </form>
       </div>

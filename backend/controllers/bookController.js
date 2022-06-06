@@ -21,15 +21,15 @@ const newBook = (req, res) => {
   console.log(req)
   console.log(req.file)
   const newBook = new Book({
-    title: req.body.title,
-    author: req.body.author,
+    // title: req.body.title,
+    // author: req.body.author,
     image: req.file.path,
-    description: req.body.description,
-    genre: req.body.genre,
-    condition: req.body.condition,
-    released: req.body.released,
-    owner: req.body.owner,
-    borrower: req.body.borrower,
+    // description: req.body.description,
+    // genre: req.body.genre,
+    // condition: req.body.condition,
+    // released: req.body.released,
+    // owner: req.body.owner,
+    // borrower: req.body.borrower,
   });
   newBook.save().then(res.json("New book is created."));
 };
