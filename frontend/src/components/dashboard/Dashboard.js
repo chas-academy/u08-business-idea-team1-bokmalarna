@@ -68,7 +68,9 @@ export const Dashboard = () => {
 			navigate('/');
 		} else {
 			checkUser();
+			//After checkusers runs, it will return a user id which will be stored inside getUser state.
 			if (getUser.id) {
+				//If getUser has a id stored, it will then run the two functions.
 				getBooks(getUser.id);
 				borrowedBooks(getUser.id);
 			}
