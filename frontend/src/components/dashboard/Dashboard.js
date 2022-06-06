@@ -8,6 +8,7 @@ export const Dashboard = () => {
 	const user = Cookies.get('access_token');
 	const [getUser, setGetUser] = useState({});
 	const [books, setBooks] = useState([]);
+	const [borrowed, setBorrowed] = useState([]);
 
 	const checkUser = async () => {
 		//User sends its access_token in headers to BE to be decoded.
@@ -37,6 +38,20 @@ export const Dashboard = () => {
 				}
 			});
 	};
+
+	//Get users borrowed books
+	const borrowedBooks = async (id) => {
+		await axios
+			.get(process.env.REACT_APP_API_URL + `book/borrowed/${id}`)
+			.then((res) => {
+				if (res.data) {
+					console.log('borrowed books: ', res.data.message);
+					setBorrowed(res.data.message);
+				}
+			});
+	};
+
+	//Delete user book
 	const deleteBook = async (id) => {
 		console.log(id);
 		await axios
@@ -54,6 +69,7 @@ export const Dashboard = () => {
 		} else {
 			checkUser();
 			getBooks(getUser.id);
+			borrowedBooks(getUser.id);
 		}
 	}, [getUser.id]);
 
@@ -87,33 +103,18 @@ export const Dashboard = () => {
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>Boken om lilla ugglan</td>
-									<td>Dimos</td>
-									<td>
-										<button className="btn btn-outline-danger btn-sm">
-											Return
-										</button>
-									</td>
-								</tr>
-								<tr>
-									<td>Ugglornas värld</td>
-									<td>Filip</td>
-									<td>
-										<button className="btn btn-outline-danger btn-sm">
-											Return
-										</button>
-									</td>
-								</tr>
-								<tr>
-									<td>Sagan om de två ugglorna</td>
-									<td>Frida</td>
-									<td>
-										<button className="btn btn-outline-danger btn-sm">
-											Return
-										</button>
-									</td>
-								</tr>
+								{/* After fetching users borrowed books, they will be displayed here */}
+								{borrowed.map((borrow, index) => (
+									<tr key={index}>
+										<td>{borrow.title}</td>
+										<td>{borrow.author}</td>
+										<td>
+											<button className="btn btn-outline-danger btn-sm">
+												Return
+											</button>
+										</td>
+									</tr>
+								))}
 							</tbody>
 						</table>
 					</div>
@@ -137,6 +138,7 @@ export const Dashboard = () => {
 								</tr>
 							</thead>
 							<tbody>
+								{/* After fetching users books, they will be displayed here */}
 								{books.map((book, index) => (
 									<tr key={index}>
 										<td>{book.title}</td>
