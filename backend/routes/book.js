@@ -33,18 +33,26 @@ router.get("/borrowed/:id", async (req, res) => {
   }
 });
 
-// GET books
-router.get("/:searchParam?/:location?", async (req, res) => {
-  const search = req.params.searchParam;
-  console.log(search);
+// GET searched books
+router.get("/:searchParam?&:location?", async (req, res) => {
+  const { searchParam, location } = req.params;
+  const search = searchParam.split("=");
+  const city = location.split("=");
+
   try {
-    const books = await Book.find({ title: search });
+    const books = await Book.find({ title: search[1] });
     if (books.length > 0) {
       res.status(200).json(books);
     } else if (books.length === 0) {
-      const books = await Book.find({ author: search });
+      const books = await Book.find({ author: search[1] });
       res.status(200).json(books);
     }
+    const book = books.map((book) => book.owner);
+    console.log(book);
+    const owner = book.map((id, index) => {
+      return id + index;
+    });
+    console.log(owner);
   } catch (error) {
     res.status(500).json({ message: "Could not find any books" });
   }

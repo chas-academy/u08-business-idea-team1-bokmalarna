@@ -8,7 +8,7 @@ export const Search = () => {
 
   const searchBooks = async () => {
     const res = await axios.get(
-      `${process.env.REACT_APP_API_URL}book/${searchTerm}/${location}`
+      `${process.env.REACT_APP_API_URL}book/search=${searchTerm}&location=${location}`
     );
     console.log(res);
     setBooks(res.data);
