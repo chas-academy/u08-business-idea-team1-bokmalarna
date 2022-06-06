@@ -4,10 +4,11 @@ import React, { useState } from "react";
 export const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [books, setBooks] = useState([]);
+  const [location, setLocation] = useState("");
 
-  const searchBooks = async (title) => {
+  const searchBooks = async (title, location) => {
     const res = await axios.get(
-      process.env.REACT_APP_API_URL + "book/" + title
+      `${process.env.REACT_APP_API_URL}book/${title}+${location}`
     );
     setBooks(res.data);
   };
@@ -18,7 +19,7 @@ export const Search = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    searchBooks(searchTerm);
+    searchBooks(searchTerm, location);
   };
 
   return (
@@ -26,18 +27,28 @@ export const Search = () => {
       <section className="my-5 row">
         <form className="d-flex flex-column justify-content-center">
           <div className="mb-3 col">
-            <label htmlFor="formGroupExampleInput" className="form-label">
-              Search...
+            <label
+              htmlFor="formGroupExampleInput"
+              className="form-label fw-bold h3"
+            >
+              SEARCH
             </label>
             <input
               type="text"
               className="form-control"
               id="formGroupExampleInput"
-              placeholder="Search for a book"
+              placeholder="Search for a book or author"
               onChange={handleChange}
             />
           </div>
           <div className="d-flex">
+            <input
+              type="text"
+              className="form-control w-50"
+              id="location"
+              placeholder="Filter by location"
+              onChange={(e) => setLocation(e.target.value)}
+            />
             <select
               className="form-select form-select-sm w-50"
               aria-label=".form-select-sm example"
@@ -49,14 +60,14 @@ export const Search = () => {
               <option value="3">Thriller</option>
               <option value="3">Romance</option>
             </select>
-            <select
+            {/* <select
               className="form-select form-select-sm w-50"
               aria-label=".form-select-sm example"
             >
               <option value="">Sort By</option>
               <option value="1">Title</option>
               <option value="2">Author</option>
-            </select>
+            </select> */}
             <button
               type="submit"
               className="btn btn-primary"
