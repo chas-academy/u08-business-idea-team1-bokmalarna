@@ -3,27 +3,20 @@ import React, { useState } from "react";
 
 export const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [books, setBooks] = useState([]);
   const [location, setLocation] = useState("");
+  const [books, setBooks] = useState([]);
 
-  const searchBooks = async (title) => {
+  const searchBooks = async () => {
     const res = await axios.get(
-      `${process.env.REACT_APP_API_URL}book/${title}`
+      `${process.env.REACT_APP_API_URL}book/${searchTerm}/${location}`
     );
+    console.log(res);
     setBooks(res.data);
-  };
-
-  const searchFilteredBooks = async (location) => {
-    const res = await axios.get(`${process.env.REACT_APP_API_URL}`);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (location == null) {
-      searchBooks(searchTerm);
-    } else if (location != null) {
-      searchFilteredBooks();
-    }
+    searchBooks(searchTerm, location);
   };
 
   return (
@@ -36,7 +29,7 @@ export const Search = () => {
               type="text"
               className="form-control"
               id="formGroupExampleInput"
-              placeholder="Search for a book or author"
+              placeholder="Search for a book or an author"
               onChange={(e) => {
                 setSearchTerm(e.target.value);
               }}

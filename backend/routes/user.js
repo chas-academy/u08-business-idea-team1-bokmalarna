@@ -144,18 +144,24 @@ router.put("/:id/edit", async (req, res) => {
   }
 });
 
-//@desc Get a users location or first name
+//@desc Find a user based on location or ID
 //@routes GET /user/:id
 //@access Public
-router.get("/:id", async (req, res) => {
+router.get("/:id?/:location?", async (req, res) => {
+  const { id, location } = req.params;
+  console.log(id);
+  console.log(location);
   try {
-    const id = req.params.id;
-    const users = await User.find({ city: id });
+    const users = await User.find({ city: location });
+    // Execute code if users can be found by location to get the IDs
     if (users.length > 0) {
-      console.log(users);
-      res.status(200).json({ users });
-    } else if (users.length === 0) {
+      const userIds = users.map((user) => ({ id: user.id }));
+      res.status(200).json({ userIds });
+    }
+    // Execute code if users were not found by location but can be found by ID
+    else if (users.length === 0) {
       const user = await User.findById(id);
+      // Only return the users first name
       const bookOwner = user.firstName;
       res.status(200).json({ bookOwner });
     }
@@ -163,16 +169,5 @@ router.get("/:id", async (req, res) => {
     res.status(404).json({ message: "Found no user" });
   }
 });
-
-/* router.get("/city", async (req, res) => {
-  try {
-    const city = req.params.city;
-    console.log(city);
-    const users = await User.find({ city: city });
-    console.log(users);
-  } catch (error) {
-    res.status(404).json({ message: "Users not found" });
-  }
-}); */
 
 module.exports = router;
