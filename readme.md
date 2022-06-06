@@ -78,6 +78,8 @@ After the response the component will then make 2 new more requests one for fetc
 
 ### login
 
+This component will make a request call to the backend with the information given by the users and send it to the backend. The information the component will take is a email and a password. if successful the user will then be navigated to the dashborad with a JWT token and a message.
+
 ### nav
 
 ### registration
