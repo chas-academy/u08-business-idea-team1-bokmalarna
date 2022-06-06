@@ -50,8 +50,8 @@ code {
 }
 
 .darkbrown-nav {
-	background-color: #42291a;
-	font-weight: bold;
+	background: rgb(66,41,26);
+background: radial-gradient(circle, rgba(66,41,26,1) 0%, rgba(43,27,17,1) 100%);
 }
 
 /* .darkbrown-nav div a {
