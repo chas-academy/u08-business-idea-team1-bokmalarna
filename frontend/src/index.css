@@ -39,6 +39,8 @@ code {
 	font-size: 1.7rem;
 }
 
+
+
 /* .bookTitle {
   font-weight: bold;
 } */
@@ -55,3 +57,16 @@ code {
 /* .darkbrown-nav div a {
 	color: #ffffff;
 } */
+
+
+@media screen and (min-width: 680px) {
+	main {
+		min-height: 76vh;
+	} .mainPage {
+		margin-top: 10rem;
+		padding: 1.5rem;
+	}
+  }
+
+
+
