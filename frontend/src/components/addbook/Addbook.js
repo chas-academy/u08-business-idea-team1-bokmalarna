@@ -1,5 +1,4 @@
 import React from "react";
-import Footer from "../footer/Footer"
 
 export const Addbook = () => {
   return (
@@ -58,7 +57,7 @@ export const Addbook = () => {
           </div>
         </form>
       </div>
-      <Footer />
+      
     </section>
   );
 };
