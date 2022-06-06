@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 
 export const Edit = () => {
-  const API_URL = "http://localhost:8080/user/";
+  const API_URL = `${process.env.REACT_APP_API_URL}/user/`;
 
 
   const user = Cookies.get("access_token");
@@ -11,7 +11,7 @@ export const Edit = () => {
 
   const checkUser = async () => {
     await axios
-      .get("http://localhost:8080/user/protected", {
+      .get(`${process.env.REACT_APP_API_URL}/user/protected`, {
         withCredentials: true,
       })
       .then((res) => {
