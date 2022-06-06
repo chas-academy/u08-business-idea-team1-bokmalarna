@@ -144,18 +144,35 @@ router.put("/:id/edit", async (req, res) => {
   }
 });
 
-//@desc Get a users first name
+//@desc Get a users location or first name
 //@routes GET /user/:id
 //@access Public
 router.get("/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    const user = await User.findOne({ id });
-    const bookOwner = user.firstName;
-    res.status(200).json({ bookOwner });
+    const users = await User.find({ city: id });
+    if (users.length > 0) {
+      console.log(users);
+      res.status(200).json({ users });
+    } else if (users.length === 0) {
+      const user = await User.findById(id);
+      const bookOwner = user.firstName;
+      res.status(200).json({ bookOwner });
+    }
   } catch (error) {
-    res.status(404).json({ message: "User not found" });
+    res.status(404).json({ message: "Found no user" });
   }
 });
+
+/* router.get("/city", async (req, res) => {
+  try {
+    const city = req.params.city;
+    console.log(city);
+    const users = await User.find({ city: city });
+    console.log(users);
+  } catch (error) {
+    res.status(404).json({ message: "Users not found" });
+  }
+}); */
 
 module.exports = router;

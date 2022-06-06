@@ -6,39 +6,40 @@ export const Search = () => {
   const [books, setBooks] = useState([]);
   const [location, setLocation] = useState("");
 
-  const searchBooks = async (title, location) => {
+  const searchBooks = async (title) => {
     const res = await axios.get(
-      `${process.env.REACT_APP_API_URL}book/${title}+${location}`
+      `${process.env.REACT_APP_API_URL}book/${title}`
     );
     setBooks(res.data);
   };
 
-  const handleChange = (e) => {
-    setSearchTerm(e.target.value);
+  const searchFilteredBooks = async (location) => {
+    const res = await axios.get(`${process.env.REACT_APP_API_URL}`);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    searchBooks(searchTerm, location);
+    if (location == null) {
+      searchBooks(searchTerm);
+    } else if (location != null) {
+      searchFilteredBooks();
+    }
   };
 
   return (
     <section className="container my-5 rounded">
       <section className="my-5 row">
+        <h2 className="fw-bold text-center pb-2">SEARCH</h2>
         <form className="d-flex flex-column justify-content-center">
           <div className="mb-3 col">
-            <label
-              htmlFor="formGroupExampleInput"
-              className="form-label fw-bold h3"
-            >
-              SEARCH
-            </label>
             <input
               type="text"
               className="form-control"
               id="formGroupExampleInput"
               placeholder="Search for a book or author"
-              onChange={handleChange}
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+              }}
             />
           </div>
           <div className="d-flex">
