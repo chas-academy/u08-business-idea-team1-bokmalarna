@@ -68,8 +68,10 @@ export const Dashboard = () => {
 			navigate('/');
 		} else {
 			checkUser();
-			getBooks(getUser.id);
-			borrowedBooks(getUser.id);
+			if (getUser.id) {
+				getBooks(getUser.id);
+				borrowedBooks(getUser.id);
+			}
 		}
 	}, [getUser.id]);
 
