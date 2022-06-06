@@ -40,7 +40,7 @@ export const Search = () => {
               type="text"
               className="form-control w-50"
               id="location"
-              placeholder="Filter by location"
+              placeholder="Filter by city"
               onChange={(e) => setLocation(e.target.value)}
             />
             <select

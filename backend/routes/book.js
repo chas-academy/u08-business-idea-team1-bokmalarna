@@ -40,21 +40,21 @@ router.get("/:searchParam?&:location?", async (req, res) => {
   const city = location.split("=");
 
   try {
-    // Find books by title
-    const books = await Book.find({ title: search[1] }).populate("owner");
-    if (books.length > 0) {
-      res.status(200).json(books);
-    }
-    // Find books by author
-    else if (books.length === 0) {
-      const books = await Book.find({ author: search[1] }).populate("owner");
-      res.status(200).json(books);
-    }
-    // Filter books by location
-    if (city.length > 0) {
-      /* const ownerCity = books.map((book) => book.owner.city); */
+    if (search[1] != "") {
+      let books;
+      // Find books by title
+      books = await Book.find({ title: search[1] }).populate("owner");
+      // Find books by author
+      if (books.length === 0) {
+        books = await Book.find({ author: search[1] }).populate("owner");
+      }
+      // Filter books by location
       const filteredBooks = books.filter((book) => book.owner.city === city[1]);
-      console.log(filteredBooks);
+      if (filteredBooks.length != 0) {
+        res.status(200).json(filteredBooks);
+      } else {
+        res.status(200).json(books);
+      }
     }
   } catch (error) {
     res.status(500).json({ message: "Could not find any books" });
