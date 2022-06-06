@@ -4,10 +4,13 @@ export const Footer = () => {
   return (
     <footer className="darkbrown-nav d-flex justify-content-center">
       <div className="container-lg text-white m-2">
-        <div className="row align-items-start d-flex align-items-center">
-          <img src="bookowl.png" className="p-0" style={{ width: 90 }} />
+        <div className=" align-items-start d-flex">
+          <div className="mt-4 col d-flex flex-column align-items-center">
+            <img src="bookowl.png" className="p-1" style={{ width: 90 }} />
+              <p className="fs-6 mt-4"><img src="copyright.png" style={{ width: 15 }} className="m-1"/>2022 Bokmalarna</p>
+          </div>
           <div className="container col p-0 d-flex flex-column align-items-center">
-            <h4 className="mt-4 fs-6 text-decoration-underline">Socials</h4>
+            <h4 className="mt-3 fs-6 text-decoration-underline">Socials</h4>
             <ul className="list-group list-group-flush d-flex flex-column list-unstyled">
               <li className="p-0 border-0 mb-1">
                 <a
