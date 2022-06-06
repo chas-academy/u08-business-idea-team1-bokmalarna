@@ -1,11 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { useNavigate } from 'react-router-dom';
 
 export const Edit = () => {
   const API_URL = `${process.env.REACT_APP_API_URL}/user/`;
 
-
+	const navigate = useNavigate();
   const user = Cookies.get("access_token");
   const [getUser, setGetUser] = useState({});
 
@@ -23,9 +24,11 @@ export const Edit = () => {
   };
 
   useEffect(() => {
-    if (user) {
+    if (!user) {
+      navigate('/')
+    } else {
       checkUser();
-    } 
+    }
   }, [user]);
 
 
