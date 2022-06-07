@@ -34,10 +34,11 @@ router.get("/borrowed/:id", async (req, res) => {
 });
 
 // GET searched books
-router.get("/:searchParam?&:location?", async (req, res) => {
-  const { searchParam, location } = req.params;
+router.get("/:searchParam?&:location?&:genres", async (req, res) => {
+  const { searchParam, location, genres } = req.params;
   const search = searchParam.split("=");
   const city = location.split("=");
+  const genre = genres.split("=");
 
   try {
     if (search[1] != "") {
@@ -49,13 +50,31 @@ router.get("/:searchParam?&:location?", async (req, res) => {
         books = await Book.find({ author: search[1] }).populate("owner");
       }
       // Filter books by location
-      const filteredBooks = books.filter((book) => book.owner.city === city[1]);
-      if (filteredBooks.length != 0) {
-        res.status(200).json(filteredBooks);
-      } else {
+      const booksByCity = books.filter((book) => book.owner.city === city[1]);
+      if (booksByCity.length != 0) {
+        if (genre[1] === "" || genre[1] === "Genres") {
+          res.status(200).json(booksByCity);
+        }
+        // Filter array again based on selected genre
+        else if (genre[1] != "" || genre[1] != "Genres") {
+          const booksByGenre = booksByCity.filter(
+            (book) => book.genre === genre[1]
+          );
+          res.status(200).json(booksByGenre);
+        }
+      }
+      // Filter book-array from searched term based on selected genre
+      else if (genre[1] != "" || genre[1] != "Genres") {
+        const booksByGenre = books.filter((book) => book.genre === genre[1]);
+        res.status(200).json(booksByGenre);
+      }
+      // Return a book-array based on only searched term
+      else {
         res.status(200).json(books);
       }
-    } else if (search[1] === "" && city[1] != "") {
+    }
+    // Filter books on location without a title or author
+    else if (search[1] === "" && city[1] != "") {
       const owners = await User.find({ city: city[1] });
       const ownerId = owners.map((owner) => owner.id);
       const booksByCity = await Book.find({ owner: ownerId });
