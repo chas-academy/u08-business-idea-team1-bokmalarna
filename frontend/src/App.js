@@ -101,6 +101,7 @@ function App() {
 					<Route path="/addbook" element={<Addbook />} />
 					<Route path="/edit" element={<Edit />} />
 					<Route path="/edit/password" element={<EditPassword />} />
+					<Route path="delete" element={<Delete />} />
 				</Routes>
 			</div>
 			<Footer />
