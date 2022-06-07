@@ -42,9 +42,9 @@ export const Bookpage = () => {
 			}
 		}
 		console.log(book.borrower);
-		if (book.borrower === undefined) {
+		if (book.borrower === undefined || book.borrower === null) {
 			setBorrowed(true);
-		} else if (book.borrower !== undefined) {
+		} else {
 			setBorrowed(false);
 		}
 	}, [book.owner, book.borrower]);
