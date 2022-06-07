@@ -5,7 +5,6 @@ import Cookies from "js-cookie";
 export const Edit = () => {
   const API_URL = "http://localhost:8080/user/";
 
-
   const user = Cookies.get("access_token");
   const [getUser, setGetUser] = useState({});
 
@@ -22,18 +21,35 @@ export const Edit = () => {
       });
   };
 
+  const deleteUser = async (user) => {
+    const userId = getUser.id;
+    await axios
+      .deleteUser(API_URL + "/" + userId + "/edit", user)
+      .then((res) => {
+        console.log(res.data);
+      });
+    function deleteUser() {
+      let text = "Do you really want to delete your profile?";
+      if (deleteUser(text) == true) {
+        text = "User deleted";
+      } else {
+        text = "You canceled";
+      }
+      document.getElementById("delete").innerHTML = text;
+    }
+    alert("User deleted!");
+  };
+
   useEffect(() => {
     if (user) {
       checkUser();
-    } 
+    }
   }, [user]);
-
 
   const [formErrors, setFormErrors] = useState({});
   const [error, setError] = useState(true);
   const [submitted, setSubmitted] = useState(false);
-  const { firstName, lastName, city, email } =
-    getUser;
+  const { firstName, lastName, city, email } = getUser;
 
   const onChange = (e) => {
     setGetUser({ ...getUser, [e.target.name]: e.target.value });
@@ -45,6 +61,7 @@ export const Edit = () => {
     setFormErrors(validate(getUser));
     setSubmitted(true);
     checkUser();
+    deleteUser();
   };
 
   useEffect(() => {
@@ -87,11 +104,11 @@ export const Edit = () => {
   };
 
   const edit = async (userData) => {
-    const userId = getUser.id
+    const userId = getUser.id;
     await axios.put(API_URL + "/" + userId + "/edit", userData).then((res) => {
       console.log(res.data);
     });
-    alert("Settings will be updated next time you log in!")
+    alert("Settings will be updated next time you log in!");
   };
 
   console.log(user);
@@ -172,25 +189,24 @@ export const Edit = () => {
           </div>
 
           <div className="col-12 pt-1 text-center">
-              <button
-                type="submit"
-                className="btn btn btn-m"
-              
-              >
-                <a href="edit/password" className="text-decoration-none">
+            <button type="submit" className="btn btn btn-m">
+              <a href="edit/password" className="text-decoration-none">
                 Change Password
-                </a>
-              </button>
+              </a>
+            </button>
           </div>
+
           <div className="col-12 pt-4 text-center">
-					<button 
-            type="submit" 
-            className='btn btn-danger btn-m'
-            //onClick={onSubmit} - Write function to delete.
-            >
-							Delete my Account
-							</button>							
-							</div>
+            <button
+              
+              type="delete"
+              className="btn btn-danger btn-m"
+              onClick={deleteUser}>
+              <a href="edit/deleteUser" className="text-decoration-none">
+                Delete my Account
+              </a>
+            </button>
+          </div>
         </form>
       </section>
     </>
