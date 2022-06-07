@@ -14,6 +14,7 @@ import { EditPassword } from "./components/edit/Editpassword";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Home } from "./components/Home/Home";
 import Footer from "./components/footer/Footer";
+import Editbook from "./components/edit/Editbook";
 
 function App() {
 	const user = Cookies.get('access_token');
@@ -101,6 +102,7 @@ function App() {
 					<Route path="/addbook" element={<Addbook />} />
 					<Route path="/edit" element={<Edit />} />
 					<Route path="/edit/password" element={<EditPassword />} />
+					<Route path="/editbook/:id" element={<Editbook />} />
 				</Routes>
 			</div>
 			<Footer />
