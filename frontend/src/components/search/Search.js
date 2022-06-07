@@ -4,11 +4,12 @@ import React, { useState } from "react";
 export const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [location, setLocation] = useState("");
+  const [genre, setGenre] = useState("Genres");
   const [books, setBooks] = useState([]);
 
   const searchBooks = async () => {
     const res = await axios.get(
-      `${process.env.REACT_APP_API_URL}book/search=${searchTerm}&location=${location}`
+      `${process.env.REACT_APP_API_URL}book/search=${searchTerm}&location=${location}&genre=${genre}`
     );
     console.log(res);
     setBooks(res.data);
@@ -46,13 +47,15 @@ export const Search = () => {
             <select
               className="form-select form-select-sm w-50"
               aria-label=".form-select-sm example"
+              value={genre}
+              onChange={(e) => setGenre(e.target.value)}
             >
               <option defaultValue>Genres</option>
-              <option value="1">Fantasy</option>
-              <option value="2">Sci-Fi</option>
-              <option value="3">Mystery</option>
-              <option value="3">Thriller</option>
-              <option value="3">Romance</option>
+              <option value="fantasy">Fantasy</option>
+              <option value="sci-fi">Sci-Fi</option>
+              <option value="mystery">Mystery</option>
+              <option value="thriller">Thriller</option>
+              <option value="romance">Romance</option>
             </select>
             {/* <select
               className="form-select form-select-sm w-50"
