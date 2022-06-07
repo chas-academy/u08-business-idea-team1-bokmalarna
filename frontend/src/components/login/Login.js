@@ -32,19 +32,22 @@ export const Login = () => {
     login(userData);
   };
 
-  //Login function
-  const login = async (userData) => {
-    const response = await axios.post(
-      process.env.REACT_APP_API_URL + "user/login",
-      userData
-    );
-    if (response.data.token) {
-      Cookies.set("access_token", response.data.token);
-      console.log(response.data);
-      navigate("/dashboard");
-      window.location.reload();
-    }
-  };
+	//Login function
+	const login = async (userData) => {
+		const response = await axios.post(
+			process.env.REACT_APP_API_URL + 'user/login',
+			userData
+		);
+		if (response.data.token) {
+			Cookies.set('access_token', response.data.token);
+			console.log(response.data);
+			navigate('/dashboard');
+			window.location.reload();
+		} else {
+			alert("Email or password incorrect")
+		}
+
+	};
 
   //When component mounts
   useEffect(() => {
