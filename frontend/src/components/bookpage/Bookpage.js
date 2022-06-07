@@ -73,7 +73,10 @@ export const Bookpage = () => {
 						</p>
 						<p>Owned by: {owner.bookOwner}</p>
 						{borrowed ? (
-							<button className="btn btn-outline-secondary purple text-white m-3">
+							<button
+								className="btn btn-primary text-white m-3 btn-lg"
+								style={{ backgroundColor: '#81647C' }}
+							>
 								Borrow
 							</button>
 						) : (
