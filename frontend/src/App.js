@@ -1,9 +1,8 @@
-import { useState } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Login } from "./components/login/Login";
 import { Registration } from "./components/registration/Registration";
 import { Search } from "./components/search/Search";
@@ -12,7 +11,7 @@ import { Bookpage } from "./components/bookpage/Bookpage";
 import { Addbook } from "./components/addbook/Addbook";
 import { Edit } from "./components/edit/Edit";
 import { EditPassword } from "./components/edit/Editpassword";
-import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
+import { Navbar, Container, Nav } from "react-bootstrap";
 import { Home } from "./components/Home/Home";
 import Footer from "./components/footer/Footer";
 
@@ -39,40 +38,43 @@ function App() {
     <div className="App">
       <>
         <Navbar
-          className="darkbrown-nav"
-          style={{ fontWeight: "bold" }}
+          className="darkbrown-nav shadow-lg"
           collapseOnSelect
           expand="lg"
+          variant="dark"
         >
           <Container>
-            <Navbar.Brand href="/">BookOwl</Navbar.Brand>
+            <Navbar.Brand style={{ color: "white" }} href="/">
+              BookOwl
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link href="/search">Search</Nav.Link>
-                {user && <Nav.Link href="/dashboard">Dashboard</Nav.Link>}
-                <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-                  <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.2">
-                    Another action
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.3">
-                    Something
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action/3.4">
-                    Separated link
-                  </NavDropdown.Item>
-                </NavDropdown>
+                <Nav.Link style={{ color: "white" }} href="/search">
+                  Search
+                </Nav.Link>
+                {user && (
+                  <Nav.Link href="/dashboard" style={{ color: "white" }}>
+                    Dashboard
+                  </Nav.Link>
+                )}
               </Nav>
               {user ? (
                 <Nav>
-                  <Nav.Link onClick={onLogout}>Log Out</Nav.Link>
+                  <Nav.Link onClick={onLogout} style={{ color: "white" }}>
+                    Log Out
+                  </Nav.Link>
                 </Nav>
               ) : (
                 <Nav>
-                  <Nav.Link href="/login">Log In</Nav.Link>
-                  <Nav.Link eventKey={2} href="/register">
+                  <Nav.Link style={{ color: "white" }} href="/login">
+                    Log In
+                  </Nav.Link>
+                  <Nav.Link
+                    style={{ color: "white" }}
+                    eventKey={2}
+                    href="/register"
+                  >
                     Register
                   </Nav.Link>
                 </Nav>
