@@ -43,7 +43,10 @@ export const Login = () => {
 			console.log(response.data);
 			navigate('/dashboard');
 			window.location.reload();
+		} else {
+			alert("Email or password incorrect")
 		}
+
 	};
 
 	//When component mounts
