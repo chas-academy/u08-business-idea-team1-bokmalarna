@@ -55,6 +55,11 @@ router.get("/:searchParam?&:location?", async (req, res) => {
       } else {
         res.status(200).json(books);
       }
+    } else if (search[1] === "" && city[1] != "") {
+      const owners = await User.find({ city: city[1] });
+      const ownerId = owners.map((owner) => owner.id);
+      const booksByCity = await Book.find({ owner: ownerId });
+      res.status(200).json(booksByCity);
     }
   } catch (error) {
     res.status(500).json({ message: "Could not find any books" });
