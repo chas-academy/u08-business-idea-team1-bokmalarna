@@ -8,12 +8,9 @@ export const Dashboard = () => {
 	const navigate = useNavigate();
 	const user = Cookies.get('access_token');
 	const [getUser, setGetUser] = useState({});
-<<<<<<< HEAD
-	
-=======
 	const [books, setBooks] = useState([]);
 	const [borrowed, setBorrowed] = useState([]);
->>>>>>> development
+
 
 	const checkUser = async () => {
 		//User sends its access_token in headers to BE to be decoded.
