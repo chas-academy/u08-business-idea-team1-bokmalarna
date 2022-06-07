@@ -1,19 +1,19 @@
-import Cookies from 'js-cookie';
-import axios from 'axios';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Routes, Route } from 'react-router-dom';
-import { Login } from './components/login/Login';
-import { Registration } from './components/registration/Registration';
-import { Search } from './components/search/Search';
-import { Dashboard } from './components/dashboard/Dashboard';
-import { Bookpage } from './components/bookpage/Bookpage';
-import { Addbook } from './components/addbook/Addbook';
-import { Edit } from './components/edit/Edit';
-import { EditPassword } from './components/edit/Editpassword';
-import { Navbar, Container, Nav } from 'react-bootstrap';
-import { Home } from './components/Home/Home';
-import Footer from './components/footer/Footer';
+import Cookies from "js-cookie";
+import axios from "axios";
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Routes, Route } from "react-router-dom";
+import { Login } from "./components/login/Login";
+import { Registration } from "./components/registration/Registration";
+import { Search } from "./components/search/Search";
+import { Dashboard } from "./components/dashboard/Dashboard";
+import { Bookpage } from "./components/bookpage/Bookpage";
+import { Addbook } from "./components/addbook/Addbook";
+import { Edit } from "./components/edit/Edit";
+import { EditPassword } from "./components/edit/Editpassword";
+import { Navbar, Container, Nav } from "react-bootstrap";
+import { Home } from "./components/Home/Home";
+import Footer from "./components/footer/Footer";
 
 function App() {
 	const user = Cookies.get('access_token');
