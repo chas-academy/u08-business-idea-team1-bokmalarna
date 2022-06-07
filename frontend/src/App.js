@@ -37,7 +37,7 @@ function App() {
 	return (
 		<div className="App">
 			<>
-				<Navbar className="darkbrown-nav" collapseOnSelect expand="lg">
+				<Navbar className="darkbrown-nav shadow-lg" collapseOnSelect expand="lg">
 					<Container>
 						<Navbar.Brand style={{ color: 'white' }} href="/">
 							BookOwl
