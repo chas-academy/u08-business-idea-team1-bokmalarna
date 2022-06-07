@@ -10,12 +10,12 @@ const BookSchema = new mongoose.Schema(
     author: {
       type: String,
       required: true,
-      max: 50,
-    },
-    image: {
-      type: String,
-      required: true,
-    },
+      max: 50,},
+    // },
+    // image: {
+    //   type: String,
+    //   required: true,
+    // },
     description: {
       type: String,
       required: true,

@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import { Link } from "react-router-dom";
 
 export const Dashboard = () => {
 	const navigate = useNavigate();
 	const user = Cookies.get('access_token');
 	const [getUser, setGetUser] = useState({});
 	const [books, setBooks] = useState([]);
+	const [borrowed, setBorrowed] = useState([]);
 
 	const checkUser = async () => {
 		//User sends its access_token in headers to BE to be decoded.
@@ -37,6 +39,20 @@ export const Dashboard = () => {
 				}
 			});
 	};
+
+	//Get users borrowed books
+	const borrowedBooks = async (id) => {
+		await axios
+			.get(process.env.REACT_APP_API_URL + `book/borrowed/${id}`)
+			.then((res) => {
+				if (res.data) {
+					console.log('borrowed books: ', res.data.message);
+					setBorrowed(res.data.message);
+				}
+			});
+	};
+
+	//Delete user book
 	const deleteBook = async (id) => {
 		console.log(id);
 		await axios
@@ -53,7 +69,12 @@ export const Dashboard = () => {
 			navigate('/');
 		} else {
 			checkUser();
-			getBooks(getUser.id);
+			//After checkusers runs, it will return a user id which will be stored inside getUser state.
+			if (getUser.id) {
+				//If getUser has a id stored, it will then run the two functions.
+				getBooks(getUser.id);
+				borrowedBooks(getUser.id);
+			}
 		}
 	}, [getUser.id]);
 
@@ -68,9 +89,7 @@ export const Dashboard = () => {
 					<button className="btn btn-outline-secondary m-2">
 						New Messages
 					</button>
-					<button className="btn btn-outline-secondary m-2">
-						Settings
-					</button>
+					<Link to="/edit" className="btn btn-outline-secondary m-2">Settings</Link>
 				</div>
 				<section>
 					{/*  LOANED BOOKS */}
@@ -87,33 +106,18 @@ export const Dashboard = () => {
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>Boken om lilla ugglan</td>
-									<td>Dimos</td>
-									<td>
-										<button className="btn btn-outline-danger btn-sm">
-											Return
-										</button>
-									</td>
-								</tr>
-								<tr>
-									<td>Ugglornas värld</td>
-									<td>Filip</td>
-									<td>
-										<button className="btn btn-outline-danger btn-sm">
-											Return
-										</button>
-									</td>
-								</tr>
-								<tr>
-									<td>Sagan om de två ugglorna</td>
-									<td>Frida</td>
-									<td>
-										<button className="btn btn-outline-danger btn-sm">
-											Return
-										</button>
-									</td>
-								</tr>
+								{/* After fetching users borrowed books, they will be displayed here */}
+								{borrowed.map((borrow, index) => (
+									<tr key={index}>
+										<td>{borrow.title}</td>
+										<td>{borrow.author}</td>
+										<td>
+											<button className="btn btn-outline-danger btn-sm">
+												Return
+											</button>
+										</td>
+									</tr>
+								))}
 							</tbody>
 						</table>
 					</div>
@@ -123,9 +127,7 @@ export const Dashboard = () => {
 					{/*  MY BOOKSHELF */}
 					<div className="text-center mt-5 mb-3">
 						<h3 className="text-center">My bookshelf</h3>
-						<button className="btn btn-outline-secondary m-3">
-							Add new book
-						</button>
+						<Link to="/addbook" className="btn btn-outline-secondary m-3">Add book</Link>
 					</div>
 					<div className="card shadow-lg p-3 mb-5">
 						<table className="table table-hover">
@@ -137,6 +139,7 @@ export const Dashboard = () => {
 								</tr>
 							</thead>
 							<tbody>
+								{/* After fetching users books, they will be displayed here */}
 								{books.map((book, index) => (
 									<tr key={index}>
 										<td>{book.title}</td>

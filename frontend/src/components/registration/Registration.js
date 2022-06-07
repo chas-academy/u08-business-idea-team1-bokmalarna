@@ -79,6 +79,11 @@ export const Registration = () => {
 		return errors;
 	};
 
+	const successmessage = () => {
+		alert("Registration successful!");
+		window.location = '/'
+	}
+
 	const register = async (userData) => {
 		await axios
 			.post(process.env.REACT_APP_API_URL + 'user/register', userData)
@@ -92,7 +97,7 @@ export const Registration = () => {
 			<section className="m-5">
 				<h1 className="mb-5 text-center">Registration</h1>
 				{Object.keys(formErrors).length === 0 && submitted ? (
-					<div>Registration successful!</div>
+					successmessage()
 				) : (
 					<></>
 				)}
