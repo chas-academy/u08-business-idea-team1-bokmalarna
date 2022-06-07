@@ -20,11 +20,12 @@ export const Bookpage = () => {
   };
 
   const getOwner = async () => {
-    const ownerName = book.owner;
+    const ownerId = book.owner;
     try {
       const res = await axios.get(
-        process.env.REACT_APP_API_URL + "user/" + ownerName
+        process.env.REACT_APP_API_URL + "user/" + ownerId
       );
+      // Return the owners first name
       setOwner(res.data);
     } catch (e) {
       console.log(e);

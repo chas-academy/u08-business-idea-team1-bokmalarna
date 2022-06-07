@@ -144,27 +144,16 @@ router.put("/:id/edit", async (req, res) => {
   }
 });
 
-//@desc Find a user based on location or ID
+//@desc Get a users name to display on Bookpage
 //@routes GET /user/:id
 //@access Public
-router.get("/:id?/:location?", async (req, res) => {
-  const { id, location } = req.params;
+router.get("/:id", async (req, res) => {
+  const id = req.params.id;
   console.log(id);
-  console.log(location);
   try {
-    const users = await User.find({ city: location });
-    // Execute code if users can be found by location to get the IDs
-    if (users.length > 0) {
-      const userIds = users.map((user) => ({ id: user.id }));
-      res.status(200).json({ userIds });
-    }
-    // Execute code if users were not found by location but can be found by ID
-    else if (users.length === 0) {
-      const user = await User.findById(id);
-      // Only return the users first name
-      const bookOwner = user.firstName;
-      res.status(200).json({ bookOwner });
-    }
+    const user = await User.findById(id);
+    const bookOwner = user.firstName;
+    res.status(200).json({ bookOwner });
   } catch (error) {
     res.status(404).json({ message: "Found no user" });
   }
