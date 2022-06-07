@@ -185,7 +185,9 @@ export const Edit = () => {
           <div className="col-12 pt-4 text-center">
 					<button 
             type="submit" 
-            className='btn btn-danger btn-lg'>
+            className='btn btn-danger btn-lg'
+            //onClick={onSubmit} - Write function to delete.
+            >
 							Delete my Account
 							</button>							
 							</div>
