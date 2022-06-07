@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 export const Bookpage = () => {
 	const params = useParams();
+	const user = Cookies.get('access_token');
 	const [book, setBook] = useState({});
 	const [owner, setOwner] = useState('');
 	const [borrowed, setBorrowed] = useState(false);
+	const [getUser, setGetUser] = useState({});
 
 	const getBook = async () => {
 		try {
@@ -33,7 +36,30 @@ export const Bookpage = () => {
 		}
 	};
 
+	const checkUser = async () => {
+		//User sends its access_token in headers to BE to be decoded.
+		await axios
+			.get(process.env.REACT_APP_API_URL + 'user/protected', {
+				withCredentials: true,
+				headers: {
+					Authorization: `Bearer ${user}`,
+				},
+			})
+			.then((res) => {
+				if (res.data.user) {
+					console.log(res.data.user);
+					//Stores user info into the state.
+					setGetUser(res.data.user);
+				}
+			});
+	};
+
+	const OnBorrow = () => {};
+
 	useEffect(() => {
+		if (user) {
+			checkUser();
+		}
 		getBook();
 		if (book) {
 			if (book.owner) {
@@ -76,6 +102,7 @@ export const Bookpage = () => {
 							<button
 								className="btn btn-primary text-white m-3 btn-lg"
 								style={{ backgroundColor: '#81647C' }}
+								onClick={OnBorrow()}
 							>
 								Borrow
 							</button>
