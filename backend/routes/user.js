@@ -144,17 +144,18 @@ router.put("/:id/edit", async (req, res) => {
   }
 });
 
-//@desc Get a users first name
+//@desc Get a users name to display on Bookpage
 //@routes GET /user/:id
 //@access Public
 router.get("/:id", async (req, res) => {
+  const id = req.params.id;
+  console.log(id);
   try {
-    const id = req.params.id;
-    const user = await User.findOne({ id });
+    const user = await User.findById(id);
     const bookOwner = user.firstName;
     res.status(200).json({ bookOwner });
   } catch (error) {
-    res.status(404).json({ message: "User not found" });
+    res.status(404).json({ message: "Found no user" });
   }
 });
 
