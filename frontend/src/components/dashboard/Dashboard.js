@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import { Link } from "react-router-dom";
 
 export const Dashboard = () => {
 	const navigate = useNavigate();
@@ -88,9 +89,7 @@ export const Dashboard = () => {
 					<button className="btn btn-outline-secondary m-2">
 						New Messages
 					</button>
-					<button className="btn btn-outline-secondary m-2">
-						Settings
-					</button>
+					<Link to="/edit" className="btn btn-outline-secondary m-2">Settings</Link>
 				</div>
 				<section>
 					{/*  LOANED BOOKS */}
@@ -128,9 +127,7 @@ export const Dashboard = () => {
 					{/*  MY BOOKSHELF */}
 					<div className="text-center mt-5 mb-3">
 						<h3 className="text-center">My bookshelf</h3>
-						<button className="btn btn-outline-secondary m-3">
-							Add new book
-						</button>
+						<Link to="/addbook" className="btn btn-outline-secondary m-3">Add book</Link>
 					</div>
 					<div className="card shadow-lg p-3 mb-5">
 						<table className="table table-hover">
