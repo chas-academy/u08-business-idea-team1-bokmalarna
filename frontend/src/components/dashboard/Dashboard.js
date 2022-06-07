@@ -2,12 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import { Link } from "react-router-dom";
 
 export const Dashboard = () => {
 	const navigate = useNavigate();
 	const user = Cookies.get('access_token');
 	const [getUser, setGetUser] = useState({});
+<<<<<<< HEAD
 	
+=======
+	const [books, setBooks] = useState([]);
+	const [borrowed, setBorrowed] = useState([]);
+>>>>>>> development
 
 	const checkUser = async () => {
 		//User sends its access_token in headers to BE to be decoded.
@@ -27,13 +33,55 @@ export const Dashboard = () => {
 			});
 	};
 
+	//Get users uploaded books
+	const getBooks = async (id) => {
+		await axios
+			.get(process.env.REACT_APP_API_URL + `book/user/${id}`)
+			.then((res) => {
+				if (res.data) {
+					setBooks(res.data.message);
+				}
+			});
+	};
+
+	//Get users borrowed books
+	const borrowedBooks = async (id) => {
+		await axios
+			.get(process.env.REACT_APP_API_URL + `book/borrowed/${id}`)
+			.then((res) => {
+				if (res.data) {
+					console.log('borrowed books: ', res.data.message);
+					setBorrowed(res.data.message);
+				}
+			});
+	};
+
+	//Delete user book
+	const deleteBook = async (id) => {
+		console.log(id);
+		await axios
+			.delete(process.env.REACT_APP_API_URL + `book/${id}`)
+			.then((res) => {
+				window.location.reload();
+				console.log(res.data.message);
+			});
+	};
+
+	// When dashboard loads, it will fetch the users: Information, Books and loaned books
 	useEffect(() => {
 		if (!user) {
 			navigate('/');
 		} else {
 			checkUser();
+			//After checkusers runs, it will return a user id which will be stored inside getUser state.
+			if (getUser.id) {
+				//If getUser has a id stored, it will then run the two functions.
+				getBooks(getUser.id);
+				borrowedBooks(getUser.id);
+			}
 		}
-	}, [user, navigate]);
+	}, [getUser.id]);
+
 	return (
 		<div className="lightbrownbg">
 			<section className="container">
@@ -45,9 +93,7 @@ export const Dashboard = () => {
 					<button className="btn btn-outline-secondary m-2">
 						New Messages
 					</button>
-					<button className="btn btn-outline-secondary m-2">
-						Settings
-					</button>
+					<Link to="/edit" className="btn btn-outline-secondary m-2">Settings</Link>
 				</div>
 				<section>
 					{/*  LOANED BOOKS */}
@@ -55,7 +101,7 @@ export const Dashboard = () => {
 						List of loaned books
 					</h3>
 					<div className="card shadow-lg p-3 mb-5">
-						<table class="table table-hover">
+						<table className="table table-hover">
 							<thead>
 								<tr>
 									<th scope="col">Book Title</th>
@@ -64,33 +110,18 @@ export const Dashboard = () => {
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>Boken om lilla ugglan</td>
-									<td>Dimos</td>
-									<td>
-										<button className="btn btn-outline-danger btn-sm">
-											Return
-										</button>
-									</td>
-								</tr>
-								<tr>
-									<td>Ugglornas värld</td>
-									<td>Filip</td>
-									<td>
-										<button className="btn btn-outline-danger btn-sm">
-											Return
-										</button>
-									</td>
-								</tr>
-								<tr>
-									<td>Sagan om de två ugglorna</td>
-									<td>Frida</td>
-									<td>
-										<button className="btn btn-outline-danger btn-sm">
-											Return
-										</button>
-									</td>
-								</tr>
+								{/* After fetching users borrowed books, they will be displayed here */}
+								{borrowed.map((borrow, index) => (
+									<tr key={index}>
+										<td>{borrow.title}</td>
+										<td>{borrow.author}</td>
+										<td>
+											<button className="btn btn-outline-danger btn-sm">
+												Return
+											</button>
+										</td>
+									</tr>
+								))}
 							</tbody>
 						</table>
 					</div>
@@ -100,12 +131,10 @@ export const Dashboard = () => {
 					{/*  MY BOOKSHELF */}
 					<div className="text-center mt-5 mb-3">
 						<h3 className="text-center">My bookshelf</h3>
-						<button className="btn btn-outline-secondary m-3">
-							Add new book
-						</button>
+						<Link to="/addbook" className="btn btn-outline-secondary m-3">Add book</Link>
 					</div>
 					<div className="card shadow-lg p-3 mb-5">
-						<table class="table table-hover">
+						<table className="table table-hover">
 							<thead>
 								<tr>
 									<th scope="col">Book Title</th>
@@ -114,45 +143,27 @@ export const Dashboard = () => {
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>Ugglelexikonet</td>
-									<td>
-										<button className="btn btn-outline-danger btn-sm">
-											Remove
-										</button>
-									</td>
-									<td>
-										<span class="badge badge-success">
-											Available
-										</span>
-									</td>
-								</tr>
-								<tr>
-									<td>Ugglornas magiska värld</td>
-									<td>
-										<button className="btn btn-outline-danger btn-sm">
-											Remove
-										</button>
-									</td>
-									<td>
-										<span class="badge badge-danger">
-											Unavailable
-										</span>
-									</td>
-								</tr>
-								<tr>
-									<td>Owl Fight Club</td>
-									<td>
-										<button className="btn btn-outline-danger btn-sm">
-											Remove
-										</button>
-									</td>
-									<td>
-										<span class="badge badge-success">
-											Available
-										</span>
-									</td>
-								</tr>
+								{/* After fetching users books, they will be displayed here */}
+								{books.map((book, index) => (
+									<tr key={index}>
+										<td>{book.title}</td>
+										<td>
+											<button
+												className="btn btn-outline-danger btn-sm"
+												onClick={() => {
+													deleteBook(book._id);
+												}}
+											>
+												Remove
+											</button>
+										</td>
+										<td>
+											<span className="badge badge-success">
+												Available
+											</span>
+										</td>
+									</tr>
+								))}
 							</tbody>
 						</table>						
 					</div>
