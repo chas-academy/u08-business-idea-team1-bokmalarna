@@ -30,7 +30,15 @@ const Editbook = () => {
       const book = await axios
         .get(process.env.REACT_APP_API_URL + `book/${id}`)
         .then((res) => {
-          setBookInfo(res.data.book);
+          setBookInfo(res.data);
+          setUserInput({
+            title: bookInfo.title,
+            author: bookInfo.author,
+            description: bookInfo.description,
+            genre: bookInfo.genre,
+            condition: bookInfo.condition,
+            release: bookInfo.release,
+          });
         });
     };
     getBook(id);
@@ -73,7 +81,7 @@ const Editbook = () => {
             type="text"
             name="title"
             onChange={onChange}
-            value={title}
+            value={title} 
           />
 
           <label className="mt-3 mb-1">Author</label>
