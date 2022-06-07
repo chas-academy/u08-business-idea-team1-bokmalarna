@@ -81,12 +81,11 @@ router.get("/:id", async (req, res) => {
 router.put("/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    const update = req.body;
     const options = { new: true };
-    const book = await Book.findByIdAndUpdate(id, update, options);
-    res.status(200).json(book);
+    const book = await Book.findByIdAndUpdate(id, req.body, options);
+    res.status(200).json({ status: "Success!", message: "Book updated successfully!", book: book });
   } catch (error) {
-    res.status(500).json({ message: "Could not update book" });
+    res.status(500).json({ status: "Failed", message: "Could not update book" });
   }
 });
 

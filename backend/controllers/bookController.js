@@ -43,7 +43,7 @@ const editBook = (req, res) => {
     owner: req.body.owner,
     borrower: req.body.borrower,
   });
-  editBook.save().then(res.json("Book successfully updated"));
+  editBook.update().then(res.json("Book successfully updated"));
 };
 
 module.exports = { newBook, uploadImg, editBook };
