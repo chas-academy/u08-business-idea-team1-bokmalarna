@@ -1,30 +1,63 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 const Editbook = () => {
+  const [userInput, setUserInput] = useState({
+    title: "",
+    author: "",
+    description: "",
+    genre: "",
+    condition: "",
+    release: "",
+  });
+  const [bookInfo, setBookInfo] = useState([]);
+  const params = useParams();
 
-    const [userInput, setUserInput] = useState();
-    const params = useParams();
+  const onChange = (e) => {
+    setUserInput((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
-    const onChange = () => {
+  const { title, author, description, genre, condition, release } = userInput;
 
-    }
+  useEffect(() => {
+    const id = params.id;
 
-        useEffect(() => {
-        const id = params.id; 
+    const getBook = async (id) => {
+      const book = await axios
+        .get(process.env.REACT_APP_API_URL + `book/${id}`)
+        .then((res) => {
+          setBookInfo(res.data.book);
+        });
+    };
+    getBook(id);
+  }, []);
 
-        const getBook = async (id) => {
-            const book = await axios.get(process.env.REACT_APP_API_URL + `book/${id}`)
-            .then((res) => {
-                console.log(res.data)
-            })
-        }
-        getBook(id);
+  const onSubmit = (e) => {
+    e.preventDefault();
 
-        }, [])
-        
+    const bookData = {
+      title,
+      author,
+      description,
+      genre,
+      condition,
+      release,
+    };
+    updateBook(bookData);
+  };
 
+  const updateBook = async (bookData) => {
+    const id = params.id;
+    const response = await axios
+      .put(process.env.REACT_APP_API_URL + `book/${id}`, bookData)
+      .then((res) => {
+        console.log("Book updated successfully", res);
+      });
+  };
 
   return (
     <section className="lightbrownbg">
@@ -35,18 +68,41 @@ const Editbook = () => {
         >
           <h2 className="m-4 fw-bold">Edit book</h2>
           <label className="mt-3 mb-1">Title</label>
-          <input className="form-control w-50" type="text" name="title" onChange="onChange" />
+          <input
+            className="form-control w-50"
+            type="text"
+            name="title"
+            onChange={onChange}
+            value={title}
+          />
 
           <label className="mt-3 mb-1">Author</label>
-          <input className="form-control w-50" type="text" name="author" />
+          <input
+            className="form-control w-50"
+            type="text"
+            name="author"
+            onChange={onChange}
+            value={author}
+          />
 
           <label className="mt-3 mb-1">Description</label>
-          <input className="form-control w-50" type="text" name="description" />
+          <input
+            className="form-control w-50"
+            type="text"
+            name="description"
+            onChange={onChange}
+            value={description}
+          />
 
           <label className="mt-3 mb-1" for="genre">
             Genre
           </label>
-          <select className="form-select w-50 text-center" name="genre">
+          <select
+            className="form-select w-50 text-center"
+            name="genre"
+            onChange={onChange}
+            value={genre}
+          >
             <option></option>
             <option>Biography</option>
             <option>Autobiography</option>
@@ -70,16 +126,21 @@ const Editbook = () => {
           </select>
 
           <label className="mt-3 mb-1">Condition</label>
-          <input className="form-control w-50" type="text" name="condition" />
-
-          <label className="mt-3 mb-1">Description</label>
-          <input className="form-control w-50" type="text" name="desc" />
+          <input
+            className="form-control w-50"
+            type="text"
+            name="condition"
+            onChange={onChange}
+            value={condition}
+          />
 
           <label className="mt-3 mb-1 ">Release Date</label>
           <input
             className="form-control w-50 text-center"
             type="date"
             name="release"
+            onChange={onChange}
+            value={release}
           />
 
           <div className="mt-2">
@@ -92,6 +153,7 @@ const Editbook = () => {
             <button
               className="btn btn-outline-secondary purple text-white m-3"
               type="submit"
+              onClick={onSubmit}
             >
               Add book
             </button>
