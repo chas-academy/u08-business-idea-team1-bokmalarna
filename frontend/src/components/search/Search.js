@@ -4,7 +4,7 @@ import React, { useState } from "react";
 export const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [location, setLocation] = useState("");
-  const [genre, setGenre] = useState("");
+  const [genre, setGenre] = useState("Genres");
   const [books, setBooks] = useState([]);
 
   const searchBooks = async () => {

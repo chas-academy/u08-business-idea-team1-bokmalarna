@@ -52,11 +52,11 @@ router.get("/:searchParam?&:location?&:genres", async (req, res) => {
       // Filter books by location
       const booksByCity = books.filter((book) => book.owner.city === city[1]);
       if (booksByCity.length != 0) {
-        if (genre[1] === "" || genre[1] === "Genres") {
+        if (genre[1] === "Genres") {
           res.status(200).json(booksByCity);
         }
         // Filter array again based on selected genre
-        else if (genre[1] != "" || genre[1] != "Genres") {
+        else if (genre[1] != "Genres") {
           const booksByGenre = booksByCity.filter(
             (book) => book.genre === genre[1]
           );
@@ -64,7 +64,7 @@ router.get("/:searchParam?&:location?&:genres", async (req, res) => {
         }
       }
       // Filter book-array from searched term based on selected genre
-      else if (genre[1] != "" || genre[1] != "Genres") {
+      else if (genre[1] != "Genres") {
         const booksByGenre = books.filter((book) => book.genre === genre[1]);
         res.status(200).json(booksByGenre);
       }
@@ -78,7 +78,21 @@ router.get("/:searchParam?&:location?&:genres", async (req, res) => {
       const owners = await User.find({ city: city[1] });
       const ownerId = owners.map((owner) => owner.id);
       const booksByCity = await Book.find({ owner: ownerId });
-      res.status(200).json(booksByCity);
+      if (genre[1] === "Genres") {
+        res.status(200).json(booksByCity);
+      }
+      // Filter the booksByCity-array based on a selected genre
+      else if (genre[1] != "Genres") {
+        const booksByGenre = booksByCity.filter(
+          (book) => book.genre === genre[1]
+        );
+        res.status(200).json(booksByGenre);
+      }
+    }
+    // Filter books on genre without title, author or location
+    else if (search[1] === "" && city[1] === "" && genre[1] != "Genre") {
+      const booksByGenre = await Book.find({ genre: genre[1] });
+      res.status(200).json(booksByGenre);
     }
   } catch (error) {
     res.status(500).json({ message: "Could not find any books" });
