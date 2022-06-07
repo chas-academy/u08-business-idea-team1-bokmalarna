@@ -44,7 +44,7 @@ export const Messenger = () => {
         const res = await axios.get(
           process.env.REACT_APP_API_URL + "conversations/" + user.id
         );
-        console.log(res);
+        setConversations(res.data);
       } catch (error) {
         console.log(error);
       }
@@ -58,10 +58,9 @@ export const Messenger = () => {
         <div className="chatMenu">
           <div className="chatMenuWrapper">
             <input placeholder="Search for a user" className="chatMenuInput" />
-            <Conversation />
-            <Conversation />
-            <Conversation />
-            <Conversation />
+            {conversations.map((c) => (
+              <Conversation conversation={c} currentUser={user} />
+            ))}
           </div>
         </div>
         <div className="chatBox">
