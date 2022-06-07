@@ -88,7 +88,7 @@ Register a new user by posting form data to user.js route in BE.
 
 ### search
 
-Search by title or author to display all matching books.
+Search by title or author to display all matching books. Filter on location and genre.
 Talks to book.js in BE.
 
 ### App.js
