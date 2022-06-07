@@ -164,7 +164,7 @@ export const Edit = () => {
           <div className="col-12 pt-4 text-center">
             <button
               type="submit"
-              className="btn btn-primary btn-lg"
+              className="btn btn-primary btn-m"
               onClick={onSubmit}
             >
               Update
@@ -174,7 +174,7 @@ export const Edit = () => {
           <div className="col-12 pt-1 text-center">
               <button
                 type="submit"
-                className="btn btn btn-lg"
+                className="btn btn btn-m"
               
               >
                 <a href="edit/password" className="text-decoration-none">
@@ -185,7 +185,7 @@ export const Edit = () => {
           <div className="col-12 pt-4 text-center">
 					<button 
             type="submit" 
-            className='btn btn-danger btn-lg'
+            className='btn btn-danger btn-m'
             //onClick={onSubmit} - Write function to delete.
             >
 							Delete my Account
