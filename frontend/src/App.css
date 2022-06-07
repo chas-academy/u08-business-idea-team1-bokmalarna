@@ -23,6 +23,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
 }
 
 .chatBoxTop {
@@ -140,4 +141,12 @@
   border-radius: 50%;
   background-color: limegreen;
   margin-top: 5px;
+}
+
+.noConvoText {
+  position: absolute;
+  top: 10%;
+  font-size: 40px;
+  color: rgb(187, 186, 186);
+  cursor: default;
 }

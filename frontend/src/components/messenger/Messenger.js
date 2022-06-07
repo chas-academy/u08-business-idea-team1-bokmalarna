@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import "../../App.css";
 import { ChatOnline } from "./ChatOnline";
-import { Conversation } from "./Conversaton";
+import { Conversation } from "./Conversation";
 import { Message } from "./Message";
 import { useNavigate } from "react-router-dom";
 
@@ -11,6 +11,8 @@ export const Messenger = () => {
   const navigate = useNavigate();
   const userToken = Cookies.get("access_token");
   const [user, setUser] = useState({});
+  const [currentChat, setCurrentChat] = useState(null);
+  const [messages, setMessages] = useState([]);
   const [conversations, setConversations] = useState([]);
 
   const checkUser = async () => {
@@ -36,7 +38,7 @@ export const Messenger = () => {
     } else {
       checkUser();
     }
-  }, [user.id]);
+  }, []);
 
   useEffect(() => {
     const getConversations = async () => {
@@ -59,24 +61,34 @@ export const Messenger = () => {
           <div className="chatMenuWrapper">
             <input placeholder="Search for a user" className="chatMenuInput" />
             {conversations.map((c) => (
-              <Conversation conversation={c} currentUser={user} />
+              <div onClick={() => setCurrentChat(c)}>
+                <Conversation conversation={c} currentUser={user} />
+              </div>
             ))}
           </div>
         </div>
         <div className="chatBox">
           <div className="chatBoxWrapper">
-            <div className="chatBoxTop">
-              <Message />
-              <Message own={true} />
-              <Message />
-            </div>
-            <div className="chatBoxBottom">
-              <textarea
-                className="chatMessageInput"
-                placeholder="Write a message.."
-              ></textarea>
-              <button className="chatSubmitButton">Send</button>
-            </div>
+            {currentChat ? (
+              <>
+                <div className="chatBoxTop">
+                  <Message />
+                  <Message own={true} />
+                  <Message />
+                </div>
+                <div className="chatBoxBottom">
+                  <textarea
+                    className="chatMessageInput"
+                    placeholder="Write a message.."
+                  ></textarea>
+                  <button className="chatSubmitButton">Send</button>
+                </div>
+              </>
+            ) : (
+              <span className="noConvoText">
+                Open a conversation to start chatting
+              </span>
+            )}
           </div>
         </div>
         <div className="chatOnline">
