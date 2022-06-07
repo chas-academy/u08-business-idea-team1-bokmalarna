@@ -28,15 +28,17 @@ export const Edit = () => {
       .then((res) => {
         console.log(res.data);
       });
-    function deleteUser() {
+
+      //alert box to confirm delete
+    /* function confirmDelete() {
       let text = "Do you really want to delete your profile?";
-      if (deleteUser(text) == true) {
+      if (confirmDelete(text) == true) {
         text = "User deleted";
       } else {
         text = "You canceled";
       }
       document.getElementById("delete").innerHTML = text;
-    }
+    } */
     alert("User deleted!");
   };
 
@@ -60,9 +62,12 @@ export const Edit = () => {
     e.preventDefault();
     setFormErrors(validate(getUser));
     setSubmitted(true);
-    checkUser();
-    deleteUser();
+    checkUser();    
   };
+
+  const onClick = (e) =>{
+    deleteUser();
+  }
 
   useEffect(() => {
     if (error === false) {
@@ -201,7 +206,7 @@ export const Edit = () => {
               
               type="delete"
               className="btn btn-danger btn-m"
-              onClick={deleteUser}>
+              onClick={onClick}>
               <a href="edit/deleteUser" className="text-decoration-none">
                 Delete my Account
               </a>
