@@ -20,7 +20,7 @@ const newBook = (req, res) => {
   const newBook = new Book({
     title: req.body.title,
     author: req.body.author,
-    image: req.file.path,
+    // image: req.file.path,
     description: req.body.description,
     genre: req.body.genre,
     condition: req.body.condition,
@@ -31,4 +31,19 @@ const newBook = (req, res) => {
   newBook.save().then(res.json("New book is created."));
 };
 
-module.exports = { newBook, uploadImg };
+const editBook = (req, res) => {
+  const editbook = new Book({
+    title: req.body.title,
+    author: req.body.author,
+    // image: req.file.path,
+    description: req.body.description,
+    genre: req.body.genre,
+    condition: req.body.condition,
+    released: req.body.released,
+    owner: req.body.owner,
+    borrower: req.body.borrower,
+  });
+  editBook.update().then(res.json("Book successfully updated"));
+};
+
+module.exports = { newBook, uploadImg, editBook };
