@@ -9,6 +9,7 @@ export const Search = () => {
   const [books, setBooks] = useState([]);
   const user = Cookies.get("access_token");
   const [getUser, setGetUser] = useState({});
+  const [introText, setintroText] = useState("");
 
   const checkUser = async () => {
     //User sends its access_token in headers to BE to be decoded.
@@ -32,19 +33,20 @@ export const Search = () => {
     if (user) {
       checkUser();
       if (getUser.city) {
-        console.log(getUser.city);
         axios
           .get(
             `${process.env.REACT_APP_API_URL}book/search=${searchTerm}&location=${getUser.city}&genre=${genre}`
           )
-          .then((res) => setBooks(res.data));
+          .then((res) => {
+            setBooks(res.data);
+            setintroText("Books near you");
+          });
       }
     } else {
       axios
-        .get(
-          `${process.env.REACT_APP_API_URL}book/search=${searchTerm}&location=Stockholm&genre=${genre}`
-        )
-        .then((res) => setBooks(res.data));
+        .get(`${process.env.REACT_APP_API_URL}book/`)
+        .then((res) => setBooks(res.data.book));
+      setintroText("Recommended books for you");
     }
   }, [getUser.city]);
 
@@ -119,6 +121,7 @@ export const Search = () => {
 
       <section className="my-5 container align-items-center">
         <div className="row align-items-center">
+          <h2>{introText}</h2>
           {books.map((book) => {
             return (
               <div
