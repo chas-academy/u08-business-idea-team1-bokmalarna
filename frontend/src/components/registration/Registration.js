@@ -1,9 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 export const Registration = () => {
-	const navigate = useNavigate();
 	const [formData, setFormData] = useState({
 		firstName: '',
 		lastName: '',
