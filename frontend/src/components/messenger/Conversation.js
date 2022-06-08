@@ -13,7 +13,6 @@ export const Conversation = ({ conversation, currentUser }) => {
         const res = await axios(
           process.env.REACT_APP_API_URL + "user?userId=" + otherUsersId
         );
-        console.log(res.data);
         setUser(res.data);
       } catch (error) {
         console.log(error);

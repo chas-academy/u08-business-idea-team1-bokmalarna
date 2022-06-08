@@ -1,11 +1,12 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Cookies from "js-cookie";
 import "../../App.css";
 import { ChatOnline } from "./ChatOnline";
 import { Conversation } from "./Conversation";
 import { Message } from "./Message";
 import { useNavigate } from "react-router-dom";
+import { io } from "socket.io-client";
 
 export const Messenger = () => {
   const navigate = useNavigate();
@@ -14,6 +15,10 @@ export const Messenger = () => {
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
   const [conversations, setConversations] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
+  const [arrivalMessage, setArrivalMessage] = useState(null);
+  const socket = useRef(io("ws://localhost:8900"));
+  const scrollRef = useRef();
 
   const checkUser = async () => {
     //User sends its access_token in headers to BE to be decoded.
@@ -32,6 +37,7 @@ export const Messenger = () => {
       });
   };
 
+  // Check that a user is signed in otherwise they are redirected to homepage
   useEffect(() => {
     if (!user) {
       navigate("/");
@@ -39,6 +45,33 @@ export const Messenger = () => {
       checkUser();
     }
   }, []);
+
+  // Socket connection and chat initiation
+  useEffect(() => {
+    socket.current = io("ws://localhost:8900");
+    socket.current.on("getMessage", (data) => {
+      setArrivalMessage({
+        sender: data.senderId,
+        text: data.text,
+        createdAt: Date.now(),
+      });
+    });
+  }, []);
+
+  // Messages only displays in relevant chat
+  useEffect(() => {
+    arrivalMessage &&
+      currentChat?.members.includes(arrivalMessage.sender) &&
+      setMessages((prev) => [...prev, arrivalMessage]);
+  }, [arrivalMessage, currentChat]);
+
+  // Check IDs to fetch correct chat-data
+  useEffect(() => {
+    socket.current.emit("addUser", user.id);
+    socket.current.on("getUsers", (users) => {
+      console.log(users);
+    });
+  }, [user]);
 
   // Get conversatins as they are selected
   useEffect(() => {
@@ -70,6 +103,38 @@ export const Messenger = () => {
     getMessages();
   }, [currentChat]);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const message = {
+      sender: user.id,
+      text: newMessage,
+      conversationId: currentChat._id,
+    };
+
+    const receiverId = currentChat.members.find((member) => member !== user.id);
+    socket.current.emit("sendMessage", {
+      senderId: user.id,
+      receiverId,
+      text: newMessage,
+    });
+
+    try {
+      const res = await axios.post(
+        process.env.REACT_APP_API_URL + "messages/",
+        message
+      );
+      setMessages([...messages, res.data]);
+      setNewMessage("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // When messages change scroll to bottom
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behaviour: "smooth" });
+  }, [messages]);
+
   return (
     <>
       <div className="messenger">
@@ -89,15 +154,21 @@ export const Messenger = () => {
               <>
                 <div className="chatBoxTop">
                   {messages.map((m) => (
-                    <Message message={m} own={m.sender === user.id} />
+                    <div ref={scrollRef}>
+                      <Message message={m} own={m.sender === user.id} />
+                    </div>
                   ))}
                 </div>
                 <div className="chatBoxBottom">
                   <textarea
                     className="chatMessageInput"
                     placeholder="Write a message.."
+                    onChange={(e) => setNewMessage(e.target.value)}
+                    value={newMessage}
                   ></textarea>
-                  <button className="chatSubmitButton">Send</button>
+                  <button className="chatSubmitButton" onClick={handleSubmit}>
+                    Send
+                  </button>
                 </div>
               </>
             ) : (
