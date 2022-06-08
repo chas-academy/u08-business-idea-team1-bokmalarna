@@ -1,57 +1,60 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { useNavigate } from 'react-router-dom';
 
 export const Edit = () => {
-  const API_URL = "http://localhost:8080/user/";
-
-
+	const navigate = useNavigate();
   const user = Cookies.get("access_token");
-  const [getUser, setGetUser] = useState({});
-
-  const checkUser = async () => {
-    await axios
-      .get("http://localhost:8080/user/protected", {
-        withCredentials: true,
-      })
-      .then((res) => {
-        if (res.data.user) {
-          console.log(res.data.user);
-          setGetUser(res.data.user);
-        }
-      });
-  };
-
-  useEffect(() => {
-    if (user) {
-      checkUser();
-    } 
-  }, [user]);
-
-
+  const [formData, setFormData] = useState({})
   const [formErrors, setFormErrors] = useState({});
   const [error, setError] = useState(true);
   const [submitted, setSubmitted] = useState(false);
-  const { firstName, lastName, city, email } =
-    getUser;
 
-  const onChange = (e) => {
-    setGetUser({ ...getUser, [e.target.name]: e.target.value });
-    console.log(getUser);
-  };
+  const { id, firstName, lastName, city, email } =
+    formData;
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    setFormErrors(validate(getUser));
-    setSubmitted(true);
-    checkUser();
-  };
-
-  useEffect(() => {
-    if (error === false) {
-      edit(getUser);
+  const getUserAndSetFormData = async () => {
+    try {
+      const res = await axios
+      .get(`${process.env.REACT_APP_API_URL}user/protected`, {
+        withCredentials: true,
+        headers: {
+					Authorization: `Bearer ${user}`,
+				},
+      })
+        setFormData(res.data.user);
+      
+    } catch (error) {
+      console.warn(error)
     }
-  }, [error]);
+  }
+
+  const handleOnChange = (e) => {
+    const {name, value} = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleOnSubmit = (e) => {
+    setFormErrors(validate(formData));
+    setSubmitted(true);
+    getUserAndSetFormData();
+  };
+
+  const updateUser = async (e) => {
+
+    try {
+      const userData = formData;
+
+      const API_URL = `${process.env.REACT_APP_API_URL}user/`;
+      const userId = id;
+      
+      const res = await axios.put(API_URL + "/" + userId + "/edit", userData)
+
+    } catch (error) {
+      console.warn(error)
+    }
+  }
 
   const validate = (values) => {
     // Empty errors object - data is added if the form is not filled out properly
@@ -86,15 +89,17 @@ export const Edit = () => {
     return errors;
   };
 
-  const edit = async (userData) => {
-    const userId = getUser.id
-    await axios.put(API_URL + "/" + userId + "/edit", userData).then((res) => {
-      console.log(res.data);
-    });
-    alert("Settings will be updated next time you log in!")
-  };
+  useEffect(() => {
+    if (!user) {
+      navigate('/')
+    } else {
+      getUserAndSetFormData();
+      if (error === false) {
+        updateUser()
+      }
+    }
+  }, [user, error]);
 
-  console.log(user);
 
   return (
     <>
@@ -111,8 +116,8 @@ export const Edit = () => {
               className="form-control"
               id="firstName"
               name="firstName"
-              defaultValue={getUser.firstName}
-              onChange={onChange}
+              defaultValue={firstName}
+              onChange={handleOnChange}
             />
           </div>
 
@@ -126,8 +131,8 @@ export const Edit = () => {
               className="form-control"
               id="lastName"
               name="lastName"
-              defaultValue={getUser.lastName}
-              onChange={onChange}
+              defaultValue={lastName}
+              onChange={handleOnChange}
             />
           </div>
 
@@ -141,8 +146,8 @@ export const Edit = () => {
               className="form-control"
               id="city"
               name="city"
-              defaultValue={getUser.city}
-              onChange={onChange}
+              defaultValue={city}
+              onChange={handleOnChange}
             />
           </div>
 
@@ -156,16 +161,16 @@ export const Edit = () => {
               className="form-control"
               id="email"
               name="email"
-              defaultValue={getUser.email}
-              onChange={onChange}
+              defaultValue={email}
+              onChange={handleOnChange}
             />
           </div>
 
           <div className="col-12 pt-4 text-center">
             <button
-              type="submit"
+              type="button"
               className="btn btn-primary btn-lg"
-              onClick={onSubmit}
+              onClick={handleOnSubmit}
             >
               Update
             </button>
