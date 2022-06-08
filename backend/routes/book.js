@@ -1,14 +1,44 @@
+const multer = require("multer");
 const { json } = require("express");
 const express = require("express");
 const { findById } = require("../models/book");
 const router = express.Router();
 const Book = require("../models/book");
 const User = require("../models/user");
-const bookController = require("../controllers/bookController");
-const book = require("../models/book");
 
-// Create book
-router.post("/newBook", bookController.uploadImg, bookController.newBook);
+// Using multer to store images
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./uploads");
+  },
+  filename: function (req, file, cb) {
+    console.log(file);
+    cb(null, file.originalname);
+  },
+});
+
+const uploadImg = multer({ storage: storage });
+
+// Create book with one img
+router.post("/newBook", uploadImg.single("file"), (req, res) => {
+  try {
+    const newBook = new Book({
+      title: req.body.title,
+      author: req.body.author,
+      description: req.body.description,
+      genre: req.body.genre,
+      condition: req.body.condition,
+      released: req.body.released,
+      owner: req.body.owner,
+      image: req.file.originalname,
+    });
+    newBook.save().then(res.json("New book is created."));
+  } catch (error) {
+    res
+      .status(500)
+      .json({ status: "Failed", message: "Could not create book. ", error });
+  }
+});
 
 //Get User books
 router.get("/user/:id", async (req, res) => {
