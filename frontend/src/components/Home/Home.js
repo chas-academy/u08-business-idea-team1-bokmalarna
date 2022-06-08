@@ -2,7 +2,7 @@ import React from 'react';
 
 export const Home = () => {
 	return (
-		<main className="App bg-books py-5 px-5">
+		<main className="App bg-books py-1 px-5">
 			<section className="mainPage w-75 m-auto">
 				<div className="mainPage shadow bg-body rounded bg-opacity-75">
 					<h1 className="text-center pt-4">Welcome to BookOwl!</h1>
@@ -28,7 +28,7 @@ export const Home = () => {
 							{' '}
 							Sign In{' '}
 						</a>
-						here or from the menu! or you can brows some{' '}
+						here or from the menu! You can brows some{' '}
 						<a href="/search">books here!</a>.
 					</p>
 				</div>
