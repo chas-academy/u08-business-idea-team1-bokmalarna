@@ -109,6 +109,7 @@ export const Edit = () => {
       <section className="m-5">
         <h1 className="mb-5 text-center">Settings</h1>
         <form className="row g-3">
+          <h2>Contact Info</h2>
           <div className="col-md-6">
             <label htmlFor="firstName" className="form-label">
               First name
@@ -181,6 +182,7 @@ export const Edit = () => {
         </form>
 
         <form className="row g-3">
+        <h2>Reset password</h2>
           <div className="col-md-6">
             <label htmlFor="email" className="form-label">
               Password
