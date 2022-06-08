@@ -7,6 +7,8 @@ export const Edit = () => {
 	const navigate = useNavigate();
   const user = Cookies.get("access_token");
   const [formData, setFormData] = useState({})
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [formErrors, setFormErrors] = useState({});
   const [error, setError] = useState(true);
   const [submitted, setSubmitted] = useState(false);
@@ -174,18 +176,6 @@ export const Edit = () => {
             >
               Update
             </button>
-          </div>
-
-          <div className="col-12 pt-1 text-center">
-              <button
-                type="submit"
-                className="btn btn btn-lg"
-              
-              >
-                <a href="edit/password" className="text-decoration-none">
-                Change Password
-                </a>
-              </button>
           </div>
         </form>
 
