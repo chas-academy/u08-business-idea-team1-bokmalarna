@@ -2,8 +2,9 @@ import React from "react";
 
 export const Home = () => {
   return (
-    <main className="App bg-books py-5 px-4">
-      <section className="mainPage container shadow bg-body rounded bg-opacity-75">
+    <main className="App bg-books py-5 px-5">
+      <section className="mainPage w-75 m-auto">
+        <div className="mainPage shadow bg-body rounded bg-opacity-75">
         <h1 className="text-center pt-4">Welcome to BookOwl!</h1>
         <div className="d-flex justify-content-center">
           <img src="bookowl.png" className="m-3" style={{ width: 110 }} />
@@ -13,8 +14,9 @@ export const Home = () => {
           well as loan out your books to other people.
         </p>
         <p className="text-center fs-4 m-2 p-3">
-          Get started by register an account or login from the menu!
+          Get started by creating an account or browsing for a book!
         </p>
+        </div>
       </section>
     </main>
   );
