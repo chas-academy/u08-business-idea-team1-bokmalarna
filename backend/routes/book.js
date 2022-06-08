@@ -5,6 +5,7 @@ const router = express.Router();
 const Book = require("../models/book");
 const User = require("../models/user");
 const bookController = require("../controllers/bookController");
+const book = require("../models/book");
 
 // Create book
 router.post("/newBook", bookController.uploadImg, bookController.newBook);
@@ -30,6 +31,16 @@ router.get("/borrowed/:id", async (req, res) => {
     res.status(200).json({ message: borrowerBooks });
   } catch (error) {
     res.status(400).json({ message: "That user has no books, try again" });
+  }
+});
+
+//GET all books
+router.get("/", async (req, res) => {
+  try {
+    const books = await Book.find().limit(6);
+    res.status(200).json({ book: books });
+  } catch (error) {
+    res.status(400).json({ status: error });
   }
 });
 
@@ -116,9 +127,15 @@ router.put("/:id", async (req, res) => {
     const id = req.params.id;
     const options = { new: true };
     const book = await Book.findByIdAndUpdate(id, req.body, options);
-    res.status(200).json({ status: "Success!", message: "Book updated successfully!", book: book });
+    res.status(200).json({
+      status: "Success!",
+      message: "Book updated successfully!",
+      book: book,
+    });
   } catch (error) {
-    res.status(500).json({ status: "Failed", message: "Could not update book" });
+    res
+      .status(500)
+      .json({ status: "Failed", message: "Could not update book" });
   }
 });
 
