@@ -92,7 +92,7 @@ export const Dashboard = () => {
 	}, [getUser.id, getUser.borrower]);
 
 	return (
-		<div className="lightbrownbg">
+		<div className="lightbrownbg pb-3">
 			<section className="container">
 				<div className="text-center p-5">
 					<h1>Welcome {getUser.firstName}</h1>
@@ -155,7 +155,7 @@ export const Dashboard = () => {
 						</Link>
 					</div>
 					<div className="card shadow-lg p-3 mb-5">
-						<table className="table table-hover">
+						<table className="table">
 							<thead>
 								<tr>
 									<th scope="col">Book Title</th>
@@ -168,7 +168,10 @@ export const Dashboard = () => {
 								{books.map((book, index) => (
 									<tr key={index}>
 										<td>
-											<a href={'/bookpage/' + book._id}>
+											<a
+												className="text-black"
+												href={'/bookpage/' + book._id}
+											>
 												{book.title}
 											</a>
 										</td>
