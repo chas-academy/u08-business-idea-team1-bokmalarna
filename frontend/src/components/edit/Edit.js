@@ -8,7 +8,7 @@ export const Edit = () => {
   const user = Cookies.get("access_token");
   const [formData, setFormData] = useState({})
 
-  const checkUser = async () => {
+  const getUserAndSetFormData = async () => {
     try {
       const res = await axios
       .get(`${process.env.REACT_APP_API_URL}user/protected`, {
@@ -28,7 +28,7 @@ export const Edit = () => {
     if (!user) {
       navigate('/')
     } else {
-      checkUser();
+      getUserAndSetFormData();
     }
   }, [user]);
 
@@ -49,7 +49,7 @@ export const Edit = () => {
   const handleOnSubmit = (e) => {
     setFormErrors(validate(formData));
     setSubmitted(true);
-    checkUser();
+    getUserAndSetFormData();
   };
 
   useEffect(() => {
