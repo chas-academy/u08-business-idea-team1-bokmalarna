@@ -92,7 +92,7 @@ export const Bookpage = () => {
 					<h2 className="m-4 fw-bold">{book.title}</h2>
 					<img
 						className="rounded mx-auto d-block m-3"
-						src="https://www.kathrynlasky.com/assets/covers/owl3.jpg"
+						src={process.env.REACT_APP_API_URL + `uploads/${book.image}`}
 						style={{ width: '50%', height: 'auto' }}
 						alt="Book"
 					/>
