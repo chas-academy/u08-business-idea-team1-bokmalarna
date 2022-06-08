@@ -26,7 +26,7 @@ export const Footer = () => {
                   href="https://www.instagram.com/"
                   className="text-decoration-none text-white"
                 >
-                  <i class="bi bi-instagram m-2"></i>
+                  <i className="bi bi-instagram m-2"></i>
                   Instagram
                 </a>
               </li>
@@ -35,7 +35,7 @@ export const Footer = () => {
                   href="https://twitter.com/"
                   className="text-decoration-none text-white"
                 >
-                  <i class="bi bi-twitter m-2"></i>
+                  <i className="bi bi-twitter m-2"></i>
                   Twitter
                 </a>
               </li>
@@ -44,7 +44,7 @@ export const Footer = () => {
                   href="https://www.linkedin.com/"
                   className="text-decoration-none text-white"
                 >
-                  <i class="bi bi-linkedin m-2"></i>
+                  <i className="bi bi-linkedin m-2"></i>
                   LinkedIn
                 </a>
               </li>
@@ -58,7 +58,7 @@ export const Footer = () => {
                   href="https://github.com/amawre"
                   className="text-decoration-none text-white"
                 >
-                  <i class="bi bi-github m-2"></i>
+                  <i className="bi bi-github m-2"></i>
                   Amanda
                 </a>
               </li>
@@ -67,7 +67,7 @@ export const Footer = () => {
                   href="https://github.com/Jonon"
                   className="text-decoration-none text-white"
                 >
-                  <i class="bi bi-github m-2"></i>
+                  <i className="bi bi-github m-2"></i>
                   Jonathan
                 </a>
               </li>
@@ -76,7 +76,7 @@ export const Footer = () => {
                   href="https://github.com/DavidMelander"
                   className="text-decoration-none text-white"
                 >
-                  <i class="bi bi-github m-2"></i>
+                  <i className="bi bi-github m-2"></i>
                   David
                 </a>
               </li>
@@ -85,7 +85,7 @@ export const Footer = () => {
                   href="https://github.com/fbarfvestam"
                   className="text-decoration-none text-white"
                 >
-                  <i class="bi bi-github m-2"></i>
+                  <i className="bi bi-github m-2"></i>
                   Filip
                 </a>
               </li>
@@ -94,7 +94,7 @@ export const Footer = () => {
                   href="https://github.com/Albatraoz12"
                   className="text-decoration-none text-white"
                 >
-                  <i class="bi bi-github m-2"></i>
+                  <i className="bi bi-github m-2"></i>
                   Dimos
                 </a>
               </li>
@@ -103,7 +103,7 @@ export const Footer = () => {
                   href="https://github.com/frinica"
                   className="text-decoration-none text-white"
                 >
-                  <i class="bi bi-github m-2"></i>
+                  <i className="bi bi-github m-2"></i>
                   Frida
                 </a>
               </li>
@@ -112,7 +112,7 @@ export const Footer = () => {
                   href="https://github.com/lkthorn"
                   className="text-decoration-none text-white"
                 >
-                  <i class="bi bi-github m-2"></i>
+                  <i className="bi bi-github m-2"></i>
                   Licia
                 </a>
               </li>
