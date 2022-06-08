@@ -62,6 +62,7 @@ export const Dashboard = () => {
 			})
 			.then((res) => {
 				console.log(res.data);
+				window.location.reload();
 			});
 	};
 
@@ -89,7 +90,7 @@ export const Dashboard = () => {
 				borrowedBooks(getUser.id);
 			}
 		}
-	}, [getUser.id, getUser.borrower]);
+	}, [getUser.id]);
 
 	return (
 		<div className="lightbrownbg pb-3">
