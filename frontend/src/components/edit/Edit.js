@@ -7,6 +7,12 @@ export const Edit = () => {
 	const navigate = useNavigate();
   const user = Cookies.get("access_token");
   const [formData, setFormData] = useState({})
+  const [formErrors, setFormErrors] = useState({});
+  const [error, setError] = useState(true);
+  const [submitted, setSubmitted] = useState(false);
+
+  const { id, firstName, lastName, city, email } =
+    formData;
 
   const getUserAndSetFormData = async () => {
     try {
@@ -24,18 +30,10 @@ export const Edit = () => {
     }
   }
 
-  const [formErrors, setFormErrors] = useState({});
-  const [error, setError] = useState(true);
-  const [submitted, setSubmitted] = useState(false);
-  const { id, firstName, lastName, city, email } =
-    formData;
-
-
   const handleOnChange = (e) => {
     const {name, value} = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
 
   const handleOnSubmit = (e) => {
     setFormErrors(validate(formData));
@@ -43,16 +41,20 @@ export const Edit = () => {
     getUserAndSetFormData();
   };
 
-  useEffect(() => {
-    if (!user) {
-      navigate('/')
-    } else {
-      getUserAndSetFormData();
-      if (error === false) {
-        updateUser()
-      }
+  const updateUser = async (e) => {
+
+    try {
+      const userData = formData;
+
+      const API_URL = `${process.env.REACT_APP_API_URL}user/`;
+      const userId = id;
+      
+      const res = await axios.put(API_URL + "/" + userId + "/edit", userData)
+
+    } catch (error) {
+      console.warn(error)
     }
-  }, [user, error]);
+  }
 
   const validate = (values) => {
     // Empty errors object - data is added if the form is not filled out properly
@@ -87,20 +89,17 @@ export const Edit = () => {
     return errors;
   };
 
-  const updateUser = async (e) => {
-
-    try {
-      const userData = formData;
-
-      const API_URL = `${process.env.REACT_APP_API_URL}user/`;
-      const userId = id;
-      
-      const res = await axios.put(API_URL + "/" + userId + "/edit", userData)
-
-    } catch (error) {
-      console.warn(error)
+  useEffect(() => {
+    if (!user) {
+      navigate('/')
+    } else {
+      getUserAndSetFormData();
+      if (error === false) {
+        updateUser()
+      }
     }
-  }
+  }, [user, error]);
+
 
   return (
     <>
