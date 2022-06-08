@@ -58,7 +58,7 @@ export const Edit = () => {
 
   const deleteUser = async() => { 
     await axios
-    .delete(process.env.REACT_APP_API_URL + 'user/')
+    .delete(process.env.REACT_APP_API_URL + 'user/'+ id)
     .then(() => this.setState({status: 'User Deleted Successfully'}));
    };
 
