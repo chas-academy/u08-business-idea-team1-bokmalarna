@@ -38,11 +38,18 @@ export const Addbook = () => {
   };
 
   const createBook = async (form) => {
-    await axios
+  try{
+   const response = await axios
       .post(process.env.REACT_APP_API_URL + "book/newBook", form)
       .then((res) => {
         console.log(res.data);
+        alert("Book created successfully!");
+        window.location.reload();
       });
+    } catch(err) {
+      console.log(err);
+      alert("Failed to create book, please try again!")
+    }
   };
 
   return (
