@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
 
 export const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -11,7 +10,6 @@ export const Search = () => {
   const user = Cookies.get("access_token");
   const [getUser, setGetUser] = useState({});
   const [introText, setintroText] = useState("");
-  const navigate = useNavigate();
 
   const checkUser = async () => {
     //User sends its access_token in headers to BE to be decoded.
@@ -65,11 +63,6 @@ export const Search = () => {
     searchBooks(searchTerm, location);
   };
 
-  useEffect(() => {
-    if (!user) {
-      navigate("/login");
-    }
-  }, [getUser.id]);
 
   return (
     <div className="lightbrownbg pt-3 pb-3">
