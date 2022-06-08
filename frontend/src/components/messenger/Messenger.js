@@ -40,6 +40,7 @@ export const Messenger = () => {
     }
   }, []);
 
+  // Get conversatins as they are selected
   useEffect(() => {
     const getConversations = async () => {
       try {
@@ -53,6 +54,21 @@ export const Messenger = () => {
     };
     getConversations();
   }, [user.id]);
+
+  // Get messages as they update
+  useEffect(() => {
+    const getMessages = async () => {
+      try {
+        const res = await axios.get(
+          process.env.REACT_APP_API_URL + "messages/" + currentChat?._id
+        );
+        setMessages(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getMessages();
+  }, [currentChat]);
 
   return (
     <>
@@ -72,9 +88,9 @@ export const Messenger = () => {
             {currentChat ? (
               <>
                 <div className="chatBoxTop">
-                  <Message />
-                  <Message own={true} />
-                  <Message />
+                  {messages.map((m) => (
+                    <Message message={m} own={m.sender === user.id} />
+                  ))}
                 </div>
                 <div className="chatBoxBottom">
                   <textarea
