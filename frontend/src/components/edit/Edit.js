@@ -168,7 +168,7 @@ export const Edit = () => {
             />
           </div>
 
-          <div className="col-12 pt-4 text-center">
+          <div className="col-12 pt-4 text-center d-flex justify-content-end" >
             <button
               type="button"
               className="btn btn-primary btn-lg"
@@ -208,7 +208,7 @@ export const Edit = () => {
               onChange={handleOnChange}
             />
           </div>
-          <div className="col-12 pt-4 text-center">
+          <div className="col-12 pt-4 text-center d-flex justify-content-end">
             <button
               type="button"
               className="btn btn-primary btn-lg"
