@@ -17,7 +17,7 @@ import Footer from "./components/footer/Footer";
 import Editbook from "./components/edit/Editbook";
 
 function App() {
-<<<<<<< 
+
 	const user = Cookies.get('access_token');
 	//Logout
 	const onLogout = async () => {
@@ -109,8 +109,8 @@ function App() {
 			<Footer />
 		</div>
 	);
-=======
-  const user = Cookies.get("access_token");
+
+  /* const user = Cookies.get("access_token");
   //Logout
   const onLogout = async () => {
     //Send token info in headers to backend to let user logout. Backend will remove HTTPOnly cookies
@@ -194,7 +194,7 @@ function App() {
       <Footer />
     </div>
   );
->>>>>>> development
+>>>>>>> development */
 }
 
 export default App;

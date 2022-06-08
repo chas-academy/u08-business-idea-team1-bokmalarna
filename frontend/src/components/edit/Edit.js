@@ -1,12 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { ThemeConsumer } from "react-bootstrap/esm/ThemeProvider";
 
 export const Edit = () => {
   const API_URL = "http://localhost:8080/user/";
 
   const user = Cookies.get("access_token");
   const [getUser, setGetUser] = useState({});
+  
+  
 
   const checkUser = async () => {
     await axios
@@ -21,34 +24,15 @@ export const Edit = () => {
       });
   };
 
-  const deleteUser = async (user) => {
-    const userId = getUser.id;
-    var result = alert("Want to delete your profile?");
-    console.log(result);
-    if (result) {
-      alert("bla");
+  const deleteUser = async() => { 
+    await axios
+    .delete(process.env.REACT_APP_API_URL + 'user/')
+    .then(() => this.setState({status: 'User Deleted Successfully'}));
+   };
 
-    }
-    
-    /* await axios
-      .delete(API_URL + "/" + userId + "/edit", user)
-      .then((res) => {
-        console.log(res.data);
-      }); */
 
-      //alert box to confirm delete
-    /* function confirmDelete() {
-      let text = "Do you really want to delete your profile?";
-      if (confirmDelete(text) == true) {
-        text = "User deleted";
-      } else {
-        text = "You canceled";
-      }
-      document.getElementById("delete").innerHTML = text;
-    } */
-    //alert("User deleted!");
-  };
-
+     
+ 
   useEffect(() => {
     if (user) {
       checkUser();
@@ -69,13 +53,10 @@ export const Edit = () => {
     e.preventDefault();
     setFormErrors(validate(getUser));
     setSubmitted(true);
-    checkUser();    
+    checkUser();        
   };
 
-  const onClick = (e) =>{
-    deleteUser();
-  }
-
+  
   useEffect(() => {
     if (error === false) {
       edit(getUser);
@@ -213,7 +194,7 @@ export const Edit = () => {
               
               type="delete"
               className="btn btn-danger btn-m"
-              onClick={onClick}>              
+              onClick={onSubmit}>              
                 Delete my Account              
             </button>
           </div>
