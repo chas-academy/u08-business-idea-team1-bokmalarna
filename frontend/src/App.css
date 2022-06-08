@@ -1,0 +1,151 @@
+/* Messenger styling */
+.messenger {
+  height: 100vh;
+  display: flex;
+}
+
+.chatMenu {
+  flex: 3.5;
+}
+
+.chatMenuInput {
+  width: 90%;
+  padding: 10px 0;
+  border: none;
+  border-bottom: 1px solid gray;
+}
+
+.chatBox {
+  flex: 5.5;
+}
+
+.chatBoxWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.chatBoxTop {
+  height: 100%;
+  overflow-y: scroll;
+  padding-right: 10px;
+}
+
+.chatBoxBottom {
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chatMessageInput {
+  width: 80%;
+  height: 90px;
+  padding: 10px;
+}
+
+.chatSubmitButton {
+  width: 70px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #81647c;
+  color: white;
+}
+
+.chatOnline {
+  flex: 3.5;
+}
+
+.chatMenuWrapper,
+.chatBoxWrapper,
+.chatOnlineWrapper {
+  padding: 10px;
+  height: 100%;
+}
+
+/* Conversation styling */
+
+.conversation {
+  display: flex;
+  padding: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.conversation:hover {
+  background-color: #ededed;
+}
+
+.conversationName {
+  font-weight: bold;
+}
+
+/* Message styling */
+
+.message {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.messageTop {
+  display: flex;
+}
+
+.messageName {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.messageText {
+  padding: 10px;
+  border-radius: 20px;
+  background-color: #6d644c;
+  color: white;
+  max-width: 400px;
+}
+
+.messageBottom {
+  font-size: 12px;
+}
+
+.message.own {
+  align-items: flex-end;
+}
+
+.message.own .messageText {
+  background-color: rgb(225, 225, 225);
+  color: black;
+}
+
+/* Chat Online styling */
+
+.chatOnlineUser {
+  position: relative;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.chatOnlineNameContainer {
+  display: flex;
+  padding-bottom: 15px;
+}
+
+.chatOnlineBadge {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: limegreen;
+  margin-top: 5px;
+}
+
+.noConvoText {
+  position: absolute;
+  top: 10%;
+  font-size: 40px;
+  color: rgb(187, 186, 186);
+  cursor: default;
+}

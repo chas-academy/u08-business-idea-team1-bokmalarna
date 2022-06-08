@@ -23,6 +23,8 @@
   "homepage": "https://github.com/chas-academy/u08-business-idea-team1-bokmalarna#readme",
   "dependencies": {
     "concurrently": "^7.2.1",
-    "react-router-dom": "^6.3.0"
+    "react-router-dom": "^6.3.0",
+    "socket.io": "^4.5.1",
+    "socket.io-client": "^4.5.1"
   }
 }

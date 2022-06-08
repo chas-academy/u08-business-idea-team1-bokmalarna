@@ -163,4 +163,17 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+//@desc Get user info
+//@routes GET /user
+//@access Public
+router.get("/", async (req, res) => {
+  const userId = req.query.userId;
+  try {
+    const user = await User.findById(userId);
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(404).json({ message: "Found no user" });
+  }
+});
+
 module.exports = router;
