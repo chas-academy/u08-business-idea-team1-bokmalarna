@@ -138,7 +138,7 @@ export const Search = () => {
                 key={book._id}
               >
                 <img
-                  src="https://i.imgur.com/hJE4Jfx.jpg"
+                  src={process.env.REACT_APP_API_URL + `uploads/${book.image}`}
                   className="card-img-top"
                   alt="..."
                 />
