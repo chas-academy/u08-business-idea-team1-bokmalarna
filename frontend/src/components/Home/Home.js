@@ -28,7 +28,7 @@ export const Home = () => {
 							{' '}
 							Sign In{' '}
 						</a>
-						here or from the menu! You can brows some{' '}
+						here or from the menu! You can browse some{' '}
 						<a href="/search">books here!</a>.
 					</p>
 				</div>
