@@ -127,9 +127,11 @@ export const Bookpage = () => {
 								Borrow
 							</button>
 						) : !user ? (
-							<p className="p-3 mb-2 bg-danger text-white">
-								Please Sign in to borrow book
-							</p>
+							<a href="/login" className="text-white">
+								<p className="p-3 mb-2 bg-danger text-white">
+									Please Sign in to borrow book
+								</p>
+							</a>
 						) : (
 							<p className="p-3 mb-2 bg-danger text-white">
 								Book is already borrowed
