@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from 'axios';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 export const Dashboard = () => {
 	const navigate = useNavigate();
@@ -52,6 +52,18 @@ export const Dashboard = () => {
 			});
 	};
 
+	//Return borrowed book
+	const returnBook = async (id) => {
+		const newBorrower = JSON.stringify({ borrower: null });
+		await axios
+			.put(process.env.REACT_APP_API_URL + `book/${id}`, newBorrower, {
+				headers: { 'Content-Type': 'application/json' },
+			})
+			.then((res) => {
+				console.log(res.data);
+			});
+	};
+
 	//Delete user book
 	const deleteBook = async (id) => {
 		console.log(id);
@@ -89,7 +101,9 @@ export const Dashboard = () => {
 					<button className="btn btn-outline-secondary m-2">
 						New Messages
 					</button>
-					<Link to="/edit" className="btn btn-outline-secondary m-2">Settings</Link>
+					<Link to="/edit" className="btn btn-outline-secondary m-2">
+						Settings
+					</Link>
 				</div>
 				<section>
 					{/*  LOANED BOOKS */}
@@ -112,7 +126,12 @@ export const Dashboard = () => {
 										<td>{borrow.title}</td>
 										<td>{borrow.author}</td>
 										<td>
-											<button className="btn btn-outline-danger btn-sm">
+											<button
+												className="btn btn-outline-danger btn-sm"
+												onClick={() => {
+													returnBook(borrow._id);
+												}}
+											>
 												Return
 											</button>
 										</td>
@@ -127,7 +146,12 @@ export const Dashboard = () => {
 					{/*  MY BOOKSHELF */}
 					<div className="text-center mt-5 mb-3">
 						<h3 className="text-center">My bookshelf</h3>
-						<Link to="/addbook" className="btn btn-outline-secondary m-3">Add book</Link>
+						<Link
+							to="/addbook"
+							className="btn btn-outline-secondary m-3"
+						>
+							Add book
+						</Link>
 					</div>
 					<div className="card shadow-lg p-3 mb-5">
 						<table className="table table-hover">
