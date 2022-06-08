@@ -107,7 +107,8 @@ export const Edit = () => {
   return (
     <>
       <section className="m-5">
-        <h1 className="mb-5 text-center">Settings</h1>
+        <h1 className="text-center">Settings</h1>
+        <p className="mb-5 text-center">Here you can update your contact info, reset password and delete your account</p>
         <form className="row g-3">
           <h2>Contact Info</h2>
           <div className="col-md-6">
