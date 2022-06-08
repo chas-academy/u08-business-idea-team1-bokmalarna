@@ -52,7 +52,7 @@ function App() {
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto">
                 <Nav.Link style={{ color: "white" }} href="/search">
-                  Search
+                  Browse
                 </Nav.Link>
                 {user && (
                   <Nav.Link href="/dashboard" style={{ color: "white" }}>

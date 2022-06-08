@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { useNavigate } from 'react-router-dom';
 
 export const EditPassword = () => {
   const API_URL = "http://localhost:8080/user/";
@@ -8,19 +9,25 @@ export const EditPassword = () => {
 
   const user = Cookies.get("access_token");
   const [getUser, setGetUser] = useState({});
+  const navigate = useNavigate();
 
   const checkUser = async () => {
-    await axios
-      .get("http://localhost:8080/user/protected", {
-        withCredentials: true,
-      })
-      .then((res) => {
-        if (res.data.user) {
-          console.log(res.data.user);
-          setGetUser(res.data.user);
-        }
-      });
-  };
+		//User sends its access_token in headers to BE to be decoded.
+		await axios
+			.get(process.env.REACT_APP_API_URL + 'user/protected', {
+				withCredentials: true,
+				headers: {
+					Authorization: `Bearer ${user}`,
+				},
+			})
+			.then((res) => {
+				if (res.data.user) {
+					console.log(res.data.user);
+					//Stores user info into the state.
+					setGetUser(res.data.user);
+				}
+			});
+	};
 
   useEffect(() => {
     if (user) {
@@ -28,6 +35,11 @@ export const EditPassword = () => {
     } 
   }, [user]);
 
+  useEffect(() => {
+		if (!user) {
+			navigate('/login');
+		}
+	}, [getUser.id]);
 
   const [formErrors, setFormErrors] = useState({});
   const [error, setError] = useState(true);
@@ -81,7 +93,7 @@ export const EditPassword = () => {
 
   const edit = async (userData) => {
     const userId = getUser.id
-    await axios.put(API_URL + "/" + userId + "/edit" + "/password", userData).then((res) => {
+    await axios.put(process.env.REACT_APP_API_URL + 'user/edit/password', userData).then((res) => {
       console.log(res.data);
     });
   };
