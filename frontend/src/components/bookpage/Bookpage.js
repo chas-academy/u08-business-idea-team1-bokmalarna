@@ -105,7 +105,6 @@ export const Bookpage = () => {
 					<h3>Description:</h3>
 					<div className="container-sm">
 						<p className="card-body mx-5">{book.description}</p>
-
 						<p>Author: {book.author}</p>
 						<p>Genre: {book.genre}</p>
 						<p>Condition: {book.condition}</p>
@@ -115,7 +114,7 @@ export const Bookpage = () => {
 						</p>
 						<p>Owned by: {owner.bookOwner}</p>
 						{/* Depending on if the book has a borrower or not, diffrent things will display */}
-						{borrowed ? (
+						{borrowed && user ? (
 							<button
 								className="btn btn-primary text-white m-3 btn-lg"
 								style={{
@@ -127,6 +126,10 @@ export const Bookpage = () => {
 							>
 								Borrow
 							</button>
+						) : !user ? (
+							<p className="p-3 mb-2 bg-danger text-white">
+								Please Sign in to borrow book
+							</p>
 						) : (
 							<p className="p-3 mb-2 bg-danger text-white">
 								Book is already borrowed
