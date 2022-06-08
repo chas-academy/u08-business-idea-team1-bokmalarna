@@ -6,23 +6,23 @@ import { useNavigate } from 'react-router-dom';
 export const Edit = () => {
 	const navigate = useNavigate();
   const user = Cookies.get("access_token");
-  const [getUser, setGetUser] = useState({});
+  const [formData, setFormData] = useState({})
 
   const checkUser = async () => {
-    await axios
+    try {
+      const res = await axios
       .get(`${process.env.REACT_APP_API_URL}user/protected`, {
         withCredentials: true,
         headers: {
 					Authorization: `Bearer ${user}`,
 				},
       })
-      .then((res) => {
-        if (res.data.user) {
-          console.log(res.data.user);
-          setGetUser(res.data.user);
-        }
-      });
-  };
+        setFormData(res.data.user);
+      
+    } catch (error) {
+      console.warn(error)
+    }
+  }
 
   useEffect(() => {
     if (!user) {
@@ -36,24 +36,25 @@ export const Edit = () => {
   const [formErrors, setFormErrors] = useState({});
   const [error, setError] = useState(true);
   const [submitted, setSubmitted] = useState(false);
-  const { firstName, lastName, city, email } =
-    getUser;
+  const { id, firstName, lastName, city, email } =
+    formData;
 
-  const onChange = (e) => {
-    setGetUser({ ...getUser, [e.target.name]: e.target.value });
-    console.log(getUser);
+
+  const handleOnChange = (e) => {
+    const {name, value} = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    setFormErrors(validate(getUser));
+
+  const handleOnSubmit = (e) => {
+    setFormErrors(validate(formData));
     setSubmitted(true);
     checkUser();
   };
 
   useEffect(() => {
     if (error === false) {
-      edit(getUser);
+      updateUser()
     }
   }, [error]);
 
@@ -90,16 +91,20 @@ export const Edit = () => {
     return errors;
   };
 
-  const edit = (userData) => {
-    const API_URL = `${process.env.REACT_APP_API_URL}user/`;
-    const userId = getUser.id
-    axios.put(API_URL + "/" + userId + "/edit", userData).then((res) => {
-      console.log(res.data);
-    });
-    alert("Settings will be updated next time you log in!")
-  };
+  const updateUser = async (e) => {
 
-  console.log(user);
+    try {
+      const userData = formData;
+
+      const API_URL = `${process.env.REACT_APP_API_URL}user/`;
+      const userId = id;
+      
+      const res = await axios.put(API_URL + "/" + userId + "/edit", userData)
+
+    } catch (error) {
+      console.warn(error)
+    }
+  }
 
   return (
     <>
@@ -116,8 +121,8 @@ export const Edit = () => {
               className="form-control"
               id="firstName"
               name="firstName"
-              defaultValue={getUser.firstName}
-              onChange={onChange}
+              defaultValue={firstName}
+              onChange={handleOnChange}
             />
           </div>
 
@@ -131,8 +136,8 @@ export const Edit = () => {
               className="form-control"
               id="lastName"
               name="lastName"
-              defaultValue={getUser.lastName}
-              onChange={onChange}
+              defaultValue={lastName}
+              onChange={handleOnChange}
             />
           </div>
 
@@ -146,8 +151,8 @@ export const Edit = () => {
               className="form-control"
               id="city"
               name="city"
-              defaultValue={getUser.city}
-              onChange={onChange}
+              defaultValue={city}
+              onChange={handleOnChange}
             />
           </div>
 
@@ -161,16 +166,16 @@ export const Edit = () => {
               className="form-control"
               id="email"
               name="email"
-              defaultValue={getUser.email}
-              onChange={onChange}
+              defaultValue={email}
+              onChange={handleOnChange}
             />
           </div>
 
           <div className="col-12 pt-4 text-center">
             <button
-              type="submit"
+              type="button"
               className="btn btn-primary btn-lg"
-              onClick={onSubmit}
+              onClick={handleOnSubmit}
             >
               Update
             </button>
