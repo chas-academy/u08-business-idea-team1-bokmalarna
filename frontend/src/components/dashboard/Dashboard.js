@@ -52,6 +52,18 @@ export const Dashboard = () => {
       });
   };
 
+  //Return borrowed book
+  const returnBook = async (id) => {
+    const newBorrower = JSON.stringify({ borrower: null });
+    await axios
+      .put(process.env.REACT_APP_API_URL + `book/${id}`, newBorrower, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((res) => {
+        console.log(res.data);
+      });
+  };
+
   //Delete user book
   const deleteBook = async (id) => {
     console.log(id);
@@ -112,7 +124,12 @@ export const Dashboard = () => {
                     <td>{borrow.title}</td>
                     <td>{borrow.author}</td>
                     <td>
-                      <button className="btn btn-outline-danger btn-sm">
+                      <button
+                        className="btn btn-outline-danger btn-sm"
+                        onClick={() => {
+                          returnBook(borrow._id);
+                        }}
+                      >
                         Return
                       </button>
                     </td>

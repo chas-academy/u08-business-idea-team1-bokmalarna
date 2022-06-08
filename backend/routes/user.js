@@ -19,10 +19,6 @@ const authorization = (req, res, next) => {
   try {
     const data = jwt.verify(token, process.env.JWT_SECRET);
     req.userId = data.id;
-    req.email = data.email;
-    req.firstName = data.firstName;
-    req.lastName = data.lastName;
-    req.city = data.city;
     return next();
   } catch {
     return res.status(403).json({ message: "You have no valid token" });
@@ -46,11 +42,7 @@ router.post("/login", async (req, res) => {
     if (passwordMatch) {
       const token = jwt.sign(
         {
-          id: user._id,
-          email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          city: user.city,
+          id: user._id
         },
         process.env.JWT_SECRET
       );
@@ -80,16 +72,28 @@ router.post("/login", async (req, res) => {
 //@desc Authorized a user
 //@routes GET /user/protected
 //@access Public
-router.get("/protected", authorization, (req, res) => {
-  return res.json({
-    user: {
-      id: req.userId,
-      email: req.email,
-      firstName: req.firstName,
-      lastName: req.lastName,
-      city: req.city,
-    },
-  });
+router.get("/protected", authorization, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId);
+
+    if (user === null) {
+      res.status(404);
+      return;
+    }
+
+    res.status(200).json({
+      user: {
+        id: req.userId,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        city: user.city
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500);
+  }
 });
 
 //@desc Register A User

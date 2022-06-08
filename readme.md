@@ -13,44 +13,44 @@
 To install the dependency run "npm i cypress --save-dev". To open cypress write "npm run cypress:open" in the terminal.
 Cypress.config.js:
 
-- baseUrl: "http://localhost:3000",
-- apiUrl: "http://localhost:8080",
+-   baseUrl: "http://localhost:3000",
+-   apiUrl: "http://localhost:8080",
 
 ## Routes BE
 
 ### book.js
 
-- Create
-  Creates a new book in the DB
-- Get User books
-  Gets the logged in users books from the DB
-- Get books
-  Gets all books from the DB
-- Get single book
-  Gets one book based on ID from the DB
-- Update Book
-  Updates one book in the DB
-- Delete Book
-  Deletes one book in the DB
+-   Create
+    Creates a new book in the DB
+-   Get User books
+    Gets the logged in users books from the DB
+-   Get books
+    Gets all books from the DB
+-   Get single book
+    Gets one book based on ID from the DB
+-   Update Book
+    Updates one book in the DB
+-   Delete Book
+    Deletes one book in the DB
 
 ### user.js
 
-- Authorization
-  Authenticate a user as a registered user
-- Login
-  Search for a user in the DB based on passwordmatch. If successful login set access token in FE
-- Protected
-  Compare user data via protected route
-- Register
-  Register a new user
-- Logout
-  Remove token in FE to log out a user
-- Delete
-  Delete a user based on ID from the DB
-- Edit
-  Update a users data in the DB based on ID
-- Get
-  Get a users first name without going through a protected route. Needed for other users to view eachothers names.
+-   Authorization
+    Authenticate a user as a registered user
+-   Login
+    Search for a user in the DB based on passwordmatch. If successful login set access token in FE
+-   Protected
+    Compare user data via protected route
+-   Register
+    Register a new user
+-   Logout
+    Remove token in FE to log out a user
+-   Delete
+    Delete a user based on ID from the DB
+-   Edit
+    Update a users data in the DB based on ID
+-   Get
+    Get a users first name without going through a protected route. Needed for other users to view eachothers names.
 
 ## Controllers BE
 
@@ -66,6 +66,8 @@ Server for sending and receiving messages in private chat between users.
 
 Display a book dynamically by capturing the ID in URL params and searching through the DB.
 Talks to book.js in BE routes.
+
+On upon landing to the component, the component will then check if the user is signed in or not, if the user is signed in he/she can then borrow the book if its avalible and if the user is not signed in there will be a button reference the user to sign in to be able to borrow the book.
 
 ### dashboard
 
@@ -117,15 +119,15 @@ Contains all routes to the components and the navbar.
 
 ## Tests
 
-- Registering a new user as Happy User (Should be used for testing a happy flow)
-- Logging in Happy User
+-   Registering a new user as Happy User (Should be used for testing a happy flow)
+-   Logging in Happy User
 
 # Contributors
 
-- Filip
-- Amanda
-- Frida
-- Dimosthenis
-- Jonathan
-- David
-- Licia
+-   Filip
+-   Amanda
+-   Frida
+-   Dimosthenis
+-   Jonathan
+-   David
+-   Licia
