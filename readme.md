@@ -54,6 +54,10 @@ Cypress.config.js:
 
 ## Controllers BE
 
+## Socket
+
+Server for sending and receiving messages in private chat between users.
+
 ## Components FE
 
 ### addbook
@@ -80,7 +84,23 @@ After the response the component will then make 2 new more requests one for fetc
 
 This component will make a request call to the backend with the information given by the users and send it to the backend. The information the component will take is a email and a password. if successful the user will then be navigated to the dashborad with a JWT token and a message.
 
-### nav
+### messenger
+
+### ChatOnline
+
+View online friends/users.
+
+### Conversation
+
+Get conversations based on conversation Id.
+
+### Message
+
+Get or post messages with a specific conversation Id.
+
+### Messenger
+
+UI for the chat app.
 
 ### registration
 
