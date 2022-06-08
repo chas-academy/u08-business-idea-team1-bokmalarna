@@ -18,24 +18,10 @@ const uploadImg = multer({ storage: storage }).single("file");
 // Create new book incl. image
 
 const newBook = (req, res) => {
+  try {
   console.log(req)
   console.log(req.file)
   const newBook = new Book({
-    // title: req.body.title,
-    // author: req.body.author,
-    image: req.file.path,
-    // description: req.body.description,
-    // genre: req.body.genre,
-    // condition: req.body.condition,
-    // released: req.body.released,
-    // owner: req.body.owner,
-    // borrower: req.body.borrower,
-  });
-  newBook.save().then(res.json("New book is created."));
-};
-
-const editBook = (req, res) => {
-  const editbook = new Book({
     title: req.body.title,
     author: req.body.author,
     // image: req.file.path,
@@ -44,9 +30,12 @@ const editBook = (req, res) => {
     condition: req.body.condition,
     released: req.body.released,
     owner: req.body.owner,
-    borrower: req.body.borrower,
+    // borrower: req.body.borrower,
   });
-  editBook.update().then(res.json("Book successfully updated"));
+  newBook.save().then(res.json("New book is created."));
+} catch (error) {
+  res.status(500).json({ status: "Failed", message: "Could not create book" });
+}
 };
 
-module.exports = { newBook, uploadImg, editBook };
+module.exports = { newBook, uploadImg };

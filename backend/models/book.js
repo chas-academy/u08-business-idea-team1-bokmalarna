@@ -41,6 +41,7 @@ const BookSchema = new mongoose.Schema(
     borrower: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
+      default: null,
     },
   },
   { timestamps: true }
