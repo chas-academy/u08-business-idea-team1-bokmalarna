@@ -6,11 +6,12 @@ import Cookies from 'js-cookie';
 export const Bookpage = () => {
 	const params = useParams();
 	const user = Cookies.get('access_token');
-	const [book, setBook] = useState({});
-	const [owner, setOwner] = useState('');
-	const [borrowed, setBorrowed] = useState(false);
-	const [getUser, setGetUser] = useState({});
+	const [book, setBook] = useState({}); //stores the book information
+	const [owner, setOwner] = useState(''); //stores the owners name
+	const [borrowed, setBorrowed] = useState(false); //checks if the book is borrowed or not
+	const [getUser, setGetUser] = useState({}); //stores the loggedin users information
 
+	//function to fetch the book information
 	const getBook = async () => {
 		try {
 			const res = await axios.get(
@@ -23,11 +24,11 @@ export const Bookpage = () => {
 		}
 	};
 
+	//Function to fetch the owner of the book
 	const getOwner = async (id) => {
-		// const ownerId = book.owner;
 		try {
 			const res = await axios.get(
-				process.env.REACT_APP_API_URL + 'user/' + `${id}`
+				process.env.REACT_APP_API_URL + `user/${id}`
 			);
 			// Return the owners first name
 			setOwner(res.data);
@@ -36,6 +37,7 @@ export const Bookpage = () => {
 		}
 	};
 
+	//fetch the users information by JWT token
 	const checkUser = async () => {
 		//User sends its access_token in headers to BE to be decoded.
 		await axios
@@ -54,7 +56,19 @@ export const Bookpage = () => {
 			});
 	};
 
-	const OnBorrow = () => {};
+	//Function to Borrow a book
+	const OnBorrow = async (Bid) => {
+		const id = params.id;
+		const newBorrower = JSON.stringify({ borrower: Bid });
+		await axios
+			.put(process.env.REACT_APP_API_URL + `book/${id}`, newBorrower, {
+				headers: { 'Content-Type': 'application/json' },
+			})
+			.then((res) => {
+				console.log(Bid);
+				console.log(res.data);
+			});
+	};
 
 	useEffect(() => {
 		if (user) {
@@ -67,7 +81,9 @@ export const Bookpage = () => {
 				console.log(book.owner);
 			}
 		}
+
 		console.log(book.borrower);
+		//Check to see if the book is avalible to borrow
 		if (book.borrower === undefined || book.borrower === null) {
 			setBorrowed(true);
 		} else {
@@ -98,11 +114,16 @@ export const Bookpage = () => {
 							{new Date(book.released).toLocaleDateString()}
 						</p>
 						<p>Owned by: {owner.bookOwner}</p>
+						{/* Depending on if the book has a borrower or not, diffrent things will display */}
 						{borrowed ? (
 							<button
 								className="btn btn-primary text-white m-3 btn-lg"
-								style={{ backgroundColor: '#81647C' }}
-								onClick={OnBorrow()}
+								style={{
+									backgroundColor: '#81647C',
+								}}
+								onClick={() => {
+									OnBorrow(getUser.id);
+								}}
 							>
 								Borrow
 							</button>
