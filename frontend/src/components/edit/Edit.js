@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import "./edit.css";
 import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom';
 
@@ -7,6 +8,8 @@ export const Edit = () => {
 	const navigate = useNavigate();
   const user = Cookies.get("access_token");
   const [formData, setFormData] = useState({})
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [formErrors, setFormErrors] = useState({});
   const [error, setError] = useState(true);
   const [submitted, setSubmitted] = useState(false);
@@ -104,8 +107,10 @@ export const Edit = () => {
   return (
     <>
       <section className="m-5">
-        <h1 className="mb-5 text-center">Settings</h1>
+        <h1 className="text-center">Settings</h1>
+        <p className="mb-5 text-center">Here you can update your contact info, reset password and delete your account</p>
         <form className="row g-3">
+          <h2>Contact Info</h2>
           <div className="col-md-6">
             <label htmlFor="firstName" className="form-label">
               First name
@@ -166,26 +171,55 @@ export const Edit = () => {
             />
           </div>
 
-          <div className="col-12 pt-4 text-center">
+          <div className="col-12 pt-4 text-center d-flex justify-content-end" >
             <button
               type="button"
-              className="btn btn-primary btn-lg"
+              className="btn btn-primary btn-lg update-contactinfo-button"
               onClick={handleOnSubmit}
             >
               Update
             </button>
           </div>
+        </form>
 
-          <div className="col-12 pt-1 text-center">
-              <button
-                type="submit"
-                className="btn btn btn-lg"
-              
-              >
-                <a href="edit/password" className="text-decoration-none">
-                Change Password
-                </a>
-              </button>
+        <form className="row g-3">
+        <h2>Reset password</h2>
+          <div className="col-md-6">
+            <label htmlFor="email" className="form-label">
+              Password
+            </label>
+            <p>{formErrors.email}</p>
+            <input
+              type="password"
+              className="form-control"
+              id="password"
+              name="password"
+              defaultValue={password}
+              onChange={handleOnChange}
+            />
+          </div>
+          <div className="col-md-6">
+            <label htmlFor="email" className="form-label">
+              Confirm Password
+            </label>
+            <p>{formErrors.email}</p>
+            <input
+              type="password"
+              className="form-control"
+              id="confirmPassword"
+              name="confirmPassword"
+              defaultValue={confirmPassword}
+              onChange={handleOnChange}
+            />
+          </div>
+          <div className="col-12 pt-4 text-center d-flex justify-content-end">
+            <button
+              type="button"
+              className="btn btn-primary btn-lg password-chane-button"
+              onClick={handleOnSubmit}
+            >
+              Change Password
+            </button>
           </div>
         </form>
       </section>
