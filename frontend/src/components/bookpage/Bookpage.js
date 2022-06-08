@@ -18,7 +18,6 @@ export const Bookpage = () => {
 				process.env.REACT_APP_API_URL + 'book/' + params.id
 			);
 			setBook(res.data);
-			console.log(res.data);
 		} catch (e) {
 			console.log(e);
 		}
@@ -49,7 +48,6 @@ export const Bookpage = () => {
 			})
 			.then((res) => {
 				if (res.data.user) {
-					console.log(res.data.user);
 					//Stores user info into the state.
 					setGetUser(res.data.user);
 				}
@@ -64,25 +62,21 @@ export const Bookpage = () => {
 			.put(process.env.REACT_APP_API_URL + `book/${id}`, newBorrower, {
 				headers: { 'Content-Type': 'application/json' },
 			})
-			.then((res) => {
-				console.log(Bid);
-				console.log(res.data);
-			});
+			.then((res) => {});
 	};
 
 	useEffect(() => {
+		//checks if there is a user logged in or not
 		if (user) {
 			checkUser();
 		}
 		getBook();
 		if (book) {
+			//if book has something stored it will then run the function
 			if (book.owner) {
 				getOwner(book.owner);
-				console.log(book.owner);
 			}
 		}
-
-		console.log(book.borrower);
 		//Check to see if the book is avalible to borrow
 		if (book.borrower === undefined || book.borrower === null) {
 			setBorrowed(true);
@@ -113,7 +107,7 @@ export const Bookpage = () => {
 							{new Date(book.released).toLocaleDateString()}
 						</p>
 						<p>Owned by: {owner.bookOwner}</p>
-						{/* Depending on if the book has a borrower or not, diffrent things will display */}
+						{/* Depending on if the book has a borrower or not or if user is not logged in, diffrent things will display */}
 						{borrowed && user ? (
 							<button
 								className="btn btn-primary text-white m-3 btn-lg"
