@@ -1,40 +1,56 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
-import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [location, setLocation] = useState("");
   const [genre, setGenre] = useState("Genres");
   const [books, setBooks] = useState([]);
+  const user = Cookies.get("access_token");
   const [getUser, setGetUser] = useState({});
-  const user = Cookies.get('access_token');
+  const [introText, setintroText] = useState("");
   const navigate = useNavigate();
 
   const checkUser = async () => {
-		//User sends its access_token in headers to BE to be decoded.
-		await axios
-			.get(process.env.REACT_APP_API_URL + 'user/protected', {
-				withCredentials: true,
-				headers: {
-					Authorization: `Bearer ${user}`,
-				},
-			})
-			.then((res) => {
-				if (res.data.user) {
-					console.log(res.data.user);
-					//Stores user info into the state.
-					setGetUser(res.data.user);
-				}
-			});
-	};
+    //User sends its access_token in headers to BE to be decoded.
+    await axios
+      .get(process.env.REACT_APP_API_URL + "user/protected", {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${user}`,
+        },
+      })
+      .then((res) => {
+        if (res.data.user) {
+          console.log(res.data.user);
+          //Stores user info into the state.
+          setGetUser(res.data.user);
+        }
+      });
+  };
 
   useEffect(() => {
     if (user) {
       checkUser();
-    } 
-  }, [user]);
+      if (getUser.city) {
+        axios
+          .get(
+            `${process.env.REACT_APP_API_URL}book/search=${searchTerm}&location=${getUser.city}&genre=${genre}`
+          )
+          .then((res) => {
+            setBooks(res.data);
+            setintroText("Books near you");
+          });
+      }
+    } else {
+      axios
+        .get(`${process.env.REACT_APP_API_URL}book/`)
+        .then((res) => setBooks(res.data.book));
+      setintroText("Recommended books for you");
+    }
+  }, [getUser.city]);
 
   const searchBooks = async () => {
     const res = await axios.get(
@@ -54,7 +70,6 @@ export const Search = () => {
 			navigate('/login');
 		}
 	}, [getUser.id]);
-
 
   return (
     <section className="container my-5 rounded">
@@ -87,11 +102,11 @@ export const Search = () => {
               onChange={(e) => setGenre(e.target.value)}
             >
               <option defaultValue>Genres</option>
-              <option value="fantasy">Fantasy</option>
-              <option value="sci-fi">Sci-Fi</option>
-              <option value="mystery">Mystery</option>
-              <option value="thriller">Thriller</option>
-              <option value="romance">Romance</option>
+              <option value="Fantasy">Fantasy</option>
+              <option value="Sci-Fi">Sci-Fi</option>
+              <option value="Mystery">Mystery</option>
+              <option value="Thriller">Thriller</option>
+              <option value="Romance">Romance</option>
             </select>
             {/* <select
               className="form-select form-select-sm w-50"
@@ -114,6 +129,7 @@ export const Search = () => {
 
       <section className="my-5 container align-items-center">
         <div className="row align-items-center">
+          <h2>{introText}</h2>
           {books.map((book) => {
             return (
               <div
@@ -127,11 +143,10 @@ export const Search = () => {
                   alt="..."
                 />
                 <div className="card-body">
-                  <h5 className="card-title">Title: {book.title}</h5>
-                  <div className="d-flex justify-content-between align-items-center pt-4">
-                    <a href="#" className="btn btn-primary">
-                      Loan
-                    </a>
+                  <h5 className="card-title text-center">
+                    Title: {book.title}
+                  </h5>
+                  <div className="d-flex justify-content-center align-items-center pt-4">
                     <a
                       href={"/bookpage/" + book._id}
                       className="btn btn-primary"
