@@ -125,7 +125,14 @@ export const Dashboard = () => {
 								{/* After fetching users borrowed books, they will be displayed here */}
 								{borrowed.map((borrow, index) => (
 									<tr key={index}>
-										<td>{borrow.title}</td>
+										<td>
+											<a
+												className="text-black"
+												href={'/bookpage/' + borrow._id}
+											>
+												{borrow.title}
+											</a>
+										</td>
 										<td>{borrow.author}</td>
 										<td>
 											<button
