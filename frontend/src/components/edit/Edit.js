@@ -91,7 +91,7 @@ export const Edit = () => {
 
   useEffect(() => {
     if (!user) {
-      navigate('/')
+      navigate('/login')
     } else {
       getUserAndSetFormData();
       if (error === false) {
