@@ -23,11 +23,18 @@ export const Edit = () => {
 
   const deleteUser = async (user) => {
     const userId = getUser.id;
-    await axios
-      .deleteUser(API_URL + "/" + userId + "/edit", user)
+    var result = alert("Want to delete your profile?");
+    console.log(result);
+    if (result) {
+      alert("bla");
+
+    }
+    
+    /* await axios
+      .delete(API_URL + "/" + userId + "/edit", user)
       .then((res) => {
         console.log(res.data);
-      });
+      }); */
 
       //alert box to confirm delete
     /* function confirmDelete() {
@@ -39,7 +46,7 @@ export const Edit = () => {
       }
       document.getElementById("delete").innerHTML = text;
     } */
-    alert("User deleted!");
+    //alert("User deleted!");
   };
 
   useEffect(() => {
@@ -206,10 +213,8 @@ export const Edit = () => {
               
               type="delete"
               className="btn btn-danger btn-m"
-              onClick={onClick}>
-              <a href="edit/deleteUser" className="text-decoration-none">
-                Delete my Account
-              </a>
+              onClick={onClick}>              
+                Delete my Account              
             </button>
           </div>
         </form>
