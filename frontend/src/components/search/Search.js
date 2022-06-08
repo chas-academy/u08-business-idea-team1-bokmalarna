@@ -1,11 +1,46 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
 export const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [location, setLocation] = useState("");
   const [genre, setGenre] = useState("Genres");
   const [books, setBooks] = useState([]);
+  const user = Cookies.get("access_token");
+  const [getUser, setGetUser] = useState({});
+
+  const checkUser = async () => {
+    //User sends its access_token in headers to BE to be decoded.
+    await axios
+      .get(process.env.REACT_APP_API_URL + "user/protected", {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${user}`,
+        },
+      })
+      .then((res) => {
+        if (res.data.user) {
+          console.log(res.data.user);
+          //Stores user info into the state.
+          setGetUser(res.data.user);
+        }
+      });
+  };
+
+  useEffect(() => {
+    if (user) {
+      checkUser();
+      if (getUser.city) {
+        console.log(getUser.city);
+        axios
+          .get(
+            `${process.env.REACT_APP_API_URL}book/search=${searchTerm}&location=${getUser.city}&genre=${genre}`
+          )
+          .then((res) => setBooks(res.data));
+      }
+    }
+  }, [getUser.city]);
 
   const searchBooks = async () => {
     const res = await axios.get(
