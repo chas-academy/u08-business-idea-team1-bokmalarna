@@ -64,6 +64,16 @@ router.get("/borrowed/:id", async (req, res) => {
   }
 });
 
+//GET all books
+router.get("/", async (req, res) => {
+  try {
+    const books = await Book.find().limit(6);
+    res.status(200).json({ book: books });
+  } catch (error) {
+    res.status(400).json({ status: error });
+  }
+});
+
 // GET searched books
 router.get("/:searchParam?&:location?&:genres", async (req, res) => {
   const { searchParam, location, genres } = req.params;
@@ -147,13 +157,11 @@ router.put("/:id", async (req, res) => {
     const id = req.params.id;
     const options = { new: true };
     const book = await Book.findByIdAndUpdate(id, req.body, options);
-    res
-      .status(200)
-      .json({
-        status: "Success!",
-        message: "Book updated successfully!",
-        book: book,
-      });
+    res.status(200).json({
+      status: "Success!",
+      message: "Book updated successfully!",
+      book: book,
+    });
   } catch (error) {
     res
       .status(500)
