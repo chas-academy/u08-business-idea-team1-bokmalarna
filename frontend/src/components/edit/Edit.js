@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import "./edit.css";
 import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom';
 
@@ -171,7 +172,7 @@ export const Edit = () => {
           <div className="col-12 pt-4 text-center d-flex justify-content-end" >
             <button
               type="button"
-              className="btn btn-primary btn-lg"
+              className="btn btn-primary btn-lg update-contactinfo-button"
               onClick={handleOnSubmit}
             >
               Update
@@ -211,7 +212,7 @@ export const Edit = () => {
           <div className="col-12 pt-4 text-center d-flex justify-content-end">
             <button
               type="button"
-              className="btn btn-primary btn-lg"
+              className="btn btn-primary btn-lg password-chane-button"
               onClick={handleOnSubmit}
             >
               Change Password

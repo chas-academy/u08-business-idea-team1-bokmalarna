@@ -1,0 +1,5 @@
+@media (max-width: 768px) {
+  .password-chane-button, .update-contactinfo-button {
+      width:100%;
+  }
+}
