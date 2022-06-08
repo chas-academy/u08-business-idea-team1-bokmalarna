@@ -41,7 +41,7 @@ export const Search = () => {
           )
           .then((res) => {
             setBooks(res.data);
-            setintroText("Books near you");
+            setintroText("Books available in your city");
           });
       }
     } else {
@@ -66,15 +66,15 @@ export const Search = () => {
   };
 
   useEffect(() => {
-		if (!user) {
-			navigate('/login');
-		}
-	}, [getUser.id]);
+    if (!user) {
+      navigate("/login");
+    }
+  }, [getUser.id]);
 
   return (
     <section className="container my-5 rounded">
       <section className="my-5 row">
-        <h2 className="fw-bold text-center pb-2">SEARCH</h2>
+        <h2 className="fw-bold text-center pb-5">Browse books</h2>
         <form className="d-flex flex-column justify-content-center">
           <div className="mb-3 col">
             <input
@@ -108,14 +108,6 @@ export const Search = () => {
               <option value="Thriller">Thriller</option>
               <option value="Romance">Romance</option>
             </select>
-            {/* <select
-              className="form-select form-select-sm w-50"
-              aria-label=".form-select-sm example"
-            >
-              <option value="">Sort By</option>
-              <option value="1">Title</option>
-              <option value="2">Author</option>
-            </select> */}
             <button
               type="submit"
               className="btn btn-primary"
@@ -126,32 +118,29 @@ export const Search = () => {
           </div>
         </form>
       </section>
-
-      <section className="my-5 container align-items-center">
-        <div className="row align-items-center">
-          <h2>{introText}</h2>
+      <section className="container">
+        <h2 className="text-center">{introText}</h2>
+        <div className="row justify-content-center p-3">
           {books.map((book) => {
             return (
               <div
-                className="card shadow-lg mx-4 rounded"
-                style={{ width: "18rem" }}
+                className="card shadow-lg rounded m-3"
+                style={{ width: "16rem" }}
                 key={book._id}
               >
                 <img
                   src="https://i.imgur.com/hJE4Jfx.jpg"
-                  className="card-img-top"
+                  className="card-img-top pt-2"
                   alt="..."
                 />
                 <div className="card-body">
-                  <h5 className="card-title text-center">
-                    Title: {book.title}
-                  </h5>
+                  <h5 className="card-title text-center">{book.title}</h5>
                   <div className="d-flex justify-content-center align-items-center pt-4">
                     <a
                       href={"/bookpage/" + book._id}
                       className="btn btn-primary"
                     >
-                      Visit Book
+                      Visit book
                     </a>
                   </div>
                 </div>
