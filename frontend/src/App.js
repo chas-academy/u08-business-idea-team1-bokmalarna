@@ -10,7 +10,6 @@ import { Dashboard } from "./components/dashboard/Dashboard";
 import { Bookpage } from "./components/bookpage/Bookpage";
 import { Addbook } from "./components/addbook/Addbook";
 import { Edit } from "./components/edit/Edit";
-import { EditPassword } from "./components/edit/Editpassword";
 import { Messenger } from "./components/messenger/Messenger";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Home } from "./components/Home/Home";
@@ -95,7 +94,6 @@ function App() {
           <Route path="/bookpage/:id" element={<Bookpage />} />
           <Route path="/addbook" element={<Addbook />} />
           <Route path="/edit" element={<Edit />} />
-          <Route path="/edit/password" element={<EditPassword />} />
           <Route path="/editbook/:id" element={<Editbook />} />
           <Route path="/messenger" element={<Messenger />} />
         </Routes>
