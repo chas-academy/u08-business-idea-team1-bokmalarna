@@ -51,11 +51,11 @@ export const Search = () => {
               onChange={(e) => setGenre(e.target.value)}
             >
               <option defaultValue>Genres</option>
-              <option value="fantasy">Fantasy</option>
-              <option value="sci-fi">Sci-Fi</option>
-              <option value="mystery">Mystery</option>
-              <option value="thriller">Thriller</option>
-              <option value="romance">Romance</option>
+              <option value="Fantasy">Fantasy</option>
+              <option value="Sci-Fi">Sci-Fi</option>
+              <option value="Mystery">Mystery</option>
+              <option value="Thriller">Thriller</option>
+              <option value="Romance">Romance</option>
             </select>
             {/* <select
               className="form-select form-select-sm w-50"
