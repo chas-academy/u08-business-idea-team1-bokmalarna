@@ -24,15 +24,6 @@ export const Edit = () => {
     }
   }
 
-  useEffect(() => {
-    if (!user) {
-      navigate('/')
-    } else {
-      getUserAndSetFormData();
-    }
-  }, [user]);
-
-
   const [formErrors, setFormErrors] = useState({});
   const [error, setError] = useState(true);
   const [submitted, setSubmitted] = useState(false);
@@ -53,10 +44,15 @@ export const Edit = () => {
   };
 
   useEffect(() => {
-    if (error === false) {
-      updateUser()
+    if (!user) {
+      navigate('/')
+    } else {
+      getUserAndSetFormData();
+      if (error === false) {
+        updateUser()
+      }
     }
-  }, [error]);
+  }, [user, error]);
 
   const validate = (values) => {
     // Empty errors object - data is added if the form is not filled out properly
