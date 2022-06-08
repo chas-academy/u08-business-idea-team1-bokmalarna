@@ -80,9 +80,9 @@ export const Registration = () => {
 	};
 
 	const successmessage = () => {
-		alert("Registration successful!");
-		window.location = '/'
-	}
+		alert('Registration successful!');
+		window.location = '/';
+	};
 
 	const register = async (userData) => {
 		await axios
@@ -93,15 +93,17 @@ export const Registration = () => {
 	};
 
 	return (
-		<>
-			<section className="m-5">
-				<h1 className="mb-5 text-center">Registration</h1>
+		<main className="App bg-books py-5 px-4">
+			<section className="container shadow bg-body rounded border border-dark bg-opacity-75 pb-4">
+				<h1 className="text-center pt-5 display-1 fw-normal">
+					Registration
+				</h1>
 				{Object.keys(formErrors).length === 0 && submitted ? (
 					successmessage()
 				) : (
 					<></>
 				)}
-				<form className="row g-3">
+				<form className="row g-3 fw-bold">
 					<div className="col-md-6">
 						<label htmlFor="firstName" className="form-label">
 							First name
@@ -196,6 +198,10 @@ export const Registration = () => {
 						<button
 							type="submit"
 							className="btn btn-primary btn-lg"
+							style={{
+								backgroundColor: '#81647C',
+								borderColor: '#81647C',
+							}}
 							onClick={onSubmit}
 						>
 							Register User
@@ -203,6 +209,6 @@ export const Registration = () => {
 					</div>
 				</form>
 			</section>
-		</>
+		</main>
 	);
 };
