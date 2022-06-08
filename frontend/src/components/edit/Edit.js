@@ -188,6 +188,37 @@ export const Edit = () => {
               </button>
           </div>
         </form>
+
+        <form className="row g-3">
+          <div className="col-md-6">
+            <label htmlFor="email" className="form-label">
+              Password
+            </label>
+            <p>{formErrors.email}</p>
+            <input
+              type="password"
+              className="form-control"
+              id="password"
+              name="password"
+              defaultValue={password}
+              onChange={handleOnChange}
+            />
+          </div>
+          <div className="col-md-6">
+            <label htmlFor="email" className="form-label">
+              Confirm Password
+            </label>
+            <p>{formErrors.email}</p>
+            <input
+              type="password"
+              className="form-control"
+              id="confirmPassword"
+              name="confirmPassword"
+              defaultValue={confirmPassword}
+              onChange={handleOnChange}
+            />
+          </div>
+        </form>
       </section>
     </>
   );
