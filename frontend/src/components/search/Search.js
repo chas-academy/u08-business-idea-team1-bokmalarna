@@ -39,6 +39,12 @@ export const Search = () => {
           )
           .then((res) => setBooks(res.data));
       }
+    } else {
+      axios
+        .get(
+          `${process.env.REACT_APP_API_URL}book/search=${searchTerm}&location=Stockholm&genre=${genre}`
+        )
+        .then((res) => setBooks(res.data));
     }
   }, [getUser.city]);
 
