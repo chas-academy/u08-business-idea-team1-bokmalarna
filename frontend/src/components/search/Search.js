@@ -51,11 +51,11 @@ export const Search = () => {
               onChange={(e) => setGenre(e.target.value)}
             >
               <option defaultValue>Genres</option>
-              <option value="Fantasy">Fantasy</option>
-              <option value="Sci-Fi">Sci-Fi</option>
-              <option value="Mystery">Mystery</option>
-              <option value="Thriller">Thriller</option>
-              <option value="Romance">Romance</option>
+              <option value="fantasy">Fantasy</option>
+              <option value="sci-fi">Sci-Fi</option>
+              <option value="mystery">Mystery</option>
+              <option value="thriller">Thriller</option>
+              <option value="romance">Romance</option>
             </select>
             {/* <select
               className="form-select form-select-sm w-50"
@@ -91,11 +91,10 @@ export const Search = () => {
                   alt="..."
                 />
                 <div className="card-body">
-                  <h5 className="card-title">Title: {book.title}</h5>
-                  <div className="d-flex justify-content-between align-items-center pt-4">
-                    <a href="#" className="btn btn-primary">
-                      Loan
-                    </a>
+                  <h5 className="card-title text-center">
+                    Title: {book.title}
+                  </h5>
+                  <div className="d-flex justify-content-center align-items-center pt-4">
                     <a
                       href={"/bookpage/" + book._id}
                       className="btn btn-primary"
