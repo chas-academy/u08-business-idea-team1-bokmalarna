@@ -208,6 +208,15 @@ export const Edit = () => {
               onChange={handleOnChange}
             />
           </div>
+          <div className="col-12 pt-4 text-center">
+            <button
+              type="button"
+              className="btn btn-primary btn-lg"
+              onClick={handleOnSubmit}
+            >
+              Change Password
+            </button>
+          </div>
         </form>
       </section>
     </>
