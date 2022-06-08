@@ -167,7 +167,11 @@ export const Dashboard = () => {
 								{/* After fetching users books, they will be displayed here */}
 								{books.map((book, index) => (
 									<tr key={index}>
-										<td>{book.title}</td>
+										<td>
+											<a href={'/bookpage/' + book._id}>
+												{book.title}
+											</a>
+										</td>
 										<td>
 											<button
 												className="btn btn-outline-danger btn-sm"
