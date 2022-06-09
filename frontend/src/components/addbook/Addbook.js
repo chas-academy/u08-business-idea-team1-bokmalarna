@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios, { Axios } from 'axios';
+import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 
@@ -28,7 +28,6 @@ export const Addbook = () => {
 			})
 			.then((res) => {
 				if (res.data.user) {
-					console.log('checkuser', res.data.user);
 					//Stores user info into the state.
 					setGetUser(res.data.user.id);
 				}
@@ -64,7 +63,6 @@ export const Addbook = () => {
 			const response = await axios
 				.post(process.env.REACT_APP_API_URL + 'book/newBook', form)
 				.then((res) => {
-					console.log(res.data);
 					alert('Book created successfully!');
 					window.location.reload();
 				});

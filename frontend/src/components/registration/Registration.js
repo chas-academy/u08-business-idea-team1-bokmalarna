@@ -32,7 +32,7 @@ export const Registration = () => {
 		if (error === false) {
 			register(formData);
 		}
-	}, [error]);
+	}, [error, formData]);
 
 	const validate = (values) => {
 		// Empty errors object - data is added if the form is not filled out properly
@@ -90,7 +90,7 @@ export const Registration = () => {
 		await axios
 			.post(process.env.REACT_APP_API_URL + 'user/register', userData)
 			.then((res) => {
-				console.log(res.data);
+				console.log('Successfully registered');
 			});
 	};
 

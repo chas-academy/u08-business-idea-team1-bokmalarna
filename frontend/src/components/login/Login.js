@@ -40,7 +40,6 @@ export const Login = () => {
 		);
 		if (response.data.token) {
 			Cookies.set('access_token', response.data.token);
-			console.log(response.data);
 			navigate('/dashboard');
 			window.location.reload();
 		} else {
@@ -54,7 +53,7 @@ export const Login = () => {
 		if (user) {
 			navigate('/dashboard');
 		}
-	}, [user]);
+	}, [user, navigate]);
 
 	return (
 		<>
