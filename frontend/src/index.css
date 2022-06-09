@@ -54,19 +54,31 @@ code {
 	background: radial-gradient(circle, rgba(66,41,26,1) 0%, rgba(43,27,17,1) 100%);
 }
 
+
 /* .darkbrown-nav div a {
 	color: #ffffff;
 } */
 
 
-@media screen and (min-width: 680px) {
+@media screen and (min-width: 700px) {
 	main {
 		min-height: 76vh;
 	} .mainPage {
-		margin-top: 10rem;
+		margin: 2em auto;
 		padding: 1.5rem;
+		width: 95%;
 	}
   }
 
+@media screen and (min-width: 1174px) {
+	 .mainPage {
+		width: 66%;
+		margin: 5em auto;
+	}
+  }
 
-
+  @media screen and (max-width: 699px) {
+	.mainPage {
+		margin: 2em auto 3em auto;
+	}
+  }

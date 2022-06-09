@@ -5,6 +5,8 @@ const dotenv = require("dotenv").config();
 const PORT = process.env.PORT || 8081;
 const userRouter = require("./routes/user");
 const bookRouter = require("./routes/book");
+const conversationRouter = require("./routes/conversations");
+const messageRouter = require("./routes/messages");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
@@ -22,6 +24,8 @@ app.use(
 app.use("/user", userRouter);
 app.use("/book", bookRouter);
 app.use("/uploads", express.static("./uploads"));
+app.use("/conversations", conversationRouter);
+app.use("/messages", messageRouter);
 
 app.get("/", (req, res) => {
   return res.json({ message: "Hello World 🤘" });

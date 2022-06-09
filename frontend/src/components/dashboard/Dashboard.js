@@ -36,6 +36,7 @@ export const Dashboard = () => {
 			.get(process.env.REACT_APP_API_URL + `book/user/${id}`)
 			.then((res) => {
 				if (res.data) {
+					console.log('users books: ', res.data.message);
 					setBooks(res.data.message);
 				}
 			});
@@ -62,6 +63,7 @@ export const Dashboard = () => {
 			})
 			.then((res) => {
 				console.log(res.data);
+				window.location.reload();
 			});
 	};
 
@@ -92,7 +94,7 @@ export const Dashboard = () => {
 	}, [getUser.id]);
 
 	return (
-		<div className="lightbrownbg">
+		<div className="lightbrownbg pb-3">
 			<section className="container">
 				<div className="text-center p-5">
 					<h1>Welcome {getUser.firstName}</h1>
@@ -124,7 +126,14 @@ export const Dashboard = () => {
 								{/* After fetching users borrowed books, they will be displayed here */}
 								{borrowed.map((borrow, index) => (
 									<tr key={index}>
-										<td>{borrow.title}</td>
+										<td>
+											<a
+												className="text-black"
+												href={'/bookpage/' + borrow._id}
+											>
+												{borrow.title}
+											</a>
+										</td>
 										<td>{borrow.author}</td>
 										<td>
 											<button
@@ -155,7 +164,7 @@ export const Dashboard = () => {
 						</Link>
 					</div>
 					<div className="card shadow-lg p-3 mb-5">
-						<table className="table table-hover">
+						<table className="table">
 							<thead>
 								<tr>
 									<th scope="col">Book Title</th>
@@ -167,7 +176,14 @@ export const Dashboard = () => {
 								{/* After fetching users books, they will be displayed here */}
 								{books.map((book, index) => (
 									<tr key={index}>
-										<td>{book.title}</td>
+										<td>
+											<a
+												className="text-black"
+												href={'/bookpage/' + book._id}
+											>
+												{book.title}
+											</a>
+										</td>
 										<td>
 											<button
 												className="btn btn-outline-danger btn-sm"
@@ -179,9 +195,15 @@ export const Dashboard = () => {
 											</button>
 										</td>
 										<td>
-											<span className="badge badge-success">
-												Available
-											</span>
+											{book.borrower ? (
+												<span className="btn btn-danger btn-sm">
+													Not Available
+												</span>
+											) : (
+												<span className="btn btn-success btn-sm">
+													Available
+												</span>
+											)}
 										</td>
 									</tr>
 								))}
