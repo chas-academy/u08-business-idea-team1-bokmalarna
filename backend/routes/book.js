@@ -1,13 +1,44 @@
+const multer = require("multer");
 const { json } = require("express");
 const express = require("express");
 const { findById } = require("../models/book");
 const router = express.Router();
 const Book = require("../models/book");
 const User = require("../models/user");
-const bookController = require("../controllers/bookController");
 
-// Create book
-router.post("/newBook", bookController.uploadImg, bookController.newBook);
+// Using multer to store images
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./uploads");
+  },
+  filename: function (req, file, cb) {
+    console.log(file);
+    cb(null, file.originalname);
+  },
+});
+
+const uploadImg = multer({ storage: storage });
+
+// Create book with one img
+router.post("/newBook", uploadImg.single("file"), (req, res) => {
+  try {
+    const newBook = new Book({
+      title: req.body.title,
+      author: req.body.author,
+      description: req.body.description,
+      genre: req.body.genre,
+      condition: req.body.condition,
+      released: req.body.released,
+      owner: req.body.owner,
+      image: req.file.originalname,
+    });
+    newBook.save().then(res.json("New book is created."));
+  } catch (error) {
+    res
+      .status(500)
+      .json({ status: "Failed", message: "Could not create book. ", error });
+  }
+});
 
 //Get User books
 router.get("/user/:id", async (req, res) => {
@@ -30,6 +61,16 @@ router.get("/borrowed/:id", async (req, res) => {
     res.status(200).json({ message: borrowerBooks });
   } catch (error) {
     res.status(400).json({ message: "That user has no books, try again" });
+  }
+});
+
+//GET all books
+router.get("/", async (req, res) => {
+  try {
+    const books = await Book.find().limit(6);
+    res.status(200).json({ book: books });
+  } catch (error) {
+    res.status(400).json({ status: error });
   }
 });
 
@@ -114,12 +155,17 @@ router.get("/:id", async (req, res) => {
 router.put("/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    const update = req.body;
     const options = { new: true };
-    const book = await Book.findByIdAndUpdate(id, update, options);
-    res.status(200).json(book);
+    const book = await Book.findByIdAndUpdate(id, req.body, options);
+    res.status(200).json({
+      status: "Success!",
+      message: "Book updated successfully!",
+      book: book,
+    });
   } catch (error) {
-    res.status(500).json({ message: "Could not update book" });
+    res
+      .status(500)
+      .json({ status: "Failed", message: "Could not update book" });
   }
 });
 

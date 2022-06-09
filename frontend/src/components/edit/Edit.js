@@ -1,57 +1,63 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import "./edit.css";
 import Cookies from "js-cookie";
+import { useNavigate } from 'react-router-dom';
 
 export const Edit = () => {
-  const API_URL = "http://localhost:8080/user/";
-
-
+	const navigate = useNavigate();
   const user = Cookies.get("access_token");
-  const [getUser, setGetUser] = useState({});
-
-  const checkUser = async () => {
-    await axios
-      .get("http://localhost:8080/user/protected", {
-        withCredentials: true,
-      })
-      .then((res) => {
-        if (res.data.user) {
-          console.log(res.data.user);
-          setGetUser(res.data.user);
-        }
-      });
-  };
-
-  useEffect(() => {
-    if (user) {
-      checkUser();
-    } 
-  }, [user]);
-
-
+  const [formData, setFormData] = useState({})
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [formErrors, setFormErrors] = useState({});
   const [error, setError] = useState(true);
   const [submitted, setSubmitted] = useState(false);
-  const { firstName, lastName, city, email } =
-    getUser;
 
-  const onChange = (e) => {
-    setGetUser({ ...getUser, [e.target.name]: e.target.value });
-    console.log(getUser);
-  };
+  const { id, firstName, lastName, city, email } =
+    formData;
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    setFormErrors(validate(getUser));
-    setSubmitted(true);
-    checkUser();
-  };
-
-  useEffect(() => {
-    if (error === false) {
-      edit(getUser);
+  const getUserAndSetFormData = async () => {
+    try {
+      const res = await axios
+      .get(`${process.env.REACT_APP_API_URL}user/protected`, {
+        withCredentials: true,
+        headers: {
+					Authorization: `Bearer ${user}`,
+				},
+      })
+        setFormData(res.data.user);
+      
+    } catch (error) {
+      console.warn(error)
     }
-  }, [error]);
+  }
+
+  const handleOnChange = (e) => {
+    const {name, value} = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleOnSubmit = (e) => {
+    setFormErrors(validate(formData));
+    setSubmitted(true);
+    getUserAndSetFormData();
+  };
+
+  const updateUser = async (e) => {
+
+    try {
+      const userData = formData;
+
+      const API_URL = `${process.env.REACT_APP_API_URL}user/`;
+      const userId = id;
+      
+      const res = await axios.put(API_URL + "/" + userId + "/edit", userData)
+
+    } catch (error) {
+      console.warn(error)
+    }
+  }
 
   const validate = (values) => {
     // Empty errors object - data is added if the form is not filled out properly
@@ -86,21 +92,25 @@ export const Edit = () => {
     return errors;
   };
 
-  const edit = async (userData) => {
-    const userId = getUser.id
-    await axios.put(API_URL + "/" + userId + "/edit", userData).then((res) => {
-      console.log(res.data);
-    });
-    alert("Settings will be updated next time you log in!")
-  };
+  useEffect(() => {
+    if (!user) {
+      navigate('/login')
+    } else {
+      getUserAndSetFormData();
+      if (error === false) {
+        updateUser()
+      }
+    }
+  }, [user, error]);
 
-  console.log(user);
 
   return (
     <>
       <section className="m-5">
-        <h1 className="mb-5 text-center">Settings</h1>
+        <h1 className="text-center">Settings</h1>
+        <p className="mb-5 text-center">Here you can update your contact info, reset password and delete your account</p>
         <form className="row g-3">
+          <h2>Contact Info</h2>
           <div className="col-md-6">
             <label htmlFor="firstName" className="form-label">
               First name
@@ -111,8 +121,8 @@ export const Edit = () => {
               className="form-control"
               id="firstName"
               name="firstName"
-              defaultValue={getUser.firstName}
-              onChange={onChange}
+              defaultValue={firstName}
+              onChange={handleOnChange}
             />
           </div>
 
@@ -126,8 +136,8 @@ export const Edit = () => {
               className="form-control"
               id="lastName"
               name="lastName"
-              defaultValue={getUser.lastName}
-              onChange={onChange}
+              defaultValue={lastName}
+              onChange={handleOnChange}
             />
           </div>
 
@@ -141,8 +151,8 @@ export const Edit = () => {
               className="form-control"
               id="city"
               name="city"
-              defaultValue={getUser.city}
-              onChange={onChange}
+              defaultValue={city}
+              onChange={handleOnChange}
             />
           </div>
 
@@ -156,31 +166,60 @@ export const Edit = () => {
               className="form-control"
               id="email"
               name="email"
-              defaultValue={getUser.email}
-              onChange={onChange}
+              defaultValue={email}
+              onChange={handleOnChange}
             />
           </div>
 
-          <div className="col-12 pt-4 text-center">
+          <div className="col-12 pt-4 text-center d-flex justify-content-end" >
             <button
-              type="submit"
-              className="btn btn-primary btn-lg"
-              onClick={onSubmit}
+              type="button"
+              className="btn btn-primary btn-lg update-contactinfo-button"
+              onClick={handleOnSubmit}
             >
               Update
             </button>
           </div>
+        </form>
 
-          <div className="col-12 pt-1 text-center">
-              <button
-                type="submit"
-                className="btn btn btn-lg"
-              
-              >
-                <a href="edit/password" className="text-decoration-none">
-                Change Password
-                </a>
-              </button>
+        <form className="row g-3">
+        <h2>Reset password</h2>
+          <div className="col-md-6">
+            <label htmlFor="email" className="form-label">
+              Password
+            </label>
+            <p>{formErrors.email}</p>
+            <input
+              type="password"
+              className="form-control"
+              id="password"
+              name="password"
+              defaultValue={password}
+              onChange={handleOnChange}
+            />
+          </div>
+          <div className="col-md-6">
+            <label htmlFor="email" className="form-label">
+              Confirm Password
+            </label>
+            <p>{formErrors.email}</p>
+            <input
+              type="password"
+              className="form-control"
+              id="confirmPassword"
+              name="confirmPassword"
+              defaultValue={confirmPassword}
+              onChange={handleOnChange}
+            />
+          </div>
+          <div className="col-12 pt-4 text-center d-flex justify-content-end">
+            <button
+              type="button"
+              className="btn btn-primary btn-lg password-chane-button"
+              onClick={handleOnSubmit}
+            >
+              Change Password
+            </button>
           </div>
         </form>
       </section>

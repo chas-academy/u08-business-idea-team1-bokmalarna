@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from 'axios';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 export const Dashboard = () => {
 	const navigate = useNavigate();
@@ -35,6 +35,7 @@ export const Dashboard = () => {
 			.get(process.env.REACT_APP_API_URL + `book/user/${id}`)
 			.then((res) => {
 				if (res.data) {
+					console.log('users books: ', res.data.message);
 					setBooks(res.data.message);
 				}
 			});
@@ -49,6 +50,19 @@ export const Dashboard = () => {
 					console.log('borrowed books: ', res.data.message);
 					setBorrowed(res.data.message);
 				}
+			});
+	};
+
+	//Return borrowed book
+	const returnBook = async (id) => {
+		const newBorrower = JSON.stringify({ borrower: null });
+		await axios
+			.put(process.env.REACT_APP_API_URL + `book/${id}`, newBorrower, {
+				headers: { 'Content-Type': 'application/json' },
+			})
+			.then((res) => {
+				console.log(res.data);
+				window.location.reload();
 			});
 	};
 
@@ -79,7 +93,7 @@ export const Dashboard = () => {
 	}, [getUser.id]);
 
 	return (
-		<div className="lightbrownbg">
+		<div className="lightbrownbg pb-3">
 			<section className="container">
 				<div className="text-center p-5">
 					<h1>Welcome {getUser.firstName}</h1>
@@ -89,7 +103,9 @@ export const Dashboard = () => {
 					<button className="btn btn-outline-secondary m-2">
 						New Messages
 					</button>
-					<Link to="/edit" className="btn btn-outline-secondary m-2">Settings</Link>
+					<Link to="/edit" className="btn btn-outline-secondary m-2">
+						Settings
+					</Link>
 				</div>
 				<section>
 					{/*  LOANED BOOKS */}
@@ -109,10 +125,22 @@ export const Dashboard = () => {
 								{/* After fetching users borrowed books, they will be displayed here */}
 								{borrowed.map((borrow, index) => (
 									<tr key={index}>
-										<td>{borrow.title}</td>
+										<td>
+											<a
+												className="text-black"
+												href={'/bookpage/' + borrow._id}
+											>
+												{borrow.title}
+											</a>
+										</td>
 										<td>{borrow.author}</td>
 										<td>
-											<button className="btn btn-outline-danger btn-sm">
+											<button
+												className="btn btn-outline-danger btn-sm"
+												onClick={() => {
+													returnBook(borrow._id);
+												}}
+											>
 												Return
 											</button>
 										</td>
@@ -127,10 +155,15 @@ export const Dashboard = () => {
 					{/*  MY BOOKSHELF */}
 					<div className="text-center mt-5 mb-3">
 						<h3 className="text-center">My bookshelf</h3>
-						<Link to="/addbook" className="btn btn-outline-secondary m-3">Add book</Link>
+						<Link
+							to="/addbook"
+							className="btn btn-outline-secondary m-3"
+						>
+							Add book
+						</Link>
 					</div>
 					<div className="card shadow-lg p-3 mb-5">
-						<table className="table table-hover">
+						<table className="table">
 							<thead>
 								<tr>
 									<th scope="col">Book Title</th>
@@ -142,7 +175,14 @@ export const Dashboard = () => {
 								{/* After fetching users books, they will be displayed here */}
 								{books.map((book, index) => (
 									<tr key={index}>
-										<td>{book.title}</td>
+										<td>
+											<a
+												className="text-black"
+												href={'/bookpage/' + book._id}
+											>
+												{book.title}
+											</a>
+										</td>
 										<td>
 											<button
 												className="btn btn-outline-danger btn-sm"
@@ -154,9 +194,15 @@ export const Dashboard = () => {
 											</button>
 										</td>
 										<td>
-											<span className="badge badge-success">
-												Available
-											</span>
+											{book.borrower ? (
+												<span className="btn btn-danger btn-sm">
+													Not Available
+												</span>
+											) : (
+												<span className="btn btn-success btn-sm">
+													Available
+												</span>
+											)}
 										</td>
 									</tr>
 								))}
