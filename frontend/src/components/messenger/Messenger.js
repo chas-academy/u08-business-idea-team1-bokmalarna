@@ -58,7 +58,7 @@ export const Messenger = () => {
     });
   }, []);
 
-  // Messages only displays in relevant chat
+  // Messages only displays in relevant chat and updates chat in real time
   useEffect(() => {
     arrivalMessage &&
       currentChat?.members.includes(arrivalMessage.sender) &&
@@ -140,7 +140,7 @@ export const Messenger = () => {
       <div className="messenger">
         <div className="chatMenu">
           <div className="chatMenuWrapper">
-            <input placeholder="Search for a user" className="chatMenuInput" />
+            <h2>Your active conversations:</h2>
             {conversations.map((c) => (
               <div onClick={() => setCurrentChat(c)}>
                 <Conversation conversation={c} currentUser={user} />
@@ -155,7 +155,12 @@ export const Messenger = () => {
                 <div className="chatBoxTop">
                   {messages.map((m) => (
                     <div ref={scrollRef}>
-                      <Message message={m} own={m.sender === user.id} />
+                      <Message
+                        message={m}
+                        own={m.sender === user.id}
+                        conversation={currentChat}
+                        currentUser={user}
+                      />
                     </div>
                   ))}
                 </div>
@@ -178,11 +183,7 @@ export const Messenger = () => {
             )}
           </div>
         </div>
-        <div className="chatOnline">
-          <div className="chatOnlineWrapper">
-            <ChatOnline />
-          </div>
-        </div>
+        <div className="sidepanel"></div>
       </div>
     </>
   );
