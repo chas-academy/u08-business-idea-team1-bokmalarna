@@ -174,7 +174,7 @@ export const Dashboard = () => {
 											</td>
 											<td>
 												<button
-													className="btn btn-outline-danger btn-sm"
+													className="btn btn-danger btn-sm"
 													onClick={() => {
 														returnBook(borrow._id);
 													}}
@@ -184,7 +184,12 @@ export const Dashboard = () => {
 											</td>
 											<td>
 												<button
-													className="custom-btn custom-btn-border btn-sm"
+													className="btn btn-success btn-sm"
+													style={{
+														backgroundColor:
+															'#81647C',
+														borderColor: '#81647C',
+													}}
 													onClick={() => {
 														startChat(
 															borrow.borrower,
