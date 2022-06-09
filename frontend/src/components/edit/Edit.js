@@ -212,7 +212,7 @@ export const Edit = () => {
           </div>
         </form>
 
-        <form className="row g-3">
+        <form className="row g-3 mt-5">
         <h2>Reset password</h2>
           <div className="col-md-6">
             <label htmlFor="password" className="form-label">
