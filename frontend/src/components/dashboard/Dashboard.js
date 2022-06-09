@@ -302,7 +302,7 @@ export const Dashboard = () => {
 														}}
 														onClick={() => {
 															startChat(
-																book.owner,
+																book.owner._id,
 																book.borrower
 															);
 														}}
