@@ -56,13 +56,13 @@ export const Search = () => {
     );
     console.log(res);
     setBooks(res.data);
+    setintroText("Search results:");
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     searchBooks(searchTerm, location);
   };
-
 
   return (
     <div className="lightbrownbg pt-3 pb-3">
@@ -96,11 +96,24 @@ export const Search = () => {
                 onChange={(e) => setGenre(e.target.value)}
               >
                 <option defaultValue>Genres</option>
-                <option value="Fantasy">Fantasy</option>
-                <option value="Sci-Fi">Sci-Fi</option>
-                <option value="Mystery">Mystery</option>
-                <option value="Thriller">Thriller</option>
-                <option value="Romance">Romance</option>
+                <option value="fantasy">Fantasy</option>
+                <option value="sci-Fi">Sci-Fi</option>
+                <option value="mystery">Mystery</option>
+                <option value="thriller">Thriller</option>
+                <option value="romance">Romance</option>
+                <option value="cookbook">Cookbook</option>
+                <option value="health">Health/fitness</option>
+                <option value="philosophy">Philosophy</option>
+                <option value="crime">Crime</option>
+                <option value="travel">Travel</option>
+                <option value="action">Action and Adventure</option>
+                <option value="history">History</option>
+                <option value="children">Childrens books</option>
+                <option value="comic">Comic</option>
+                <option value="drama">Drama</option>
+                <option value="horror">Horror</option>
+                <option value="poetry">Poetry</option>
+                <option value="young">Young adult</option>
               </select>
               <button
                 type="submit"
@@ -119,14 +132,15 @@ export const Search = () => {
               return (
                 <div
                   className="card shadow-lg rounded m-3"
-                  style={{ width: "16rem" }}
+                  style={{ width: "18rem" }}
                   key={book._id}
                 >
                   <img
                     src={
                       process.env.REACT_APP_API_URL + `uploads/${book.image}`
                     }
-                    className="card-img-top pt-2"
+                    style={{ height: "16rem" }}
+                    className="card img-fluid pt-2"
                     alt="..."
                   />
                   <div className="card-body">
