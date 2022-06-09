@@ -58,12 +58,19 @@ export const Edit = () => {
       console.warn(error)
     }
   };
-
+ 
   const deleteUser = async() => { 
     await axios
     .delete(process.env.REACT_APP_API_URL + 'user/'+ id)
-    .then(() => this.setState({status: 'User Deleted Successfully'}));
+    .then(() => {
+      Cookies.remove('access_token');     
+      window.location.reload(); 
+      navigate('/'); 
+      
+    })    
    };
+
+   
 
   const validate = (values) => {
     // Empty errors object - data is added if the form is not filled out properly
