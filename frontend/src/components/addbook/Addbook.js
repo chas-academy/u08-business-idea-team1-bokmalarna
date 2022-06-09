@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios, { Axios } from "axios";
+import Cookies from "js-cookie";
+import { useNavigate } from 'react-router-dom';
+
 
 export const Addbook = () => {
   const [userInput, setUserInput] = useState({
@@ -12,6 +15,27 @@ export const Addbook = () => {
     owner: "",
   });
   const [file, setFile] = useState();
+  const user = Cookies.get("access_token");
+  const [getUser, setGetUser] = useState({});
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({});
+  const [submitted, setSubmitted] = useState(false);
+
+  const getUserAndSetFormData = async () => {
+    try {
+      const res = await axios
+      .get(`${process.env.REACT_APP_API_URL}user/protected`, {
+        withCredentials: true,
+        headers: {
+					Authorization: `Bearer ${user}`,
+				},
+      })
+        setFormData(res.data.user);
+      
+    } catch (error) {
+      console.warn(error)
+    }
+  }
 
   const onChange = (e) => {
     setUserInput({ ...userInput, [e.target.name]: e.target.value });
@@ -51,6 +75,12 @@ export const Addbook = () => {
       alert("Failed to create book, please try again!")
     }
   };
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/login')
+    }
+  }, [user]);
 
   return (
     <section className="lightbrownbg">
