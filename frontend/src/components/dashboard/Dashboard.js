@@ -184,6 +184,12 @@ export const Dashboard = () => {
 											</a>
 										</td>
 										<td>
+											<a
+												className="btn btn-outline-success btn-sm"
+												href={`editbook/` + book._id}
+											>
+												Edit
+											</a>
 											<button
 												className="btn btn-outline-danger btn-sm"
 												onClick={() => {
