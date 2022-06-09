@@ -10,14 +10,18 @@ export const Bookpage = () => {
   const [owner, setOwner] = useState(""); //stores the owners name
   const [borrowed, setBorrowed] = useState(false); //checks if the book is borrowed or not
   const [getUser, setGetUser] = useState({}); //stores the loggedin users information
+  const [getCity, setGetCity] = useState(""); // stores the city of the user
 
   //function to fetch the book information
   const getBook = async () => {
     try {
-      const res = await axios.get(
-        process.env.REACT_APP_API_URL + "book/" + params.id
-      );
-      setBook(res.data);
+      const res = await axios
+        .get(process.env.REACT_APP_API_URL + "book/" + params.id)
+        .then((res) => {
+          console.log(res.data);
+          setBook(res.data.book);
+          setGetCity(res.data.city);
+        });
     } catch (e) {
       console.log(e);
     }
@@ -61,6 +65,7 @@ export const Bookpage = () => {
         headers: { "Content-Type": "application/json" },
       })
       .then((res) => {});
+      window.location.reload();
   };
 
   useEffect(() => {
@@ -118,10 +123,11 @@ export const Bookpage = () => {
               Owned by:{" "}
               <span className="fw-normal">
                 {" "}
-                {owner.bookOwner} in {getUser.city}
+                {owner.bookOwner} in {getCity}
               </span>
             </p>
             {/* Depending on if the book has a borrower or not or if user is not logged in, diffrent things will display */}
+
             {borrowed && user ? (
               <button
                 className="btn btn-primary text-white m-3 btn-lg"
