@@ -1,3 +1,4 @@
+![BookOwlLogo](/frontend/public/bookowl.png)
 # **Book Owl**
 ## **Project started 2022-05-11**
 This project is created as a group assignment at our Fullstack webdeveloper class at Chas Academy. 
@@ -6,7 +7,7 @@ We chose to create this app wich gives people the ability to find books to borro
 For this assignment we were allowed to use:
 
 - React in frontend
-- Node in backend
+- Node/express in backend
 - MongoDB  for database
 
 Final result: https://bookowl-u08.netlify.app/
@@ -75,7 +76,6 @@ Cypress.config.js:
 -   Get
     Get a users first name without going through a protected route. Needed for other users to view eachothers names.
 
-## **Controllers BE**
 
 ## **Socket**
 
