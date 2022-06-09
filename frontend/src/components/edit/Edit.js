@@ -61,6 +61,9 @@ export const Edit = () => {
 
   const resetPassword = async() => {
     try {
+      if (password !== confirmPassword)
+      return;
+
       const userData = {"password": password}
 
       const API_URL = `${process.env.REACT_APP_API_URL}user/`;
