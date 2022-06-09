@@ -183,7 +183,7 @@ export const Messenger = () => {
             )}
           </div>
         </div>
-        {/* <div className="sidepanel"></div> */}
+        <div className="sidepanel"></div>
       </div>
     </>
   );
