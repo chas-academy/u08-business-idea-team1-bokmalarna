@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios, { Axios } from "axios";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export const Addbook = () => {
   const user = Cookies.get("access_token");
@@ -14,6 +15,7 @@ export const Addbook = () => {
   });
   const [file, setFile] = useState();
   const [getUser, setGetUser] = useState("");
+  const navigate = useNavigate();
 
   const checkUser = async () => {
     //User sends its access_token in headers to BE to be decoded.
@@ -58,23 +60,27 @@ export const Addbook = () => {
   };
 
   const createBook = async (form) => {
-  try{
-   const response = await axios
-      .post(process.env.REACT_APP_API_URL + "book/newBook", form)
-      .then((res) => {
-        console.log(res.data);
-        alert("Book created successfully!");
-        window.location.reload();
-      });
-    } catch(err) {
+    try {
+      const response = await axios
+        .post(process.env.REACT_APP_API_URL + "book/newBook", form)
+        .then((res) => {
+          console.log(res.data);
+          alert("Book created successfully!");
+          window.location.reload();
+        });
+    } catch (err) {
       console.log(err);
-      alert("Failed to create book, please try again!")
+      alert("Failed to create book, please try again!");
     }
   };
 
   useEffect(() => {
-    checkUser();
-  }, [])
+    if (!user) {
+      navigate("/login");
+    } else {
+      checkUser();
+    }
+  }, [user]);
 
   return (
     <section className="lightbrownbg">
