@@ -161,7 +161,7 @@ router.put("/:id/resetpassword", async (req, res) => {
 
     const options = { new: true };
     const user = await User.findByIdAndUpdate(id, update, options);
-    res.status(200).json(user);
+    res.status(204);
   } catch (error) {
     res.status(500).json({ message: "Could not reset password" });
   }
