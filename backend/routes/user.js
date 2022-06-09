@@ -155,6 +155,9 @@ router.put("/:id/resetpassword", async (req, res) => {
   try {
     const id = req.params.id;
     const update = req.body;
+    
+    const salt = await bcrypt.genSalt(10);
+    update.password = await bcrypt.hash(update.password, salt);
 
     const options = { new: true };
     const user = await User.findByIdAndUpdate(id, update, options);
