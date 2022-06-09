@@ -67,11 +67,11 @@ export const Dashboard = () => {
   };
 
   // Start a chat conversation
-  const startChat = async (borrowerId, ownerId) => {
-    if (borrowerId && ownerId) {
+  const startChat = async (senderId, receiverId) => {
+    if (senderId && receiverId) {
       const chatMembers = {
-        senderId: borrowerId,
-        recieverId: ownerId,
+        senderId: senderId,
+        recieverId: receiverId,
       };
       console.log(chatMembers);
       try {
@@ -80,14 +80,15 @@ export const Dashboard = () => {
             headers: { "Content-Type": "application/json" },
           })
           .then(() => {
-            console.log("Posted");
-            /* navigate("/messenger"); */
+            console.log("New conversation created");
+            navigate("/messenger");
           });
       } catch (error) {
         console.log(error);
       }
     }
   };
+
   //Delete user book
   const deleteBook = async (id) => {
     console.log(id);
@@ -133,54 +134,56 @@ export const Dashboard = () => {
           {/*  LOANED BOOKS */}
           <h3 className="text-center mt-5 mb-3">List of loaned books</h3>
           <div className="card shadow-lg p-3 mb-5">
-            <table className="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">Book Title</th>
-                  <th scope="col">Owner</th>
-                  <th scope="col">Return</th>
-                  <th scope="col">Contact</th>
-                </tr>
-              </thead>
-              <tbody>
-                {/* After fetching users borrowed books, they will be displayed here */}
-                {borrowed.map((borrow, index) => (
-                  <tr key={index}>
-                    <td>
-                      <a
-                        className="text-black"
-                        href={"/bookpage/" + borrow._id}
-                      >
-                        {borrow.title}
-                      </a>
-                    </td>
-                    <td>
-                      {borrow.owner.firstName} {borrow.owner.lastName}
-                    </td>
-                    <td>
-                      <button
-                        className="btn btn-outline-danger btn-sm"
-                        onClick={() => {
-                          returnBook(borrow._id);
-                        }}
-                      >
-                        Return
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        className="custom-btn custom-btn-border btn-sm"
-                        onClick={() => {
-                          startChat(borrow.borrower, borrow.owner._id);
-                        }}
-                      >
-                        Chat
-                      </button>
-                    </td>
+            <div className="table-responsive">
+              <table className="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Book Title</th>
+                    <th scope="col">Owner</th>
+                    <th scope="col">Return</th>
+                    <th scope="col">Contact</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {/* After fetching users borrowed books, they will be displayed here */}
+                  {borrowed.map((borrow, index) => (
+                    <tr key={index}>
+                      <td>
+                        <a
+                          className="text-black"
+                          href={"/bookpage/" + borrow._id}
+                        >
+                          {borrow.title}
+                        </a>
+                      </td>
+                      <td>
+                        {borrow.owner.firstName} {borrow.owner.lastName}
+                      </td>
+                      <td>
+                        <button
+                          className="btn btn-outline-danger btn-sm"
+                          onClick={() => {
+                            returnBook(borrow._id);
+                          }}
+                        >
+                          Return
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          className="custom-btn custom-btn-border btn-sm"
+                          onClick={() => {
+                            startChat(borrow.borrower, borrow.owner._id);
+                          }}
+                        >
+                          Chat
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </section>
 
@@ -193,48 +196,64 @@ export const Dashboard = () => {
             </Link>
           </div>
           <div className="card shadow-lg p-3 mb-5">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th scope="col">Book Title</th>
-                  <th scope="col">Action</th>
-                  <th scope="col">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {/* After fetching users books, they will be displayed here */}
-                {books.map((book, index) => (
-                  <tr key={index}>
-                    <td>
-                      <a className="text-black" href={"/bookpage/" + book._id}>
-                        {book.title}
-                      </a>
-                    </td>
-                    <td>
-                      <button
-                        className="btn btn-outline-danger btn-sm"
-                        onClick={() => {
-                          deleteBook(book._id);
-                        }}
-                      >
-                        Remove
-                      </button>
-                    </td>
-                    <td>
-                      {book.borrower ? (
-                        <span className="btn btn-danger btn-sm">
-                          Not Available
-                        </span>
-                      ) : (
-                        <span className="btn btn-success btn-sm">
-                          Available
-                        </span>
-                      )}
-                    </td>
+            <div className="table-responsive">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Book Title</th>
+                    <th scope="col">Action</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Contact</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {/* After fetching users books, they will be displayed here */}
+                  {books.map((book, index) => (
+                    <tr key={index}>
+                      <td>
+                        <a
+                          className="text-black"
+                          href={"/bookpage/" + book._id}
+                        >
+                          {book.title}
+                        </a>
+                      </td>
+                      <td>
+                        <button
+                          className="btn btn-outline-danger btn-sm"
+                          onClick={() => {
+                            deleteBook(book._id);
+                          }}
+                        >
+                          Remove
+                        </button>
+                      </td>
+                      <td>
+                        {book.borrower ? (
+                          <span className="btn btn-danger btn-sm">
+                            Not Available
+                          </span>
+                        ) : (
+                          <span className="btn btn-success btn-sm">
+                            Available
+                          </span>
+                        )}
+                      </td>
+                      <td>
+                        <button
+                          className="custom-btn custom-btn-border btn-sm"
+                          onClick={() => {
+                            startChat(book.owner, book.borrower);
+                          }}
+                        >
+                          Chat
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </section>
       </section>
