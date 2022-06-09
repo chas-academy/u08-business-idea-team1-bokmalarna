@@ -67,10 +67,10 @@ export const Messenger = () => {
 
   // Check IDs to fetch correct chat-data
   useEffect(() => {
-    socket.current.emit("addUser", user.id);
-    socket.current.on("getUsers", (users) => {
-      console.log(users);
-    });
+    console.log(user);
+    if (user && user.id) {
+      socket.current.emit("addUser", user.id);
+    }
   }, [user]);
 
   // Get conversatins as they are selected
@@ -112,9 +112,10 @@ export const Messenger = () => {
     };
 
     const receiverId = currentChat.members.find((member) => member !== user.id);
+
     socket.current.emit("sendMessage", {
       senderId: user.id,
-      receiverId,
+      receiverId: receiverId,
       text: newMessage,
     });
 
