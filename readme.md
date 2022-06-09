@@ -36,10 +36,13 @@ Now you can navigate to
 
 ### **Node.js and MongoDB**
 
-We are user Express nodjs and mongoDB as our backend. To get started you'll need to cd into the backend folder and type npm i or yarn add.
+We are using Express nodjs and mongoDB as our backend. To get started you'll need to cd into the backend folder and type npm i or yarn add.
 After you have installed all the dependencys you can start the server by typeing npm run start.
 
 ### **React app**
+
+We are using React js as out frontend. To get started you'll need to cd into the frontend folder and type npm i or yarn add.
+After you have installed all the dependencys you can start the server by typeing npm start.
 
 ### **Cypress testing**
 
