@@ -36,10 +36,13 @@ Now you can navigate to
 
 ### **Node.js and MongoDB**
 
-We are user Express nodjs and mongoDB as our backend. To get started you'll need to cd into the backend folder and type npm i or yarn add.
+We are using Express nodjs and mongoDB as our backend. To get started you'll need to cd into the backend folder and type npm i or yarn add.
 After you have installed all the dependencys you can start the server by typeing npm run start.
 
 ### **React app**
+
+We are using React js as out frontend. To get started you'll need to cd into the frontend folder and type npm i or yarn add.
+After you have installed all the dependencys you can start the server by typeing npm start.
 
 ### **Cypress testing**
 
@@ -53,53 +56,35 @@ Cypress.config.js:
 
 ### **book.js**
 
-- Create
-  Creates a new book in the DB
-- Get User books
-  Gets the logged in users books from the DB
-- Get books
-  Gets all books from the DB
-- Get single book
-  Gets one book based on ID from the DB
-- Update Book
-  Updates one book in the DB
-- Delete Book
-  Deletes one book in the DB
-- Search Books
-  Filter searches on searh term, city and genre based on users input
+- Create - Creates a new book in the DB
+- Get User books - Gets the logged in users books from the DB
+- Get books - Gets all books from the DB
+- Get single book - Gets one book based on ID from the DB
+- Update Book - Updates one book in the DB
+- Delete Book - Deletes one book in the DB
+  Search Books - Filter searches on searh term, city and genre based on users input
 
 ### **conversations.js**
 
-- Post
-  Create a new private chat between two users
-- Get
-  Fetch a conversation based on the conversation ID
+- Post - Create a new private chat between two users
+- Get - Fetch a conversation based on the conversation ID
 
 ### **messages.js**
 
-- Post
-  Post a message to a specific conversation
-- Get
-  Fetch all messages from a specific conversation
+- Post - Post a message to a specific conversation
+- Get - Fetch all messages from a specific conversation
 
 ### **user.js**
 
-- Authorization
-  Authenticate a user as a registered user
-- Login
-  Search for a user in the DB based on passwordmatch. If successful login set access token in FE
-- Protected
-  Compare user data via protected route
-- Register
-  Register a new user
-- Logout
-  Remove token in FE to log out a user
-- Delete
-  Delete a user based on ID from the DB
-- Edit
-  Update a users data in the DB based on ID
-- Get
-  Get a users first name without going through a protected route. Needed for other users to view eachothers names.
+- Authorization - Authenticate a user as a registered user
+- Login - Search for a user in the DB based on passwordmatch. If successful login set access token in FE
+- Protected - Compare user data via protected route
+- Register - Register a new user
+- Logout - Remove token in FE to log out a user
+- Delete - Delete a user based on ID from the DB
+- Edit - Update a users data in the DB based on ID
+- Reset Passport - Reset a user's password in DB based on ID
+- Get - Get a users first name without going through a protected route. Needed for other users to view eachothers names.
 
 ## **Socket**
 
