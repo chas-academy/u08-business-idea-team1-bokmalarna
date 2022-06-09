@@ -63,13 +63,16 @@ export const Edit = () => {
     try {
       if (password !== confirmPassword)
       return;
-
+    
       const userData = {"password": password}
-
-      const API_URL = `${process.env.REACT_APP_API_URL}user/`;
       const userId = id;
       
-      const res = await axios.put(API_URL + "/" + userId + "/resetpassword", userData)
+      await axios.put(process.env.REACT_APP_API_URL + "user/" + userId + "/resetpassword", userData)
+      .then((res) => {
+        console.log(res.data)
+        alert("Password Reset Succesful")
+      });
+     
     } catch (error) {
       console.warn(error)
     }
