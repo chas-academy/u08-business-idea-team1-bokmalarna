@@ -63,6 +63,20 @@ Cypress.config.js:
 - Delete Book
   Deletes one book in the DB
 
+  ### **conversations.js**
+
+- Post
+  Create a new private chat between two users
+- Get
+  Fetch a conversation based on the conversation ID
+
+### **messages.js**
+
+- Post
+  Post a message to a specific conversation
+- Get
+  Fetch all messages from a specific conversation
+
 ### **user.js**
 
 - Authorization
@@ -161,6 +175,8 @@ Contains all routes to the components and the navbar.
 
 - Registering a new user as Happy User (Should be used for testing a happy flow)
 - Logging in Happy User
+- Registering Happy User
+- Search for a book
 
 # **Contributors**
 
