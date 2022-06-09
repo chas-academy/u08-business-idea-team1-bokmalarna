@@ -65,6 +65,8 @@ Cypress.config.js:
   Updates one book in the DB
 - Delete Book
   Deletes one book in the DB
+- Search Books
+  Filter searches on searh term, city and genre based on users input
 
 ### **conversations.js**
 
