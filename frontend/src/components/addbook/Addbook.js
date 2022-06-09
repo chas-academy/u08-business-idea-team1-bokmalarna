@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios, { Axios } from "axios";
 import Cookies from "js-cookie";
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
 
 export const Addbook = () => {
+  const user = Cookies.get("access_token");
   const [userInput, setUserInput] = useState({
     title: "",
     author: "",
@@ -12,30 +12,28 @@ export const Addbook = () => {
     genre: "",
     condition: "",
     release: "",
-    owner: "",
   });
   const [file, setFile] = useState();
-  const user = Cookies.get("access_token");
-  const [getUser, setGetUser] = useState({});
+  const [getUser, setGetUser] = useState("");
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({});
-  const [submitted, setSubmitted] = useState(false);
 
-  const getUserAndSetFormData = async () => {
-    try {
-      const res = await axios
-      .get(`${process.env.REACT_APP_API_URL}user/protected`, {
+  const checkUser = async () => {
+    //User sends its access_token in headers to BE to be decoded.
+    await axios
+      .get(process.env.REACT_APP_API_URL + "user/protected", {
         withCredentials: true,
         headers: {
-					Authorization: `Bearer ${user}`,
-				},
+          Authorization: `Bearer ${user}`,
+        },
       })
-        setFormData(res.data.user);
-      
-    } catch (error) {
-      console.warn(error)
-    }
-  }
+      .then((res) => {
+        if (res.data.user) {
+          console.log("checkuser", res.data.user);
+          //Stores user info into the state.
+          setGetUser(res.data.user.id);
+        }
+      });
+  };
 
   const onChange = (e) => {
     setUserInput({ ...userInput, [e.target.name]: e.target.value });
@@ -56,29 +54,31 @@ export const Addbook = () => {
     form.append("genre", userInput.genre);
     form.append("condition", userInput.condition);
     form.append("release", userInput.release);
-    form.append("owner", userInput.owner);
+    form.append("owner", getUser);
 
     createBook(form);
   };
 
   const createBook = async (form) => {
-  try{
-   const response = await axios
-      .post(process.env.REACT_APP_API_URL + "book/newBook", form)
-      .then((res) => {
-        console.log(res.data);
-        alert("Book created successfully!");
-        window.location.reload();
-      });
-    } catch(err) {
+    try {
+      const response = await axios
+        .post(process.env.REACT_APP_API_URL + "book/newBook", form)
+        .then((res) => {
+          console.log(res.data);
+          alert("Book created successfully!");
+          window.location.reload();
+        });
+    } catch (err) {
       console.log(err);
-      alert("Failed to create book, please try again!")
+      alert("Failed to create book, please try again!");
     }
   };
 
   useEffect(() => {
     if (!user) {
-      navigate('/login')
+      navigate("/login");
+    } else {
+      checkUser();
     }
   }, [user]);
 
@@ -97,6 +97,7 @@ export const Addbook = () => {
             type="text"
             name="title"
             onChange={onChange}
+            required="required"
           />
 
           <label className="mt-3 mb-1">Upload Image</label>
@@ -106,6 +107,7 @@ export const Addbook = () => {
             name="file"
             accept="image/*"
             onChange={imageHandler}
+            required="required"
           />
 
           <label className="mt-3 mb-1">Author</label>
@@ -114,6 +116,7 @@ export const Addbook = () => {
             type="text"
             name="author"
             onChange={onChange}
+            required="required"
           />
 
           <label className="mt-3 mb-1">Description</label>
@@ -122,6 +125,7 @@ export const Addbook = () => {
             type="text"
             name="description"
             onChange={onChange}
+            required="required"
           />
 
           <label className="mt-3 mb-1" name="genre">
@@ -132,6 +136,7 @@ export const Addbook = () => {
             name="genre"
             value={userInput.genre}
             onChange={onChange}
+            required="required"
           >
             <option></option>
             <option value={"cookbook"}>Cookbook</option>
@@ -159,6 +164,7 @@ export const Addbook = () => {
             type="text"
             name="condition"
             onChange={onChange}
+            required="required"
           />
 
           <label className="mt-3 mb-1 ">Release Date</label>
@@ -167,13 +173,15 @@ export const Addbook = () => {
             type="date"
             name="release"
             onChange={onChange}
+            required="required"
           />
 
           <input
             className="form-control w-50 text-center"
-            type="text"
+            type="hidden"
             name="owner"
-            onChange={onChange}
+            value={getUser}
+            required="required"
           />
 
           <div className="mt-2">
