@@ -90,7 +90,7 @@ export const Registration = () => {
 		await axios
 			.post(process.env.REACT_APP_API_URL + 'user/register', userData)
 			.then((res) => {
-				console.log(res.data);
+				console.log('User Registered!');
 			});
 	};
 

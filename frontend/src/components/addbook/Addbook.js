@@ -66,7 +66,6 @@ export const Addbook = () => {
    const response = await axios
       .post(process.env.REACT_APP_API_URL + "book/newBook", form)
       .then((res) => {
-        console.log(res.data);
         alert("Book created successfully!");
         window.location.reload();
       });
