@@ -63,13 +63,16 @@ export const Edit = () => {
     try {
       if (password !== confirmPassword)
       return;
-
+    
       const userData = {"password": password}
-
-      const API_URL = `${process.env.REACT_APP_API_URL}user/`;
       const userId = id;
       
-      const res = await axios.put(API_URL + "/" + userId + "/resetpassword", userData)
+      await axios.put(process.env.REACT_APP_API_URL + "user/" + userId + "/resetpassword", userData)
+      .then((res) => {
+        console.log(res.data)
+        alert("Password Reset Succesful")
+      });
+     
     } catch (error) {
       console.warn(error)
     }
@@ -204,21 +207,21 @@ export const Edit = () => {
           <div className="col-12 pt-4 text-center d-flex justify-content-end" >
             <button
               type="button"
-              className="btn btn-primary btn-lg update-contactinfo-button"
+              className="btn btn-primary btn-lg"
               onClick={handleOnSubmit}
             >
-              Update
+              Save
             </button>
           </div>
         </form>
 
-        <form className="row g-3">
+        <form className="row g-3 mt-5">
         <h2>Reset password</h2>
           <div className="col-md-6">
-            <label htmlFor="email" className="form-label">
+            <label htmlFor="password" className="form-label">
               Password
             </label>
-            <p>{formErrors.email}</p>
+            <p>{formErrors.password}</p>
             <input
               type="password"
               className="form-control"
@@ -229,10 +232,10 @@ export const Edit = () => {
             />
           </div>
           <div className="col-md-6">
-            <label htmlFor="email" className="form-label">
+            <label htmlFor="confirmPassword" className="form-label">
               Confirm Password
             </label>
-            <p>{formErrors.email}</p>
+            <p>{formErrors.confirmPassword}</p>
             <input
               type="password"
               className="form-control"
@@ -245,23 +248,21 @@ export const Edit = () => {
           <div className="col-12 pt-4 text-center d-flex justify-content-end">
             <button
               type="button"
-              className="btn btn-primary btn-lg password-chane-button"
+              className="btn btn-primary btn-lg"
               onClick={resetPassword}
             >
-              Change Password
+              Save
             </button>
           </div>
           <div className="col-12 pt-4 text-center d-flex justify-content-end">
             <button
               type="button"
-              className="btn btn-danger btn-lg password-chane-button"
+              className="btn btn-danger btn-lg"
               onClick={deleteUser}
             >
               Delete Account
             </button>
           </div>
-
-
         </form>
       </section>
     </>
