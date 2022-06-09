@@ -32,7 +32,7 @@ export const Registration = () => {
 		if (error === false) {
 			register(formData);
 		}
-	}, [error]);
+	}, [error, formData]);
 
 	const validate = (values) => {
 		// Empty errors object - data is added if the form is not filled out properly

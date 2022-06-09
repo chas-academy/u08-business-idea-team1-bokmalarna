@@ -11,7 +11,6 @@ export const Dashboard = () => {
 	const [books, setBooks] = useState([]);
 	const [borrowed, setBorrowed] = useState([]);
 
-
 	const checkUser = async () => {
 		//User sends its access_token in headers to BE to be decoded.
 		await axios
@@ -208,9 +207,8 @@ export const Dashboard = () => {
 									</tr>
 								))}
 							</tbody>
-						</table>						
+						</table>
 					</div>
-					
 				</section>
 			</section>
 		</div>
