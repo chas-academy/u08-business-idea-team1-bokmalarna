@@ -148,6 +148,25 @@ router.put("/:id/edit", async (req, res) => {
   }
 });
 
+//@desc reset user password
+//@routes PUT /user/:id/resetpassword
+//@access Public
+router.put("/:id/resetpassword", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const update = req.body;
+    
+    const salt = await bcrypt.genSalt(10);
+    update.password = await bcrypt.hash(update.password, salt);
+
+    const options = { new: true };
+    const user = await User.findByIdAndUpdate(id, update, options);
+    res.status(204);
+  } catch (error) {
+    res.status(500).json({ message: "Could not reset password" });
+  }
+});
+
 //@desc Get a users name to display on Bookpage
 //@routes GET /user/:id
 //@access Public
