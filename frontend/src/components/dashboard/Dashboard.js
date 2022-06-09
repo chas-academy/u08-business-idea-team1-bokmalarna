@@ -243,7 +243,7 @@ export const Dashboard = () => {
                         <button
                           className="custom-btn custom-btn-border btn-sm"
                           onClick={() => {
-                            startChat(book.owner, book.borrower);
+                            startChat(book.owner._id, book.borrower);
                           }}
                         >
                           Chat

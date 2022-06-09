@@ -1,13 +1,15 @@
 /* Messenger styling */
 .messenger {
   height: 100vh;
+  width: 100%;
   display: flex;
 }
 
 .chatMenu {
   flex: 2.5;
-  margin-right: 2rem;
+  /* margin-right: 2rem; */
   background-color: #afa094;
+  max-width: 35%;
 }
 
 .chatBox {
@@ -49,11 +51,12 @@
   color: white;
 }
 
-.chatMenuWrapper,
+/* .chatMenuWrapper,
 .chatBoxWrapper {
   padding: 10px;
   height: 100%;
-}
+  width:30%;
+} */
 
 /* Conversation styling */
 
@@ -112,7 +115,7 @@
 }
 
 .noConvoText {
-  position: absolute;
+  /* position: absolute; */
   top: 10%;
   font-size: 40px;
   color: #afa094; /* rgb(187, 186, 186); */
@@ -122,4 +125,11 @@
 .sidepanel {
   flex: 2.5;
   background-color: #afa094;
+}
+
+.heading-messenger {
+  width: 100%;
+  font-size: 1rem;
+  margin-top: 1rem;
+  padding: 0.5rem;
 }
