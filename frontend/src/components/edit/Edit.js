@@ -53,7 +53,7 @@ export const Edit = () => {
       const userId = id;
       
       const res = await axios.put(API_URL + "/" + userId + "/edit", userData)
-
+      alert('Updated Successfully');
     } catch (error) {
       console.warn(error)
     }

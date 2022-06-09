@@ -65,6 +65,7 @@ export const Bookpage = () => {
         headers: { "Content-Type": "application/json" },
       })
       .then((res) => {});
+      window.location.reload();
   };
 
   useEffect(() => {
