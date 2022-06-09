@@ -215,10 +215,10 @@ export const Edit = () => {
         <form className="row g-3">
         <h2>Reset password</h2>
           <div className="col-md-6">
-            <label htmlFor="email" className="form-label">
+            <label htmlFor="password" className="form-label">
               Password
             </label>
-            <p>{formErrors.email}</p>
+            <p>{formErrors.password}</p>
             <input
               type="password"
               className="form-control"
@@ -229,10 +229,10 @@ export const Edit = () => {
             />
           </div>
           <div className="col-md-6">
-            <label htmlFor="email" className="form-label">
+            <label htmlFor="confirmPassword" className="form-label">
               Confirm Password
             </label>
-            <p>{formErrors.email}</p>
+            <p>{formErrors.confirmPassword}</p>
             <input
               type="password"
               className="form-control"
@@ -260,8 +260,6 @@ export const Edit = () => {
               Delete Account
             </button>
           </div>
-
-
         </form>
       </section>
     </>
