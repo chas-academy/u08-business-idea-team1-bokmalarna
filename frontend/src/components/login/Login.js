@@ -54,7 +54,7 @@ export const Login = () => {
 		if (user) {
 			navigate('/dashboard');
 		}
-	}, [user]);
+	}, [user, navigate]);
 
 	return (
 		<>
