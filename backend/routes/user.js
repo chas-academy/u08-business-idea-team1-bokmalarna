@@ -148,6 +148,17 @@ router.put("/:id/edit", async (req, res) => {
   }
 });
 
+//@desc reset user password
+//@routes PUT /user/:id/resetpassword
+//@access Public
+router.put("/:id/resetpassword", async (req, res) => {
+  try {
+  
+  } catch (error) {
+    
+  }
+});
+
 //@desc Get a users name to display on Bookpage
 //@routes GET /user/:id
 //@access Public
