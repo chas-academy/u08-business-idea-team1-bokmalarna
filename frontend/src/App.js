@@ -31,7 +31,6 @@ function App() {
 			.then((res) => {
 				//FrontEnd removed access_token from cookies("localstorage").
 				Cookies.remove('access_token');
-				console.log(res.data);
 				window.location.reload();
 			});
 	};
