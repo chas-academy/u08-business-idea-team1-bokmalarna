@@ -248,7 +248,7 @@ export const Edit = () => {
               className="btn btn-primary btn-lg password-chane-button"
               onClick={resetPassword}
             >
-              Change Password
+              Reset Password
             </button>
           </div>
           <div className="col-12 pt-4 text-center d-flex justify-content-end">
