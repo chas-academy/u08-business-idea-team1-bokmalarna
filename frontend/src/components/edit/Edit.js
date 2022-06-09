@@ -57,7 +57,20 @@ export const Edit = () => {
     } catch (error) {
       console.warn(error)
     }
-  }
+  };
+ 
+  const deleteUser = async() => { 
+    await axios
+    .delete(process.env.REACT_APP_API_URL + 'user/'+ id)
+    .then(() => {
+      Cookies.remove('access_token');     
+      window.location.reload(); 
+      navigate('/'); 
+      
+    })    
+   };
+
+   
 
   const validate = (values) => {
     // Empty errors object - data is added if the form is not filled out properly
@@ -221,6 +234,17 @@ export const Edit = () => {
               Change Password
             </button>
           </div>
+          <div className="col-12 pt-4 text-center d-flex justify-content-end">
+            <button
+              type="button"
+              className="btn btn-danger btn-lg password-chane-button"
+              onClick={deleteUser}
+            >
+              Delete Account
+            </button>
+          </div>
+
+
         </form>
       </section>
     </>
