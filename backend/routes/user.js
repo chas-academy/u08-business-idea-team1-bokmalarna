@@ -153,9 +153,14 @@ router.put("/:id/edit", async (req, res) => {
 //@access Public
 router.put("/:id/resetpassword", async (req, res) => {
   try {
-  
+    const id = req.params.id;
+    const update = req.body;
+
+    const options = { new: true };
+    const user = await User.findByIdAndUpdate(id, update, options);
+    res.status(200).json(user);
   } catch (error) {
-    
+    res.status(500).json({ message: "Could not reset password" });
   }
 });
 
