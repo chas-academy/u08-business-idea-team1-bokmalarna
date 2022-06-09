@@ -67,7 +67,6 @@ export const Messenger = () => {
 
   // Check IDs to fetch correct chat-data
   useEffect(() => {
-    console.log(user);
     if (user && user.id) {
       socket.current.emit("addUser", user.id);
     }
