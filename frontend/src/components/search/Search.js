@@ -54,7 +54,6 @@ export const Search = () => {
     const res = await axios.get(
       `${process.env.REACT_APP_API_URL}book/search=${searchTerm}&location=${location}&genre=${genre}`
     );
-    console.log(res);
     setBooks(res.data);
     setintroText("Search results:");
   };
@@ -65,7 +64,7 @@ export const Search = () => {
   };
 
   return (
-    <div className="lightbrownbg pt-3 pb-3">
+    <div className="lightbrownbg pt-3 p-5 min-vh-100">
       <section className="container my-5 rounded">
         <section className="my-5 row">
           <h2 className="fw-bold text-center pb-5">Browse books</h2>
