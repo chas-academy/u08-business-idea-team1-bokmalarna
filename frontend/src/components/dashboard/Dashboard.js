@@ -129,11 +129,19 @@ export const Dashboard = () => {
 					</p>
 					<Link
 						to="/messenger"
-						className="btn btn-outline-secondary m-2"
+						className="btn btn-secondary m-2"
+						style={{
+							backgroundColor: '#81647C',
+							borderColor: '#81647C',
+						}}
 					>
 						Messages
 					</Link>
-					<Link to="/edit" className="btn btn-outline-secondary m-2">
+					<Link
+						to="/edit"
+						className="btn btn-secondary m-2"
+						style={{ backgroundColor: '#80808a' }}
+					>
 						Settings
 					</Link>
 				</div>
