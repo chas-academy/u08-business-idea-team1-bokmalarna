@@ -3,7 +3,7 @@ const user = require('../models/user');
 const dotenv = require('dotenv').config();
 const io = require('socket.io')(8900, {
 	cors: {
-		origin: process.env.REQUEST_URL,
+		origin: 'https://bookowl-u08.netlify.app',
 	},
 });
 
