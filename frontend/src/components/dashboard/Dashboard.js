@@ -286,22 +286,25 @@ export const Dashboard = () => {
 												)}
 											</td>
 											<td>
-												<button
-													className="btn btn-success btn-sm"
-													style={{
-														backgroundColor:
-															'#81647C',
-														borderColor: '#81647C',
-													}}
-													onClick={() => {
-														startChat(
-															book.owner,
-															book.borrower
-														);
-													}}
-												>
-													Chat
-												</button>
+												{book.borrower ? (
+													<button
+														className="btn btn-success btn-sm"
+														style={{
+															backgroundColor:
+																'#81647C',
+															borderColor:
+																'#81647C',
+														}}
+														onClick={() => {
+															startChat(
+																book.owner,
+																book.borrower
+															);
+														}}
+													>
+														Chat
+													</button>
+												) : null}
 											</td>
 										</tr>
 									))}
