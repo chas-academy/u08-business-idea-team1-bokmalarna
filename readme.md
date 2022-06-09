@@ -36,6 +36,9 @@ Now you can navigate to
 
 ### **Node.js and MongoDB**
 
+We are user Express nodjs and mongoDB as our backend. To get started you'll need to cd into the backend folder and type npm i or yarn add.
+After you have installed all the dependencys you can start the server by typeing npm run start.
+
 ### **React app**
 
 ### **Cypress testing**
@@ -63,7 +66,7 @@ Cypress.config.js:
 - Delete Book
   Deletes one book in the DB
 
-  ### **conversations.js**
+### **conversations.js**
 
 - Post
   Create a new private chat between two users
@@ -175,8 +178,12 @@ Contains all routes to the components and the navbar.
 
 - Registering a new user as Happy User (Should be used for testing a happy flow)
 - Logging in Happy User
-- Registering Happy User
-- Search for a book
+
+## **Future features**
+
+- Connect app to external API to get more books
+- Queue function for users to get in line until book is available
+- Rate books and users, with comments
 
 # **Contributors**
 
