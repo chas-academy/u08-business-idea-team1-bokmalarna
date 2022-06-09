@@ -207,7 +207,7 @@ export const Edit = () => {
               className="btn btn-primary btn-lg"
               onClick={handleOnSubmit}
             >
-              Update
+              Save
             </button>
           </div>
         </form>
@@ -248,7 +248,7 @@ export const Edit = () => {
               className="btn btn-primary btn-lg"
               onClick={resetPassword}
             >
-              Reset Password
+              Save
             </button>
           </div>
           <div className="col-12 pt-4 text-center d-flex justify-content-end">
