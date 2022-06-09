@@ -58,7 +58,7 @@ export const Messenger = () => {
     });
   }, []);
 
-  // Messages only displays in relevant chat
+  // Messages only displays in relevant chat and updates chat in real time
   useEffect(() => {
     arrivalMessage &&
       currentChat?.members.includes(arrivalMessage.sender) &&
@@ -155,7 +155,12 @@ export const Messenger = () => {
                 <div className="chatBoxTop">
                   {messages.map((m) => (
                     <div ref={scrollRef}>
-                      <Message message={m} own={m.sender === user.id} />
+                      <Message
+                        message={m}
+                        own={m.sender === user.id}
+                        conversation={currentChat}
+                        currentUser={user}
+                      />
                     </div>
                   ))}
                 </div>
