@@ -11,24 +11,6 @@ export const Dashboard = () => {
 	const [books, setBooks] = useState([]);
 	const [borrowed, setBorrowed] = useState([]);
 
-	const checkUser = async () => {
-		//User sends its access_token in headers to BE to be decoded.
-		await axios
-			.get(process.env.REACT_APP_API_URL + 'user/protected', {
-				withCredentials: true,
-				headers: {
-					Authorization: `Bearer ${user}`,
-				},
-			})
-			.then((res) => {
-				if (res.data.user) {
-					console.log(res.data.user);
-					//Stores user info into the state.
-					setGetUser(res.data.user);
-				}
-			});
-	};
-
 	//Get users uploaded books
 	const getBooks = async (id) => {
 		await axios
@@ -79,6 +61,23 @@ export const Dashboard = () => {
 
 	// When dashboard loads, it will fetch the users: Information, Books and loaned books
 	useEffect(() => {
+		const checkUser = async () => {
+			//User sends its access_token in headers to BE to be decoded.
+			await axios
+				.get(process.env.REACT_APP_API_URL + 'user/protected', {
+					withCredentials: true,
+					headers: {
+						Authorization: `Bearer ${user}`,
+					},
+				})
+				.then((res) => {
+					if (res.data.user) {
+						console.log(res.data.user);
+						//Stores user info into the state.
+						setGetUser(res.data.user);
+					}
+				});
+		};
 		if (!user) {
 			navigate('/');
 		} else {
@@ -90,7 +89,7 @@ export const Dashboard = () => {
 				borrowedBooks(getUser.id);
 			}
 		}
-	}, [getUser.id]);
+	}, [getUser.id, navigate, user]);
 
 	return (
 		<div className="lightbrownbg pb-3">
