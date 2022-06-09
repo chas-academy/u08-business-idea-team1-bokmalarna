@@ -17,10 +17,6 @@ import Footer from './components/footer/Footer';
 import Editbook from './components/edit/Editbook';
 
 function App() {
-<<<<<<< HEAD
-
-=======
->>>>>>> development
 	const user = Cookies.get('access_token');
 	//Logout
 	const onLogout = async () => {
@@ -42,16 +38,12 @@ function App() {
 	return (
 		<div className="App">
 			<>
-<<<<<<< HEAD
-				<Navbar className="darkbrown-nav shadow-lg" collapseOnSelect expand="lg">
-=======
 				<Navbar
 					className="darkbrown-nav shadow-lg"
 					collapseOnSelect
 					expand="lg"
 					variant="dark"
 				>
->>>>>>> development
 					<Container>
 						<Navbar.Brand style={{ color: 'white' }} href="/">
 							BookOwl
@@ -63,11 +55,7 @@ function App() {
 									style={{ color: 'white' }}
 									href="/search"
 								>
-<<<<<<< HEAD
-									Search
-=======
 									Browse
->>>>>>> development
 								</Nav.Link>
 								{user && (
 									<Nav.Link
@@ -93,22 +81,14 @@ function App() {
 										style={{ color: 'white' }}
 										href="/login"
 									>
-<<<<<<< HEAD
-										Log In
-=======
 										Sign In
->>>>>>> development
 									</Nav.Link>
 									<Nav.Link
 										style={{ color: 'white' }}
 										eventKey={2}
 										href="/register"
 									>
-<<<<<<< HEAD
-										Register
-=======
 										Sign Up
->>>>>>> development
 									</Nav.Link>
 								</Nav>
 							)}
@@ -126,19 +106,14 @@ function App() {
 					<Route path="/bookpage/:id" element={<Bookpage />} />
 					<Route path="/addbook" element={<Addbook />} />
 					<Route path="/edit" element={<Edit />} />
-<<<<<<< HEAD
-					<Route path="/edit/password" element={<EditPassword />} />
-					<Route path="delete" element={<deleteUser />} />
-=======
 					<Route path="/editbook/:id" element={<Editbook />} />
 					<Route path="/messenger" element={<Messenger />} />
->>>>>>> development
 				</Routes>
 			</div>
 			<Footer />
 		</div>
 	);
-<<<<<<< HEAD
+
 
   /* const user = Cookies.get("access_token");
   //Logout
@@ -225,8 +200,7 @@ function App() {
     </div>
   );
 >>>>>>> development */
-=======
->>>>>>> development
+
 }
 
 export default App;
