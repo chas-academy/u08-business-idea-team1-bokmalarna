@@ -58,6 +58,23 @@ export const Edit = () => {
       console.warn(error)
     }
   };
+
+  const resetPassword = async() => {
+    try {
+      if (password !== confirmPassword)
+      return;
+
+      const userData = {"password": password}
+
+      const API_URL = `${process.env.REACT_APP_API_URL}user/`;
+      const userId = id;
+      
+      const res = await axios.put(API_URL + "/" + userId + "/resetpassword", userData)
+    } catch (error) {
+      console.warn(error)
+    }
+   }
+
  
   const deleteUser = async() => { 
     await axios
@@ -208,7 +225,7 @@ export const Edit = () => {
               id="password"
               name="password"
               defaultValue={password}
-              onChange={handleOnChange}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <div className="col-md-6">
@@ -222,14 +239,14 @@ export const Edit = () => {
               id="confirmPassword"
               name="confirmPassword"
               defaultValue={confirmPassword}
-              onChange={handleOnChange}
+              onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
           <div className="col-12 pt-4 text-center d-flex justify-content-end">
             <button
               type="button"
               className="btn btn-primary btn-lg password-chane-button"
-              onClick={handleOnSubmit}
+              onClick={resetPassword}
             >
               Change Password
             </button>
