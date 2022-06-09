@@ -71,7 +71,7 @@ const Editbook = () => {
 		await axios
 			.put(process.env.REACT_APP_API_URL + `book/${id}`, bookData)
 			.then((res) => {
-				console.log('Book updated successfully', res);
+				console.log('Book updated successfully');
 			});
 	};
 

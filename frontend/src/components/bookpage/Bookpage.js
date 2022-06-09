@@ -18,7 +18,6 @@ export const Bookpage = () => {
 			const res = await axios
 				.get(process.env.REACT_APP_API_URL + 'book/' + params.id)
 				.then((res) => {
-					console.log(res.data);
 					setBook(res.data.book);
 					setGetCity(res.data.city);
 				});

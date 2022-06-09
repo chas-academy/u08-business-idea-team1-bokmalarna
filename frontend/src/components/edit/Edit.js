@@ -77,7 +77,6 @@ export const Edit = () => {
 					userData
 				)
 				.then((res) => {
-					console.log(res.data);
 					alert('Password Reset Succesful');
 				});
 		} catch (error) {

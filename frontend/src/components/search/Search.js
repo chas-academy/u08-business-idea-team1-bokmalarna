@@ -23,7 +23,6 @@ export const Search = () => {
 				})
 				.then((res) => {
 					if (res.data.user) {
-						console.log(res.data.user);
 						//Stores user info into the state.
 						setGetUser(res.data.user);
 					}

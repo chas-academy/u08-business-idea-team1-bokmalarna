@@ -22,7 +22,6 @@ export const Dashboard = () => {
 			})
 			.then((res) => {
 				if (res.data.user) {
-					console.log(res.data.user);
 					//Stores user info into the state.
 					setGetUser(res.data.user);
 				}
@@ -35,7 +34,6 @@ export const Dashboard = () => {
 			.get(process.env.REACT_APP_API_URL + `book/user/${id}`)
 			.then((res) => {
 				if (res.data) {
-					console.log('users books: ', res.data.message);
 					setBooks(res.data.message);
 				}
 			});
@@ -47,7 +45,6 @@ export const Dashboard = () => {
 			.get(process.env.REACT_APP_API_URL + `book/borrowed/${id}`)
 			.then((res) => {
 				if (res.data) {
-					console.log('borrowed books: ', res.data.message);
 					setBorrowed(res.data.message);
 				}
 			});
@@ -61,7 +58,6 @@ export const Dashboard = () => {
 				headers: { 'Content-Type': 'application/json' },
 			})
 			.then((res) => {
-				console.log(res.data);
 				window.location.reload();
 			});
 	};
@@ -73,7 +69,6 @@ export const Dashboard = () => {
 				senderId: senderId,
 				recieverId: receiverId,
 			};
-			console.log(chatMembers);
 			try {
 				await axios
 					.post(
@@ -84,7 +79,6 @@ export const Dashboard = () => {
 						}
 					)
 					.then(() => {
-						console.log('New conversation created');
 						navigate('/messenger');
 					});
 			} catch (error) {
@@ -95,12 +89,10 @@ export const Dashboard = () => {
 
 	//Delete user book
 	const deleteBook = async (id) => {
-		console.log(id);
 		await axios
 			.delete(process.env.REACT_APP_API_URL + `book/${id}`)
 			.then((res) => {
 				window.location.reload();
-				console.log(res.data.message);
 			});
 	};
 
