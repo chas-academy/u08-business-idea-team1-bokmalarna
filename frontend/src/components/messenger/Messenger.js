@@ -140,7 +140,7 @@ export const Messenger = () => {
       <div className="messenger">
         <div className="chatMenu">
           <div className="chatMenuWrapper">
-            <input placeholder="Search for a user" className="chatMenuInput" />
+            <h2>Your active conversations:</h2>
             {conversations.map((c) => (
               <div onClick={() => setCurrentChat(c)}>
                 <Conversation conversation={c} currentUser={user} />
@@ -183,11 +183,7 @@ export const Messenger = () => {
             )}
           </div>
         </div>
-        <div className="chatOnline">
-          <div className="chatOnlineWrapper">
-            <ChatOnline />
-          </div>
-        </div>
+        <div className="sidepanel"></div>
       </div>
     </>
   );
