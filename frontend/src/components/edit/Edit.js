@@ -204,7 +204,7 @@ export const Edit = () => {
           <div className="col-12 pt-4 text-center d-flex justify-content-end" >
             <button
               type="button"
-              className="btn btn-primary btn-lg update-contactinfo-button"
+              className="btn btn-primary btn-lg"
               onClick={handleOnSubmit}
             >
               Update
@@ -245,7 +245,7 @@ export const Edit = () => {
           <div className="col-12 pt-4 text-center d-flex justify-content-end">
             <button
               type="button"
-              className="btn btn-primary btn-lg password-chane-button"
+              className="btn btn-primary btn-lg"
               onClick={resetPassword}
             >
               Reset Password
@@ -254,7 +254,7 @@ export const Edit = () => {
           <div className="col-12 pt-4 text-center d-flex justify-content-end">
             <button
               type="button"
-              className="btn btn-danger btn-lg password-chane-button"
+              className="btn btn-danger btn-lg"
               onClick={deleteUser}
             >
               Delete Account
