@@ -227,6 +227,17 @@ export const Edit = () => {
               Change Password
             </button>
           </div>
+          <div className="col-12 pt-4 text-center d-flex justify-content-end">
+            <button
+              type="button"
+              className="btn btn-danger btn-lg password-chane-button"
+              onClick={deleteUser}
+            >
+              Delete Account
+            </button>
+          </div>
+
+
         </form>
       </section>
     </>
