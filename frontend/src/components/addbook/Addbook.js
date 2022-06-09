@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios, { Axios } from "axios";
+import Cookies from "js-cookie";
 
 export const Addbook = () => {
+  const user = Cookies.get("access_token");
   const [userInput, setUserInput] = useState({
     title: "",
     author: "",
@@ -9,9 +11,27 @@ export const Addbook = () => {
     genre: "",
     condition: "",
     release: "",
-    owner: "",
   });
   const [file, setFile] = useState();
+  const [getUser, setGetUser] = useState("");
+
+  const checkUser = async () => {
+    //User sends its access_token in headers to BE to be decoded.
+    await axios
+      .get(process.env.REACT_APP_API_URL + "user/protected", {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${user}`,
+        },
+      })
+      .then((res) => {
+        if (res.data.user) {
+          console.log("checkuser", res.data.user);
+          //Stores user info into the state.
+          setGetUser(res.data.user.id);
+        }
+      });
+  };
 
   const onChange = (e) => {
     setUserInput({ ...userInput, [e.target.name]: e.target.value });
@@ -32,7 +52,7 @@ export const Addbook = () => {
     form.append("genre", userInput.genre);
     form.append("condition", userInput.condition);
     form.append("release", userInput.release);
-    form.append("owner", userInput.owner);
+    form.append("owner", getUser);
 
     createBook(form);
   };
@@ -52,6 +72,10 @@ export const Addbook = () => {
     }
   };
 
+  useEffect(() => {
+    checkUser();
+  }, [])
+
   return (
     <section className="lightbrownbg">
       <div className="container text-center p-5">
@@ -67,6 +91,7 @@ export const Addbook = () => {
             type="text"
             name="title"
             onChange={onChange}
+            required="required"
           />
 
           <label className="mt-3 mb-1">Upload Image</label>
@@ -76,6 +101,7 @@ export const Addbook = () => {
             name="file"
             accept="image/*"
             onChange={imageHandler}
+            required="required"
           />
 
           <label className="mt-3 mb-1">Author</label>
@@ -84,6 +110,7 @@ export const Addbook = () => {
             type="text"
             name="author"
             onChange={onChange}
+            required="required"
           />
 
           <label className="mt-3 mb-1">Description</label>
@@ -92,6 +119,7 @@ export const Addbook = () => {
             type="text"
             name="description"
             onChange={onChange}
+            required="required"
           />
 
           <label className="mt-3 mb-1" name="genre">
@@ -102,6 +130,7 @@ export const Addbook = () => {
             name="genre"
             value={userInput.genre}
             onChange={onChange}
+            required="required"
           >
             <option></option>
             <option value={"cookbook"}>Cookbook</option>
@@ -129,6 +158,7 @@ export const Addbook = () => {
             type="text"
             name="condition"
             onChange={onChange}
+            required="required"
           />
 
           <label className="mt-3 mb-1 ">Release Date</label>
@@ -137,13 +167,15 @@ export const Addbook = () => {
             type="date"
             name="release"
             onChange={onChange}
+            required="required"
           />
 
           <input
             className="form-control w-50 text-center"
-            type="text"
+            type="hidden"
             name="owner"
-            onChange={onChange}
+            value={getUser}
+            required="required"
           />
 
           <div className="mt-2">
